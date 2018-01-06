@@ -74,6 +74,19 @@ class LineClient(LineApi, LineModels):
         return yt_final
     
     @loggedIn
+    def tag(self, to, mid):
+        try:
+            aa = '{"S":"0","E":"3","M":'+json.dumps(mid)+'}'
+            msg = Message()
+            msg.to = to
+            msg.text = '@x '
+            msg.contentMetadata = {'MENTION':'{"MENTIONEES":['+aa+']}'}
+            msg.contentType = 0
+            self._client.sendMessage(0, msg)
+        except Exception as error:
+           print(error)
+        
+    @loggedIn
     def mention(self, to, nama):
         aa = ""
         bb = ""
