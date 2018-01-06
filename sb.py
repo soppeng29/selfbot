@@ -74,7 +74,7 @@ while True:
                                     #print(str(a))
                                     client.sendText(receiver, 'Nama : '+cname+'\nMID : '+cmid+'\nStatus Msg : '+cstatus+'\nPicture : http://dl.profile.line.naver.jp'+cpic)
                                     client.sendMessage(receiver, None, contentMetadata={'mid': cmid}, contentType=13)
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if "videoProfile='{" in str(client.getContact(u)):
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic)
@@ -153,7 +153,7 @@ while True:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if "videoProfile='{" in str(client.getContact(u)):
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)
@@ -271,7 +271,7 @@ while True:
                                     #print(str(a))
                                     client.sendText(receiver, 'Nama : '+cname+'\nMID : '+cmid+'\nStatus Msg : '+cstatus+'\nPicture : http://dl.profile.line.naver.jp'+cpic)
                                     client.sendMessage(receiver, None, contentMetadata={'mid': cmid}, contentType=13)
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if "videoProfile='{" in str(client.getContact(u)):
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic)
@@ -350,7 +350,7 @@ while True:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if "videoProfile='{" in str(client.getContact(u)):
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)
