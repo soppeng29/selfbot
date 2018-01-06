@@ -46,6 +46,7 @@ while True:
                             contact = client.getContact(sender)
                             if text.lower() == 'me':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
+                                client.tag(receiver, sender)
                             elif 'lc ' in text.lower():
                                 try:
                                     typel = [1001,1002,1003,1004,1005,1006]
@@ -260,6 +261,7 @@ while True:
                             contact = client.getContact(sender)
                             if text.lower() == 'me':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
+                                client.tag(receiver, sender)
                             elif 'gc ' in text.lower():
                                 try:
                                     key = eval(msg.contentMetadata["MENTION"])
