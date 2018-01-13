@@ -16,6 +16,13 @@ from thrift.transport import TTransport
 
 
 class Iface(object):
+    def issueOTP(self, channelId):
+        """
+        Parameters:
+         - channelId
+        """
+        pass
+
     def approveChannelAndIssueChannelToken(self, channelId):
         """
         Parameters:
@@ -91,6 +98,20 @@ class Iface(object):
         """
         pass
 
+    def updateChannelSettings(self, channelSettings):
+        """
+        Parameters:
+         - channelSettings
+        """
+        pass
+
+    def getCommonDomains(self, lastSynced):
+        """
+        Parameters:
+         - lastSynced
+        """
+        pass
+
     def getNotificationBadgeCount(self, localRev):
         """
         Parameters:
@@ -120,6 +141,22 @@ class Iface(object):
          - otpId
          - authScheme
          - returnUrl
+        """
+        pass
+
+    def issueRequestTokenForAutoLogin(self, channelId, otpId, redirectUrl):
+        """
+        Parameters:
+         - channelId
+         - otpId
+         - redirectUrl
+        """
+        pass
+
+    def getUpdatedChannelIds(self, channelIds):
+        """
+        Parameters:
+         - channelIds
         """
         pass
 
@@ -160,6 +197,39 @@ class Client(Iface):
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
+
+    def issueOTP(self, channelId):
+        """
+        Parameters:
+         - channelId
+        """
+        self.send_issueOTP(channelId)
+        return self.recv_issueOTP()
+
+    def send_issueOTP(self, channelId):
+        self._oprot.writeMessageBegin('issueOTP', TMessageType.CALL, self._seqid)
+        args = issueOTP_args()
+        args.channelId = channelId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_issueOTP(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = issueOTP_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "issueOTP failed: unknown result")
 
     def approveChannelAndIssueChannelToken(self, channelId):
         """
@@ -501,6 +571,72 @@ class Client(Iface):
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "getFriendChannelMatrices failed: unknown result")
 
+    def updateChannelSettings(self, channelSettings):
+        """
+        Parameters:
+         - channelSettings
+        """
+        self.send_updateChannelSettings(channelSettings)
+        return self.recv_updateChannelSettings()
+
+    def send_updateChannelSettings(self, channelSettings):
+        self._oprot.writeMessageBegin('updateChannelSettings', TMessageType.CALL, self._seqid)
+        args = updateChannelSettings_args()
+        args.channelSettings = channelSettings
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_updateChannelSettings(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = updateChannelSettings_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "updateChannelSettings failed: unknown result")
+
+    def getCommonDomains(self, lastSynced):
+        """
+        Parameters:
+         - lastSynced
+        """
+        self.send_getCommonDomains(lastSynced)
+        return self.recv_getCommonDomains()
+
+    def send_getCommonDomains(self, lastSynced):
+        self._oprot.writeMessageBegin('getCommonDomains', TMessageType.CALL, self._seqid)
+        args = getCommonDomains_args()
+        args.lastSynced = lastSynced
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getCommonDomains(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getCommonDomains_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getCommonDomains failed: unknown result")
+
     def getNotificationBadgeCount(self, localRev):
         """
         Parameters:
@@ -641,6 +777,76 @@ class Client(Iface):
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "issueRequestTokenWithAuthScheme failed: unknown result")
 
+    def issueRequestTokenForAutoLogin(self, channelId, otpId, redirectUrl):
+        """
+        Parameters:
+         - channelId
+         - otpId
+         - redirectUrl
+        """
+        self.send_issueRequestTokenForAutoLogin(channelId, otpId, redirectUrl)
+        return self.recv_issueRequestTokenForAutoLogin()
+
+    def send_issueRequestTokenForAutoLogin(self, channelId, otpId, redirectUrl):
+        self._oprot.writeMessageBegin('issueRequestTokenForAutoLogin', TMessageType.CALL, self._seqid)
+        args = issueRequestTokenForAutoLogin_args()
+        args.channelId = channelId
+        args.otpId = otpId
+        args.redirectUrl = redirectUrl
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_issueRequestTokenForAutoLogin(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = issueRequestTokenForAutoLogin_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "issueRequestTokenForAutoLogin failed: unknown result")
+
+    def getUpdatedChannelIds(self, channelIds):
+        """
+        Parameters:
+         - channelIds
+        """
+        self.send_getUpdatedChannelIds(channelIds)
+        return self.recv_getUpdatedChannelIds()
+
+    def send_getUpdatedChannelIds(self, channelIds):
+        self._oprot.writeMessageBegin('getUpdatedChannelIds', TMessageType.CALL, self._seqid)
+        args = getUpdatedChannelIds_args()
+        args.channelIds = channelIds
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getUpdatedChannelIds(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getUpdatedChannelIds_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getUpdatedChannelIds failed: unknown result")
+
     def reserveCoinUse(self, request, locale):
         """
         Parameters:
@@ -778,6 +984,7 @@ class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
+        self._processMap["issueOTP"] = Processor.process_issueOTP
         self._processMap["approveChannelAndIssueChannelToken"] = Processor.process_approveChannelAndIssueChannelToken
         self._processMap["approveChannelAndIssueRequestToken"] = Processor.process_approveChannelAndIssueRequestToken
         self._processMap["fetchNotificationItems"] = Processor.process_fetchNotificationItems
@@ -788,10 +995,14 @@ class Processor(Iface, TProcessor):
         self._processMap["getChannels"] = Processor.process_getChannels
         self._processMap["getDomains"] = Processor.process_getDomains
         self._processMap["getFriendChannelMatrices"] = Processor.process_getFriendChannelMatrices
+        self._processMap["updateChannelSettings"] = Processor.process_updateChannelSettings
+        self._processMap["getCommonDomains"] = Processor.process_getCommonDomains
         self._processMap["getNotificationBadgeCount"] = Processor.process_getNotificationBadgeCount
         self._processMap["issueChannelToken"] = Processor.process_issueChannelToken
         self._processMap["issueRequestToken"] = Processor.process_issueRequestToken
         self._processMap["issueRequestTokenWithAuthScheme"] = Processor.process_issueRequestTokenWithAuthScheme
+        self._processMap["issueRequestTokenForAutoLogin"] = Processor.process_issueRequestTokenForAutoLogin
+        self._processMap["getUpdatedChannelIds"] = Processor.process_getUpdatedChannelIds
         self._processMap["reserveCoinUse"] = Processor.process_reserveCoinUse
         self._processMap["revokeChannel"] = Processor.process_revokeChannel
         self._processMap["syncChannelData"] = Processor.process_syncChannelData
@@ -811,6 +1022,28 @@ class Processor(Iface, TProcessor):
         else:
             self._processMap[name](self, seqid, iprot, oprot)
         return True
+
+    def process_issueOTP(self, seqid, iprot, oprot):
+        args = issueOTP_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = issueOTP_result()
+        try:
+            result.success = self._handler.issueOTP(args.channelId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except ChannelException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("issueOTP", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
 
     def process_approveChannelAndIssueChannelToken(self, seqid, iprot, oprot):
         args = approveChannelAndIssueChannelToken_args()
@@ -1032,6 +1265,50 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
+    def process_updateChannelSettings(self, seqid, iprot, oprot):
+        args = updateChannelSettings_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = updateChannelSettings_result()
+        try:
+            result.success = self._handler.updateChannelSettings(args.channelSettings)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except ChannelException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("updateChannelSettings", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getCommonDomains(self, seqid, iprot, oprot):
+        args = getCommonDomains_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getCommonDomains_result()
+        try:
+            result.success = self._handler.getCommonDomains(args.lastSynced)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except ChannelException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getCommonDomains", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
     def process_getNotificationBadgeCount(self, seqid, iprot, oprot):
         args = getNotificationBadgeCount_args()
         args.read(iprot)
@@ -1116,6 +1393,50 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("issueRequestTokenWithAuthScheme", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_issueRequestTokenForAutoLogin(self, seqid, iprot, oprot):
+        args = issueRequestTokenForAutoLogin_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = issueRequestTokenForAutoLogin_result()
+        try:
+            result.success = self._handler.issueRequestTokenForAutoLogin(args.channelId, args.otpId, args.redirectUrl)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except ChannelException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("issueRequestTokenForAutoLogin", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getUpdatedChannelIds(self, seqid, iprot, oprot):
+        args = getUpdatedChannelIds_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getUpdatedChannelIds_result()
+        try:
+            result.success = self._handler.getUpdatedChannelIds(args.channelIds)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except ChannelException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getUpdatedChannelIds", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1209,6 +1530,140 @@ class Processor(Iface, TProcessor):
         oprot.trans.flush()
 
 # HELPER FUNCTIONS AND STRUCTURES
+
+
+class issueOTP_args(object):
+    """
+    Attributes:
+     - channelId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'channelId', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, channelId=None,):
+        self.channelId = channelId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.channelId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueOTP_args')
+        if self.channelId is not None:
+            oprot.writeFieldBegin('channelId', TType.STRING, 2)
+            oprot.writeString(self.channelId.encode('utf-8') if sys.version_info[0] == 2 else self.channelId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueOTP_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (OTPResult, OTPResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (ChannelException, ChannelException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = OTPResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = ChannelException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueOTP_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
 
 
 class approveChannelAndIssueChannelToken_args(object):
@@ -2147,11 +2602,11 @@ class getChannelNotificationSettings_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype680, _size677) = iprot.readListBegin()
-                    for _i681 in range(_size677):
-                        _elem682 = ChannelNotificationSetting()
-                        _elem682.read(iprot)
-                        self.success.append(_elem682)
+                    (_etype1022, _size1019) = iprot.readListBegin()
+                    for _i1023 in range(_size1019):
+                        _elem1024 = ChannelNotificationSetting()
+                        _elem1024.read(iprot)
+                        self.success.append(_elem1024)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2174,8 +2629,8 @@ class getChannelNotificationSettings_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter683 in self.success:
-                iter683.write(oprot)
+            for iter1025 in self.success:
+                iter1025.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -2506,10 +2961,10 @@ class getFriendChannelMatrices_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.channelIds = []
-                    (_etype687, _size684) = iprot.readListBegin()
-                    for _i688 in range(_size684):
-                        _elem689 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.channelIds.append(_elem689)
+                    (_etype1029, _size1026) = iprot.readListBegin()
+                    for _i1030 in range(_size1026):
+                        _elem1031 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.channelIds.append(_elem1031)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2526,8 +2981,8 @@ class getFriendChannelMatrices_args(object):
         if self.channelIds is not None:
             oprot.writeFieldBegin('channelIds', TType.LIST, 1)
             oprot.writeListBegin(TType.STRING, len(self.channelIds))
-            for iter690 in self.channelIds:
-                oprot.writeString(iter690.encode('utf-8') if sys.version_info[0] == 2 else iter690)
+            for iter1032 in self.channelIds:
+                oprot.writeString(iter1032.encode('utf-8') if sys.version_info[0] == 2 else iter1032)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2595,6 +3050,272 @@ class getFriendChannelMatrices_result(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('getFriendChannelMatrices_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class updateChannelSettings_args(object):
+    """
+    Attributes:
+     - channelSettings
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'channelSettings', (ChannelSettings, ChannelSettings.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, channelSettings=None,):
+        self.channelSettings = channelSettings
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.channelSettings = ChannelSettings()
+                    self.channelSettings.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('updateChannelSettings_args')
+        if self.channelSettings is not None:
+            oprot.writeFieldBegin('channelSettings', TType.STRUCT, 1)
+            self.channelSettings.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class updateChannelSettings_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.BOOL, 'success', None, None, ),  # 0
+        (1, TType.STRUCT, 'e', (ChannelException, ChannelException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = ChannelException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('updateChannelSettings_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getCommonDomains_args(object):
+    """
+    Attributes:
+     - lastSynced
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I64, 'lastSynced', None, None, ),  # 1
+    )
+
+    def __init__(self, lastSynced=None,):
+        self.lastSynced = lastSynced
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I64:
+                    self.lastSynced = iprot.readI64()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getCommonDomains_args')
+        if self.lastSynced is not None:
+            oprot.writeFieldBegin('lastSynced', TType.I64, 1)
+            oprot.writeI64(self.lastSynced)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getCommonDomains_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (ChannelDomains, ChannelDomains.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (ChannelException, ChannelException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = ChannelDomains()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = ChannelException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getCommonDomains_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
@@ -3076,10 +3797,10 @@ class issueRequestTokenWithAuthScheme_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.authScheme = []
-                    (_etype694, _size691) = iprot.readListBegin()
-                    for _i695 in range(_size691):
-                        _elem696 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.authScheme.append(_elem696)
+                    (_etype1036, _size1033) = iprot.readListBegin()
+                    for _i1037 in range(_size1033):
+                        _elem1038 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.authScheme.append(_elem1038)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3109,8 +3830,8 @@ class issueRequestTokenWithAuthScheme_args(object):
         if self.authScheme is not None:
             oprot.writeFieldBegin('authScheme', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.authScheme))
-            for iter697 in self.authScheme:
-                oprot.writeString(iter697.encode('utf-8') if sys.version_info[0] == 2 else iter697)
+            for iter1039 in self.authScheme:
+                oprot.writeString(iter1039.encode('utf-8') if sys.version_info[0] == 2 else iter1039)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.returnUrl is not None:
@@ -3185,6 +3906,312 @@ class issueRequestTokenWithAuthScheme_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueRequestTokenForAutoLogin_args(object):
+    """
+    Attributes:
+     - channelId
+     - otpId
+     - redirectUrl
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'channelId', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'otpId', 'UTF8', None, ),  # 3
+        (4, TType.STRING, 'redirectUrl', 'UTF8', None, ),  # 4
+    )
+
+    def __init__(self, channelId=None, otpId=None, redirectUrl=None,):
+        self.channelId = channelId
+        self.otpId = otpId
+        self.redirectUrl = redirectUrl
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.channelId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.otpId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.redirectUrl = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueRequestTokenForAutoLogin_args')
+        if self.channelId is not None:
+            oprot.writeFieldBegin('channelId', TType.STRING, 2)
+            oprot.writeString(self.channelId.encode('utf-8') if sys.version_info[0] == 2 else self.channelId)
+            oprot.writeFieldEnd()
+        if self.otpId is not None:
+            oprot.writeFieldBegin('otpId', TType.STRING, 3)
+            oprot.writeString(self.otpId.encode('utf-8') if sys.version_info[0] == 2 else self.otpId)
+            oprot.writeFieldEnd()
+        if self.redirectUrl is not None:
+            oprot.writeFieldBegin('redirectUrl', TType.STRING, 4)
+            oprot.writeString(self.redirectUrl.encode('utf-8') if sys.version_info[0] == 2 else self.redirectUrl)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueRequestTokenForAutoLogin_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRING, 'success', 'UTF8', None, ),  # 0
+        (1, TType.STRUCT, 'e', (ChannelException, ChannelException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRING:
+                    self.success = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = ChannelException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueRequestTokenForAutoLogin_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRING, 0)
+            oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getUpdatedChannelIds_args(object):
+    """
+    Attributes:
+     - channelIds
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.LIST, 'channelIds', (TType.STRUCT, (ChannelIdWithLastUpdated, ChannelIdWithLastUpdated.thrift_spec), False), None, ),  # 1
+    )
+
+    def __init__(self, channelIds=None,):
+        self.channelIds = channelIds
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.LIST:
+                    self.channelIds = []
+                    (_etype1043, _size1040) = iprot.readListBegin()
+                    for _i1044 in range(_size1040):
+                        _elem1045 = ChannelIdWithLastUpdated()
+                        _elem1045.read(iprot)
+                        self.channelIds.append(_elem1045)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getUpdatedChannelIds_args')
+        if self.channelIds is not None:
+            oprot.writeFieldBegin('channelIds', TType.LIST, 1)
+            oprot.writeListBegin(TType.STRUCT, len(self.channelIds))
+            for iter1046 in self.channelIds:
+                iter1046.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getUpdatedChannelIds_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRING, 'UTF8', False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (ChannelException, ChannelException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1050, _size1047) = iprot.readListBegin()
+                    for _i1051 in range(_size1047):
+                        _elem1052 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1052)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = ChannelException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getUpdatedChannelIds_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRING, len(self.success))
+            for iter1053 in self.success:
+                oprot.writeString(iter1053.encode('utf-8') if sys.version_info[0] == 2 else iter1053)
+            oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
@@ -3647,11 +4674,11 @@ class updateChannelNotificationSetting_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.setting = []
-                    (_etype701, _size698) = iprot.readListBegin()
-                    for _i702 in range(_size698):
-                        _elem703 = ChannelNotificationSetting()
-                        _elem703.read(iprot)
-                        self.setting.append(_elem703)
+                    (_etype1057, _size1054) = iprot.readListBegin()
+                    for _i1058 in range(_size1054):
+                        _elem1059 = ChannelNotificationSetting()
+                        _elem1059.read(iprot)
+                        self.setting.append(_elem1059)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3668,8 +4695,8 @@ class updateChannelNotificationSetting_args(object):
         if self.setting is not None:
             oprot.writeFieldBegin('setting', TType.LIST, 1)
             oprot.writeListBegin(TType.STRUCT, len(self.setting))
-            for iter704 in self.setting:
-                iter704.write(oprot)
+            for iter1060 in self.setting:
+                iter1060.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()

@@ -4,9 +4,10 @@ import json, time, random, tempfile, os, sys
 from gtts import gTTS
 from googletrans import Translator
 
+
 #client = LineClient()
-client = LineClient(id='EMAIL', passwd='PASSWORD')
-#client = LineClient(authToken='AUTHTOKEN')
+client = LineClient(id='EMAIL HERE', passwd='PASSWORD HERE')
+#client = LineClient(authToken='AUTH TOKEN')
 client.log("Auth Token : " + str(client.authToken))
 
 channel = LineChannel(client)
@@ -46,6 +47,28 @@ while True:
                             contact = client.getContact(sender)
                             if text.lower() == 'me':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
+                            elif text.lower() == 'announce':
+                                gett = client.getChatRoomAnnouncements(receiver)
+                                for a in gett:
+                                    aa = client.getContact(a.creatorMid).displayName
+                                    bb = a.contents
+                                    cc = bb.link
+                                    textt = bb.text
+                                    client.sendText(receiver, 'Link: ' + str(cc) + '\nText: ' + str(textt) + '\nMaker: ' + str(aa))
+                            elif text.lower() == 'unsend me':
+                                client.unsendMessage(msg_id)
+                            elif text.lower() == 'getsq':
+                                a = client.getJoinedSquares()
+                                squares = a.squares
+                                members = a.members
+                                authorities = a.authorities
+                                statuses = a.statuses
+                                noteStatuses = a.noteStatuses
+                                txt = str(squares)+'\n\n'+str(members)+'\n\n'+str(authorities)+'\n\n'+str(statuses)+'\n\n'+str(noteStatuses)+'\n\n'
+                                txt2 = ''
+                                for i in range(len(squares)):
+                                    txt2 += str(i+1)+'. '+str(squares[i].invitationURL)+'\n'
+                                client.sendText(receiver, txt2)
                             elif 'lc ' in text.lower():
                                 try:
                                     typel = [1001,1002,1003,1004,1005,1006]
@@ -71,10 +94,9 @@ while True:
                                     cmid = client.getContact(u).mid
                                     cstatus = client.getContact(u).statusMessage
                                     cpic = client.getContact(u).picturePath
-                                    #print(str(a))
                                     client.sendText(receiver, 'Nama : '+cname+'\nMID : '+cmid+'\nStatus Msg : '+cstatus+'\nPicture : http://dl.profile.line.naver.jp'+cpic)
                                     client.sendMessage(receiver, None, contentMetadata={'mid': cmid}, contentType=13)
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if client.getContact(u).videoProfile != None:
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic)
@@ -153,7 +175,7 @@ while True:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if client.getContact(u).videoProfile != None:
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)
@@ -268,10 +290,9 @@ while True:
                                     cmid = client.getContact(u).mid
                                     cstatus = client.getContact(u).statusMessage
                                     cpic = client.getContact(u).picturePath
-                                    #print(str(a))
                                     client.sendText(receiver, 'Nama : '+cname+'\nMID : '+cmid+'\nStatus Msg : '+cstatus+'\nPicture : http://dl.profile.line.naver.jp'+cpic)
                                     client.sendMessage(receiver, None, contentMetadata={'mid': cmid}, contentType=13)
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if client.getContact(u).videoProfile != None:
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp'+cpic)
@@ -350,7 +371,7 @@ while True:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
-                                    if 'videoProfile' in str(client.getContact(u)):
+                                    if client.getContact(u).videoProfile != None:
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-import json, time, base64, requests
+import json, time, base64
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
         if args[0].isLogin:
             return func(*args, **kwargs)
         else:
-            args[0].callback.other('You must login to LINE')
+            args[0].callback.other("You want to call the function, you must login to LINE")
     return checkLogin
     
 class LineTimeline(object):
@@ -16,53 +16,6 @@ class LineTimeline(object):
         if self.isLogin == True and self.channelId == self.server.CHANNEL_ID['LINE_TIMELINE']:
             self.client.log('[%s] : LineTimeline attached' % self.client.profile.displayName)
         
-
-    """LikeComment"""
-    @loggedIn
-    def like(self, mid, postid, likeType=1001):
-
-        header = {
-            "Content-Type" : "application/json",
-            "X-Line-Mid" : self.client.profile.mid,
-            "x-lct" : self.channelAccessToken,
-        }
-
-        payload = {
-            "likeType" : likeType,
-            "activityExternalId" : postid,
-            "actorId" : mid
-        }
-
-        r = requests.post(
-            self.server.LINE_TIMELINE_API + '/v23/like/create.json?homeId=' + mid,
-            headers = self.server.channelHeaders,
-            data = json.dumps(payload)
-        )
-        
-        return r.json()     
-        
-    @loggedIn    
-    def comment(self, mid, postid, text):
-        header = {
-            "Content-Type" : "application/json",
-            "X-Line-Mid" : self.client.profile.mid,
-            "x-lct" : self.channelAccessToken,
-        }
-
-        payload = {
-            "commentText" : text,
-            "activityExternalId" : postid,
-            "actorId" : mid
-        }
-
-        r = requests.post(
-            self.server.LINE_TIMELINE_API + '/v23/comment/create.json?homeId=' + mid,
-            headers = self.server.channelHeaders,
-            data = json.dumps(payload)
-        )
-        
-        return r.json()
-
     """Timeline"""
 
     @loggedIn
@@ -90,12 +43,19 @@ class LineTimeline(object):
         r = self.server.getContent(url, headers=self.server.channelHeaders)
         return r.json()
 
+    @loggedIn
+    def updateProfileCoverById(self, objId):
+        params = {'coverImageId': objId}
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/home/updateCover.json', params)
+        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        return r.json()
+
     """Post"""
 
     @loggedIn
     def createPost(self, text):
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v23/post/create.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/post/create.json', params)
         payload = {'postInfo': {'readPermission': {'type': 'ALL'}}, 'sourceType': 'TIMELINE', 'contents': {'text': text}}
         data = json.dumps(payload)
         r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
@@ -106,10 +66,9 @@ class LineTimeline(object):
         if mid is None:
             mid = self.client.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v23/comment/create.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/comment/create.json', params)
         data = {'commentText': text, 'activityExternalId': postId, 'actorId': mid}
         r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
-        
         return r.json()
 
     @loggedIn
@@ -117,7 +76,7 @@ class LineTimeline(object):
         if mid is None:
             mid = self.client.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v23/comment/delete.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/comment/delete.json', params)
         data = {'commentId': commentId, 'activityExternalId': postId, 'actorId': mid}
         r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
         return r.json()
@@ -129,10 +88,9 @@ class LineTimeline(object):
         if likeType not in [1001,1002,1003,1004,1005,1006]:
             raise Exception('Invalid parameter likeType')
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v23/like/create.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/like/create.json', params)
         data = {'likeType': likeType, 'activityExternalId': postId, 'actorId': mid}
         r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
-        
         return r.json()
 
     @loggedIn
@@ -140,7 +98,7 @@ class LineTimeline(object):
         if mid is None:
             mid = self.client.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v23/like/cancel.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/like/cancel.json', params)
         data = {'activityExternalId': postId, 'actorId': mid}
         r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
         return r.json()
@@ -152,7 +110,6 @@ class LineTimeline(object):
         payload = {'postInfo': {'readPermission': {'homeId': mid}}, 'sourceType': 'TIMELINE', 'contents': {'text': text}}
         data = json.dumps(payload)
         r = self.server.postContent(self.server.LINE_TIMELINE_API + '/v27/post/create.json', data=data, headers=self.server.channelHeaders)
-        
         return r.json()
 
     @loggedIn

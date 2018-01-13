@@ -16,76 +16,67 @@ from thrift.transport import TTransport
 
 
 class Iface(object):
-    def findBuddyContactsByQuery(self, language, country, query, fromIndex, count, requestSource):
+    def normalizePhoneNumber(self, countryCode, phoneNumber, countryCodeHint):
         """
         Parameters:
-         - language
-         - country
-         - query
-         - fromIndex
-         - count
-         - requestSource
+         - countryCode
+         - phoneNumber
+         - countryCodeHint
         """
         pass
 
-    def getBuddyContacts(self, language, country, classification, fromIndex, count):
+    def respondE2EELoginRequest(self, verifier, publicKey, encryptedKeyChain, hashKeyChain, errorCode):
         """
         Parameters:
-         - language
-         - country
-         - classification
-         - fromIndex
-         - count
+         - verifier
+         - publicKey
+         - encryptedKeyChain
+         - hashKeyChain
+         - errorCode
         """
         pass
 
-    def getBuddyDetail(self, buddyMid):
+    def confirmE2EELogin(self, verifier, deviceSecret):
         """
         Parameters:
-         - buddyMid
+         - verifier
+         - deviceSecret
         """
         pass
 
-    def getBuddyOnAir(self, buddyMid):
+    def logoutZ(self):
+        pass
+
+    def loginZ(self, loginRequest):
         """
         Parameters:
-         - buddyMid
+         - loginRequest
         """
         pass
 
-    def getCountriesHavingBuddy(self):
-        pass
-
-    def getNewlyReleasedBuddyIds(self, country):
+    def issueTokenForAccountMigrationSettings(self, enforce):
         """
         Parameters:
-         - country
+         - enforce
         """
         pass
 
-    def getPopularBuddyBanner(self, language, country, applicationType, resourceSpecification):
+    def issueTokenForAccountMigration(self, migrationSessionId):
         """
         Parameters:
-         - language
-         - country
-         - applicationType
-         - resourceSpecification
+         - migrationSessionId
         """
         pass
 
-    def getPopularBuddyLists(self, language, country):
+    def verifyQrcodeWithE2EE(self, verifier, pinCode, errorCode, publicKey, encryptedKeyChain, hashKeyChain):
         """
         Parameters:
-         - language
-         - country
-        """
-        pass
-
-    def getPromotedBuddyContacts(self, language, country):
-        """
-        Parameters:
-         - language
-         - country
+         - verifier
+         - pinCode
+         - errorCode
+         - publicKey
+         - encryptedKeyChain
+         - hashKeyChain
         """
         pass
 
@@ -97,33 +88,27 @@ class Client(Iface):
             self._oprot = oprot
         self._seqid = 0
 
-    def findBuddyContactsByQuery(self, language, country, query, fromIndex, count, requestSource):
+    def normalizePhoneNumber(self, countryCode, phoneNumber, countryCodeHint):
         """
         Parameters:
-         - language
-         - country
-         - query
-         - fromIndex
-         - count
-         - requestSource
+         - countryCode
+         - phoneNumber
+         - countryCodeHint
         """
-        self.send_findBuddyContactsByQuery(language, country, query, fromIndex, count, requestSource)
-        return self.recv_findBuddyContactsByQuery()
+        self.send_normalizePhoneNumber(countryCode, phoneNumber, countryCodeHint)
+        return self.recv_normalizePhoneNumber()
 
-    def send_findBuddyContactsByQuery(self, language, country, query, fromIndex, count, requestSource):
-        self._oprot.writeMessageBegin('findBuddyContactsByQuery', TMessageType.CALL, self._seqid)
-        args = findBuddyContactsByQuery_args()
-        args.language = language
-        args.country = country
-        args.query = query
-        args.fromIndex = fromIndex
-        args.count = count
-        args.requestSource = requestSource
+    def send_normalizePhoneNumber(self, countryCode, phoneNumber, countryCodeHint):
+        self._oprot.writeMessageBegin('normalizePhoneNumber', TMessageType.CALL, self._seqid)
+        args = normalizePhoneNumber_args()
+        args.countryCode = countryCode
+        args.phoneNumber = phoneNumber
+        args.countryCodeHint = countryCodeHint
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_findBuddyContactsByQuery(self):
+    def recv_normalizePhoneNumber(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -131,40 +116,40 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = findBuddyContactsByQuery_result()
+        result = normalizePhoneNumber_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "findBuddyContactsByQuery failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "normalizePhoneNumber failed: unknown result")
 
-    def getBuddyContacts(self, language, country, classification, fromIndex, count):
+    def respondE2EELoginRequest(self, verifier, publicKey, encryptedKeyChain, hashKeyChain, errorCode):
         """
         Parameters:
-         - language
-         - country
-         - classification
-         - fromIndex
-         - count
+         - verifier
+         - publicKey
+         - encryptedKeyChain
+         - hashKeyChain
+         - errorCode
         """
-        self.send_getBuddyContacts(language, country, classification, fromIndex, count)
-        return self.recv_getBuddyContacts()
+        self.send_respondE2EELoginRequest(verifier, publicKey, encryptedKeyChain, hashKeyChain, errorCode)
+        self.recv_respondE2EELoginRequest()
 
-    def send_getBuddyContacts(self, language, country, classification, fromIndex, count):
-        self._oprot.writeMessageBegin('getBuddyContacts', TMessageType.CALL, self._seqid)
-        args = getBuddyContacts_args()
-        args.language = language
-        args.country = country
-        args.classification = classification
-        args.fromIndex = fromIndex
-        args.count = count
+    def send_respondE2EELoginRequest(self, verifier, publicKey, encryptedKeyChain, hashKeyChain, errorCode):
+        self._oprot.writeMessageBegin('respondE2EELoginRequest', TMessageType.CALL, self._seqid)
+        args = respondE2EELoginRequest_args()
+        args.verifier = verifier
+        args.publicKey = publicKey
+        args.encryptedKeyChain = encryptedKeyChain
+        args.hashKeyChain = hashKeyChain
+        args.errorCode = errorCode
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getBuddyContacts(self):
+    def recv_respondE2EELoginRequest(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -172,32 +157,32 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getBuddyContacts_result()
+        result = respondE2EELoginRequest_result()
         result.read(iprot)
         iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getBuddyContacts failed: unknown result")
+        return
 
-    def getBuddyDetail(self, buddyMid):
+    def confirmE2EELogin(self, verifier, deviceSecret):
         """
         Parameters:
-         - buddyMid
+         - verifier
+         - deviceSecret
         """
-        self.send_getBuddyDetail(buddyMid)
-        return self.recv_getBuddyDetail()
+        self.send_confirmE2EELogin(verifier, deviceSecret)
+        return self.recv_confirmE2EELogin()
 
-    def send_getBuddyDetail(self, buddyMid):
-        self._oprot.writeMessageBegin('getBuddyDetail', TMessageType.CALL, self._seqid)
-        args = getBuddyDetail_args()
-        args.buddyMid = buddyMid
+    def send_confirmE2EELogin(self, verifier, deviceSecret):
+        self._oprot.writeMessageBegin('confirmE2EELogin', TMessageType.CALL, self._seqid)
+        args = confirmE2EELogin_args()
+        args.verifier = verifier
+        args.deviceSecret = deviceSecret
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getBuddyDetail(self):
+    def recv_confirmE2EELogin(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -205,32 +190,58 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getBuddyDetail_result()
+        result = confirmE2EELogin_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getBuddyDetail failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "confirmE2EELogin failed: unknown result")
 
-    def getBuddyOnAir(self, buddyMid):
+    def logoutZ(self):
+        self.send_logoutZ()
+        self.recv_logoutZ()
+
+    def send_logoutZ(self):
+        self._oprot.writeMessageBegin('logoutZ', TMessageType.CALL, self._seqid)
+        args = logoutZ_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_logoutZ(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = logoutZ_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def loginZ(self, loginRequest):
         """
         Parameters:
-         - buddyMid
+         - loginRequest
         """
-        self.send_getBuddyOnAir(buddyMid)
-        return self.recv_getBuddyOnAir()
+        self.send_loginZ(loginRequest)
+        return self.recv_loginZ()
 
-    def send_getBuddyOnAir(self, buddyMid):
-        self._oprot.writeMessageBegin('getBuddyOnAir', TMessageType.CALL, self._seqid)
-        args = getBuddyOnAir_args()
-        args.buddyMid = buddyMid
+    def send_loginZ(self, loginRequest):
+        self._oprot.writeMessageBegin('loginZ', TMessageType.CALL, self._seqid)
+        args = loginZ_args()
+        args.loginRequest = loginRequest
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getBuddyOnAir(self):
+    def recv_loginZ(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -238,60 +249,32 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getBuddyOnAir_result()
+        result = loginZ_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getBuddyOnAir failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "loginZ failed: unknown result")
 
-    def getCountriesHavingBuddy(self):
-        self.send_getCountriesHavingBuddy()
-        return self.recv_getCountriesHavingBuddy()
-
-    def send_getCountriesHavingBuddy(self):
-        self._oprot.writeMessageBegin('getCountriesHavingBuddy', TMessageType.CALL, self._seqid)
-        args = getCountriesHavingBuddy_args()
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_getCountriesHavingBuddy(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = getCountriesHavingBuddy_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.e is not None:
-            raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getCountriesHavingBuddy failed: unknown result")
-
-    def getNewlyReleasedBuddyIds(self, country):
+    def issueTokenForAccountMigrationSettings(self, enforce):
         """
         Parameters:
-         - country
+         - enforce
         """
-        self.send_getNewlyReleasedBuddyIds(country)
-        return self.recv_getNewlyReleasedBuddyIds()
+        self.send_issueTokenForAccountMigrationSettings(enforce)
+        return self.recv_issueTokenForAccountMigrationSettings()
 
-    def send_getNewlyReleasedBuddyIds(self, country):
-        self._oprot.writeMessageBegin('getNewlyReleasedBuddyIds', TMessageType.CALL, self._seqid)
-        args = getNewlyReleasedBuddyIds_args()
-        args.country = country
+    def send_issueTokenForAccountMigrationSettings(self, enforce):
+        self._oprot.writeMessageBegin('issueTokenForAccountMigrationSettings', TMessageType.CALL, self._seqid)
+        args = issueTokenForAccountMigrationSettings_args()
+        args.enforce = enforce
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getNewlyReleasedBuddyIds(self):
+    def recv_issueTokenForAccountMigrationSettings(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -299,38 +282,32 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getNewlyReleasedBuddyIds_result()
+        result = issueTokenForAccountMigrationSettings_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getNewlyReleasedBuddyIds failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "issueTokenForAccountMigrationSettings failed: unknown result")
 
-    def getPopularBuddyBanner(self, language, country, applicationType, resourceSpecification):
+    def issueTokenForAccountMigration(self, migrationSessionId):
         """
         Parameters:
-         - language
-         - country
-         - applicationType
-         - resourceSpecification
+         - migrationSessionId
         """
-        self.send_getPopularBuddyBanner(language, country, applicationType, resourceSpecification)
-        return self.recv_getPopularBuddyBanner()
+        self.send_issueTokenForAccountMigration(migrationSessionId)
+        return self.recv_issueTokenForAccountMigration()
 
-    def send_getPopularBuddyBanner(self, language, country, applicationType, resourceSpecification):
-        self._oprot.writeMessageBegin('getPopularBuddyBanner', TMessageType.CALL, self._seqid)
-        args = getPopularBuddyBanner_args()
-        args.language = language
-        args.country = country
-        args.applicationType = applicationType
-        args.resourceSpecification = resourceSpecification
+    def send_issueTokenForAccountMigration(self, migrationSessionId):
+        self._oprot.writeMessageBegin('issueTokenForAccountMigration', TMessageType.CALL, self._seqid)
+        args = issueTokenForAccountMigration_args()
+        args.migrationSessionId = migrationSessionId
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getPopularBuddyBanner(self):
+    def recv_issueTokenForAccountMigration(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -338,34 +315,42 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getPopularBuddyBanner_result()
+        result = issueTokenForAccountMigration_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getPopularBuddyBanner failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "issueTokenForAccountMigration failed: unknown result")
 
-    def getPopularBuddyLists(self, language, country):
+    def verifyQrcodeWithE2EE(self, verifier, pinCode, errorCode, publicKey, encryptedKeyChain, hashKeyChain):
         """
         Parameters:
-         - language
-         - country
+         - verifier
+         - pinCode
+         - errorCode
+         - publicKey
+         - encryptedKeyChain
+         - hashKeyChain
         """
-        self.send_getPopularBuddyLists(language, country)
-        return self.recv_getPopularBuddyLists()
+        self.send_verifyQrcodeWithE2EE(verifier, pinCode, errorCode, publicKey, encryptedKeyChain, hashKeyChain)
+        return self.recv_verifyQrcodeWithE2EE()
 
-    def send_getPopularBuddyLists(self, language, country):
-        self._oprot.writeMessageBegin('getPopularBuddyLists', TMessageType.CALL, self._seqid)
-        args = getPopularBuddyLists_args()
-        args.language = language
-        args.country = country
+    def send_verifyQrcodeWithE2EE(self, verifier, pinCode, errorCode, publicKey, encryptedKeyChain, hashKeyChain):
+        self._oprot.writeMessageBegin('verifyQrcodeWithE2EE', TMessageType.CALL, self._seqid)
+        args = verifyQrcodeWithE2EE_args()
+        args.verifier = verifier
+        args.pinCode = pinCode
+        args.errorCode = errorCode
+        args.publicKey = publicKey
+        args.encryptedKeyChain = encryptedKeyChain
+        args.hashKeyChain = hashKeyChain
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getPopularBuddyLists(self):
+    def recv_verifyQrcodeWithE2EE(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -373,64 +358,28 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getPopularBuddyLists_result()
+        result = verifyQrcodeWithE2EE_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.e is not None:
             raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getPopularBuddyLists failed: unknown result")
-
-    def getPromotedBuddyContacts(self, language, country):
-        """
-        Parameters:
-         - language
-         - country
-        """
-        self.send_getPromotedBuddyContacts(language, country)
-        return self.recv_getPromotedBuddyContacts()
-
-    def send_getPromotedBuddyContacts(self, language, country):
-        self._oprot.writeMessageBegin('getPromotedBuddyContacts', TMessageType.CALL, self._seqid)
-        args = getPromotedBuddyContacts_args()
-        args.language = language
-        args.country = country
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_getPromotedBuddyContacts(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = getPromotedBuddyContacts_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.e is not None:
-            raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getPromotedBuddyContacts failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "verifyQrcodeWithE2EE failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
-        self._processMap["findBuddyContactsByQuery"] = Processor.process_findBuddyContactsByQuery
-        self._processMap["getBuddyContacts"] = Processor.process_getBuddyContacts
-        self._processMap["getBuddyDetail"] = Processor.process_getBuddyDetail
-        self._processMap["getBuddyOnAir"] = Processor.process_getBuddyOnAir
-        self._processMap["getCountriesHavingBuddy"] = Processor.process_getCountriesHavingBuddy
-        self._processMap["getNewlyReleasedBuddyIds"] = Processor.process_getNewlyReleasedBuddyIds
-        self._processMap["getPopularBuddyBanner"] = Processor.process_getPopularBuddyBanner
-        self._processMap["getPopularBuddyLists"] = Processor.process_getPopularBuddyLists
-        self._processMap["getPromotedBuddyContacts"] = Processor.process_getPromotedBuddyContacts
+        self._processMap["normalizePhoneNumber"] = Processor.process_normalizePhoneNumber
+        self._processMap["respondE2EELoginRequest"] = Processor.process_respondE2EELoginRequest
+        self._processMap["confirmE2EELogin"] = Processor.process_confirmE2EELogin
+        self._processMap["logoutZ"] = Processor.process_logoutZ
+        self._processMap["loginZ"] = Processor.process_loginZ
+        self._processMap["issueTokenForAccountMigrationSettings"] = Processor.process_issueTokenForAccountMigrationSettings
+        self._processMap["issueTokenForAccountMigration"] = Processor.process_issueTokenForAccountMigration
+        self._processMap["verifyQrcodeWithE2EE"] = Processor.process_verifyQrcodeWithE2EE
 
     def process(self, iprot, oprot):
         (name, type, seqid) = iprot.readMessageBegin()
@@ -447,13 +396,13 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
-    def process_findBuddyContactsByQuery(self, seqid, iprot, oprot):
-        args = findBuddyContactsByQuery_args()
+    def process_normalizePhoneNumber(self, seqid, iprot, oprot):
+        args = normalizePhoneNumber_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = findBuddyContactsByQuery_result()
+        result = normalizePhoneNumber_result()
         try:
-            result.success = self._handler.findBuddyContactsByQuery(args.language, args.country, args.query, args.fromIndex, args.count, args.requestSource)
+            result.success = self._handler.normalizePhoneNumber(args.countryCode, args.phoneNumber, args.countryCodeHint)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -464,18 +413,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("findBuddyContactsByQuery", msg_type, seqid)
+        oprot.writeMessageBegin("normalizePhoneNumber", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getBuddyContacts(self, seqid, iprot, oprot):
-        args = getBuddyContacts_args()
+    def process_respondE2EELoginRequest(self, seqid, iprot, oprot):
+        args = respondE2EELoginRequest_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getBuddyContacts_result()
+        result = respondE2EELoginRequest_result()
         try:
-            result.success = self._handler.getBuddyContacts(args.language, args.country, args.classification, args.fromIndex, args.count)
+            self._handler.respondE2EELoginRequest(args.verifier, args.publicKey, args.encryptedKeyChain, args.hashKeyChain, args.errorCode)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -486,18 +435,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getBuddyContacts", msg_type, seqid)
+        oprot.writeMessageBegin("respondE2EELoginRequest", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getBuddyDetail(self, seqid, iprot, oprot):
-        args = getBuddyDetail_args()
+    def process_confirmE2EELogin(self, seqid, iprot, oprot):
+        args = confirmE2EELogin_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getBuddyDetail_result()
+        result = confirmE2EELogin_result()
         try:
-            result.success = self._handler.getBuddyDetail(args.buddyMid)
+            result.success = self._handler.confirmE2EELogin(args.verifier, args.deviceSecret)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -508,18 +457,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getBuddyDetail", msg_type, seqid)
+        oprot.writeMessageBegin("confirmE2EELogin", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getBuddyOnAir(self, seqid, iprot, oprot):
-        args = getBuddyOnAir_args()
+    def process_logoutZ(self, seqid, iprot, oprot):
+        args = logoutZ_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getBuddyOnAir_result()
+        result = logoutZ_result()
         try:
-            result.success = self._handler.getBuddyOnAir(args.buddyMid)
+            self._handler.logoutZ()
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -530,18 +479,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getBuddyOnAir", msg_type, seqid)
+        oprot.writeMessageBegin("logoutZ", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getCountriesHavingBuddy(self, seqid, iprot, oprot):
-        args = getCountriesHavingBuddy_args()
+    def process_loginZ(self, seqid, iprot, oprot):
+        args = loginZ_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getCountriesHavingBuddy_result()
+        result = loginZ_result()
         try:
-            result.success = self._handler.getCountriesHavingBuddy()
+            result.success = self._handler.loginZ(args.loginRequest)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -552,18 +501,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getCountriesHavingBuddy", msg_type, seqid)
+        oprot.writeMessageBegin("loginZ", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getNewlyReleasedBuddyIds(self, seqid, iprot, oprot):
-        args = getNewlyReleasedBuddyIds_args()
+    def process_issueTokenForAccountMigrationSettings(self, seqid, iprot, oprot):
+        args = issueTokenForAccountMigrationSettings_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getNewlyReleasedBuddyIds_result()
+        result = issueTokenForAccountMigrationSettings_result()
         try:
-            result.success = self._handler.getNewlyReleasedBuddyIds(args.country)
+            result.success = self._handler.issueTokenForAccountMigrationSettings(args.enforce)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -574,18 +523,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getNewlyReleasedBuddyIds", msg_type, seqid)
+        oprot.writeMessageBegin("issueTokenForAccountMigrationSettings", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getPopularBuddyBanner(self, seqid, iprot, oprot):
-        args = getPopularBuddyBanner_args()
+    def process_issueTokenForAccountMigration(self, seqid, iprot, oprot):
+        args = issueTokenForAccountMigration_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getPopularBuddyBanner_result()
+        result = issueTokenForAccountMigration_result()
         try:
-            result.success = self._handler.getPopularBuddyBanner(args.language, args.country, args.applicationType, args.resourceSpecification)
+            result.success = self._handler.issueTokenForAccountMigration(args.migrationSessionId)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -596,18 +545,18 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getPopularBuddyBanner", msg_type, seqid)
+        oprot.writeMessageBegin("issueTokenForAccountMigration", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_getPopularBuddyLists(self, seqid, iprot, oprot):
-        args = getPopularBuddyLists_args()
+    def process_verifyQrcodeWithE2EE(self, seqid, iprot, oprot):
+        args = verifyQrcodeWithE2EE_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getPopularBuddyLists_result()
+        result = verifyQrcodeWithE2EE_result()
         try:
-            result.success = self._handler.getPopularBuddyLists(args.language, args.country)
+            result.success = self._handler.verifyQrcodeWithE2EE(args.verifier, args.pinCode, args.errorCode, args.publicKey, args.encryptedKeyChain, args.hashKeyChain)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -618,29 +567,7 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getPopularBuddyLists", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_getPromotedBuddyContacts(self, seqid, iprot, oprot):
-        args = getPromotedBuddyContacts_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = getPromotedBuddyContacts_result()
-        try:
-            result.success = self._handler.getPromotedBuddyContacts(args.language, args.country)
-            msg_type = TMessageType.REPLY
-        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
-            raise
-        except TalkException as e:
-            msg_type = TMessageType.REPLY
-            result.e = e
-        except Exception as ex:
-            msg_type = TMessageType.EXCEPTION
-            logging.exception(ex)
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getPromotedBuddyContacts", msg_type, seqid)
+        oprot.writeMessageBegin("verifyQrcodeWithE2EE", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -648,35 +575,26 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
-class findBuddyContactsByQuery_args(object):
+class normalizePhoneNumber_args(object):
     """
     Attributes:
-     - language
-     - country
-     - query
-     - fromIndex
-     - count
-     - requestSource
+     - countryCode
+     - phoneNumber
+     - countryCodeHint
     """
 
     thrift_spec = (
         None,  # 0
         None,  # 1
-        (2, TType.STRING, 'language', 'UTF8', None, ),  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-        (4, TType.STRING, 'query', 'UTF8', None, ),  # 4
-        (5, TType.I32, 'fromIndex', None, None, ),  # 5
-        (6, TType.I32, 'count', None, None, ),  # 6
-        (7, TType.I32, 'requestSource', None, None, ),  # 7
+        (2, TType.STRING, 'countryCode', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'phoneNumber', 'UTF8', None, ),  # 3
+        (4, TType.STRING, 'countryCodeHint', 'UTF8', None, ),  # 4
     )
 
-    def __init__(self, language=None, country=None, query=None, fromIndex=None, count=None, requestSource=None,):
-        self.language = language
-        self.country = country
-        self.query = query
-        self.fromIndex = fromIndex
-        self.count = count
-        self.requestSource = requestSource
+    def __init__(self, countryCode=None, phoneNumber=None, countryCodeHint=None,):
+        self.countryCode = countryCode
+        self.phoneNumber = phoneNumber
+        self.countryCodeHint = countryCodeHint
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -689,32 +607,1019 @@ class findBuddyContactsByQuery_args(object):
                 break
             if fid == 2:
                 if ftype == TType.STRING:
-                    self.language = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.countryCode = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.phoneNumber = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 4:
                 if ftype == TType.STRING:
-                    self.query = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.countryCodeHint = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('normalizePhoneNumber_args')
+        if self.countryCode is not None:
+            oprot.writeFieldBegin('countryCode', TType.STRING, 2)
+            oprot.writeString(self.countryCode.encode('utf-8') if sys.version_info[0] == 2 else self.countryCode)
+            oprot.writeFieldEnd()
+        if self.phoneNumber is not None:
+            oprot.writeFieldBegin('phoneNumber', TType.STRING, 3)
+            oprot.writeString(self.phoneNumber.encode('utf-8') if sys.version_info[0] == 2 else self.phoneNumber)
+            oprot.writeFieldEnd()
+        if self.countryCodeHint is not None:
+            oprot.writeFieldBegin('countryCodeHint', TType.STRING, 4)
+            oprot.writeString(self.countryCodeHint.encode('utf-8') if sys.version_info[0] == 2 else self.countryCodeHint)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class normalizePhoneNumber_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRING, 'success', 'UTF8', None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRING:
+                    self.success = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('normalizePhoneNumber_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRING, 0)
+            oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class respondE2EELoginRequest_args(object):
+    """
+    Attributes:
+     - verifier
+     - publicKey
+     - encryptedKeyChain
+     - hashKeyChain
+     - errorCode
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRING, 'verifier', 'UTF8', None, ),  # 1
+        (2, TType.STRUCT, 'publicKey', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 2
+        (3, TType.STRING, 'encryptedKeyChain', 'BINARY', None, ),  # 3
+        (4, TType.STRING, 'hashKeyChain', 'BINARY', None, ),  # 4
+        (5, TType.I32, 'errorCode', None, None, ),  # 5
+    )
+
+    def __init__(self, verifier=None, publicKey=None, encryptedKeyChain=None, hashKeyChain=None, errorCode=None,):
+        self.verifier = verifier
+        self.publicKey = publicKey
+        self.encryptedKeyChain = encryptedKeyChain
+        self.hashKeyChain = hashKeyChain
+        self.errorCode = errorCode
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.verifier = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.publicKey = E2EEPublicKey()
+                    self.publicKey.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.encryptedKeyChain = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.hashKeyChain = iprot.readBinary()
                 else:
                     iprot.skip(ftype)
             elif fid == 5:
                 if ftype == TType.I32:
-                    self.fromIndex = iprot.readI32()
+                    self.errorCode = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('respondE2EELoginRequest_args')
+        if self.verifier is not None:
+            oprot.writeFieldBegin('verifier', TType.STRING, 1)
+            oprot.writeString(self.verifier.encode('utf-8') if sys.version_info[0] == 2 else self.verifier)
+            oprot.writeFieldEnd()
+        if self.publicKey is not None:
+            oprot.writeFieldBegin('publicKey', TType.STRUCT, 2)
+            self.publicKey.write(oprot)
+            oprot.writeFieldEnd()
+        if self.encryptedKeyChain is not None:
+            oprot.writeFieldBegin('encryptedKeyChain', TType.STRING, 3)
+            oprot.writeBinary(self.encryptedKeyChain)
+            oprot.writeFieldEnd()
+        if self.hashKeyChain is not None:
+            oprot.writeFieldBegin('hashKeyChain', TType.STRING, 4)
+            oprot.writeBinary(self.hashKeyChain)
+            oprot.writeFieldEnd()
+        if self.errorCode is not None:
+            oprot.writeFieldBegin('errorCode', TType.I32, 5)
+            oprot.writeI32(self.errorCode)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class respondE2EELoginRequest_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('respondE2EELoginRequest_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class confirmE2EELogin_args(object):
+    """
+    Attributes:
+     - verifier
+     - deviceSecret
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRING, 'verifier', 'UTF8', None, ),  # 1
+        (2, TType.STRING, 'deviceSecret', 'BINARY', None, ),  # 2
+    )
+
+    def __init__(self, verifier=None, deviceSecret=None,):
+        self.verifier = verifier
+        self.deviceSecret = deviceSecret
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.verifier = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.deviceSecret = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('confirmE2EELogin_args')
+        if self.verifier is not None:
+            oprot.writeFieldBegin('verifier', TType.STRING, 1)
+            oprot.writeString(self.verifier.encode('utf-8') if sys.version_info[0] == 2 else self.verifier)
+            oprot.writeFieldEnd()
+        if self.deviceSecret is not None:
+            oprot.writeFieldBegin('deviceSecret', TType.STRING, 2)
+            oprot.writeBinary(self.deviceSecret)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class confirmE2EELogin_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRING, 'success', 'UTF8', None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRING:
+                    self.success = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('confirmE2EELogin_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRING, 0)
+            oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class logoutZ_args(object):
+
+    thrift_spec = (
+    )
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('logoutZ_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class logoutZ_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('logoutZ_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class loginZ_args(object):
+    """
+    Attributes:
+     - loginRequest
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRUCT, 'loginRequest', (LoginRequest, LoginRequest.thrift_spec), None, ),  # 2
+    )
+
+    def __init__(self, loginRequest=None,):
+        self.loginRequest = loginRequest
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRUCT:
+                    self.loginRequest = LoginRequest()
+                    self.loginRequest.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('loginZ_args')
+        if self.loginRequest is not None:
+            oprot.writeFieldBegin('loginRequest', TType.STRUCT, 2)
+            self.loginRequest.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class loginZ_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (LoginResult, LoginResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = LoginResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('loginZ_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueTokenForAccountMigrationSettings_args(object):
+    """
+    Attributes:
+     - enforce
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.BOOL, 'enforce', None, None, ),  # 2
+    )
+
+    def __init__(self, enforce=None,):
+        self.enforce = enforce
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.BOOL:
+                    self.enforce = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueTokenForAccountMigrationSettings_args')
+        if self.enforce is not None:
+            oprot.writeFieldBegin('enforce', TType.BOOL, 2)
+            oprot.writeBool(self.enforce)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueTokenForAccountMigrationSettings_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (SecurityCenterResult, SecurityCenterResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SecurityCenterResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueTokenForAccountMigrationSettings_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueTokenForAccountMigration_args(object):
+    """
+    Attributes:
+     - migrationSessionId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'migrationSessionId', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, migrationSessionId=None,):
+        self.migrationSessionId = migrationSessionId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.migrationSessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueTokenForAccountMigration_args')
+        if self.migrationSessionId is not None:
+            oprot.writeFieldBegin('migrationSessionId', TType.STRING, 2)
+            oprot.writeString(self.migrationSessionId.encode('utf-8') if sys.version_info[0] == 2 else self.migrationSessionId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class issueTokenForAccountMigration_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (SecurityCenterResult, SecurityCenterResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SecurityCenterResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('issueTokenForAccountMigration_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class verifyQrcodeWithE2EE_args(object):
+    """
+    Attributes:
+     - verifier
+     - pinCode
+     - errorCode
+     - publicKey
+     - encryptedKeyChain
+     - hashKeyChain
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'verifier', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'pinCode', 'UTF8', None, ),  # 3
+        (4, TType.I32, 'errorCode', None, None, ),  # 4
+        (5, TType.STRUCT, 'publicKey', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 5
+        (6, TType.STRING, 'encryptedKeyChain', 'BINARY', None, ),  # 6
+        (7, TType.STRING, 'hashKeyChain', 'BINARY', None, ),  # 7
+    )
+
+    def __init__(self, verifier=None, pinCode=None, errorCode=None, publicKey=None, encryptedKeyChain=None, hashKeyChain=None,):
+        self.verifier = verifier
+        self.pinCode = pinCode
+        self.errorCode = errorCode
+        self.publicKey = publicKey
+        self.encryptedKeyChain = encryptedKeyChain
+        self.hashKeyChain = hashKeyChain
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.verifier = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.pinCode = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.I32:
+                    self.errorCode = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.STRUCT:
+                    self.publicKey = E2EEPublicKey()
+                    self.publicKey.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 6:
-                if ftype == TType.I32:
-                    self.count = iprot.readI32()
+                if ftype == TType.STRING:
+                    self.encryptedKeyChain = iprot.readBinary()
                 else:
                     iprot.skip(ftype)
             elif fid == 7:
-                if ftype == TType.I32:
-                    self.requestSource = iprot.readI32()
+                if ftype == TType.STRING:
+                    self.hashKeyChain = iprot.readBinary()
                 else:
                     iprot.skip(ftype)
             else:
@@ -726,30 +1631,30 @@ class findBuddyContactsByQuery_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
-        oprot.writeStructBegin('findBuddyContactsByQuery_args')
-        if self.language is not None:
-            oprot.writeFieldBegin('language', TType.STRING, 2)
-            oprot.writeString(self.language.encode('utf-8') if sys.version_info[0] == 2 else self.language)
+        oprot.writeStructBegin('verifyQrcodeWithE2EE_args')
+        if self.verifier is not None:
+            oprot.writeFieldBegin('verifier', TType.STRING, 2)
+            oprot.writeString(self.verifier.encode('utf-8') if sys.version_info[0] == 2 else self.verifier)
             oprot.writeFieldEnd()
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
+        if self.pinCode is not None:
+            oprot.writeFieldBegin('pinCode', TType.STRING, 3)
+            oprot.writeString(self.pinCode.encode('utf-8') if sys.version_info[0] == 2 else self.pinCode)
             oprot.writeFieldEnd()
-        if self.query is not None:
-            oprot.writeFieldBegin('query', TType.STRING, 4)
-            oprot.writeString(self.query.encode('utf-8') if sys.version_info[0] == 2 else self.query)
+        if self.errorCode is not None:
+            oprot.writeFieldBegin('errorCode', TType.I32, 4)
+            oprot.writeI32(self.errorCode)
             oprot.writeFieldEnd()
-        if self.fromIndex is not None:
-            oprot.writeFieldBegin('fromIndex', TType.I32, 5)
-            oprot.writeI32(self.fromIndex)
+        if self.publicKey is not None:
+            oprot.writeFieldBegin('publicKey', TType.STRUCT, 5)
+            self.publicKey.write(oprot)
             oprot.writeFieldEnd()
-        if self.count is not None:
-            oprot.writeFieldBegin('count', TType.I32, 6)
-            oprot.writeI32(self.count)
+        if self.encryptedKeyChain is not None:
+            oprot.writeFieldBegin('encryptedKeyChain', TType.STRING, 6)
+            oprot.writeBinary(self.encryptedKeyChain)
             oprot.writeFieldEnd()
-        if self.requestSource is not None:
-            oprot.writeFieldBegin('requestSource', TType.I32, 7)
-            oprot.writeI32(self.requestSource)
+        if self.hashKeyChain is not None:
+            oprot.writeFieldBegin('hashKeyChain', TType.STRING, 7)
+            oprot.writeBinary(self.hashKeyChain)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -769,7 +1674,7 @@ class findBuddyContactsByQuery_args(object):
         return not (self == other)
 
 
-class findBuddyContactsByQuery_result(object):
+class verifyQrcodeWithE2EE_result(object):
     """
     Attributes:
      - success
@@ -777,7 +1682,7 @@ class findBuddyContactsByQuery_result(object):
     """
 
     thrift_spec = (
-        (0, TType.LIST, 'success', (TType.STRUCT, (BuddySearchResult, BuddySearchResult.thrift_spec), False), None, ),  # 0
+        (0, TType.STRING, 'success', 'UTF8', None, ),  # 0
         (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
     )
 
@@ -795,14 +1700,8 @@ class findBuddyContactsByQuery_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype878, _size875) = iprot.readListBegin()
-                    for _i879 in range(_size875):
-                        _elem880 = BuddySearchResult()
-                        _elem880.read(iprot)
-                        self.success.append(_elem880)
-                    iprot.readListEnd()
+                if ftype == TType.STRING:
+                    self.success = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -820,1219 +1719,10 @@ class findBuddyContactsByQuery_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
-        oprot.writeStructBegin('findBuddyContactsByQuery_result')
+        oprot.writeStructBegin('verifyQrcodeWithE2EE_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter881 in self.success:
-                iter881.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyContacts_args(object):
-    """
-    Attributes:
-     - language
-     - country
-     - classification
-     - fromIndex
-     - count
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        (2, TType.STRING, 'language', 'UTF8', None, ),  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-        (4, TType.STRING, 'classification', 'UTF8', None, ),  # 4
-        (5, TType.I32, 'fromIndex', None, None, ),  # 5
-        (6, TType.I32, 'count', None, None, ),  # 6
-    )
-
-    def __init__(self, language=None, country=None, classification=None, fromIndex=None, count=None,):
-        self.language = language
-        self.country = country
-        self.classification = classification
-        self.fromIndex = fromIndex
-        self.count = count
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 2:
-                if ftype == TType.STRING:
-                    self.language = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRING:
-                    self.classification = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 5:
-                if ftype == TType.I32:
-                    self.fromIndex = iprot.readI32()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 6:
-                if ftype == TType.I32:
-                    self.count = iprot.readI32()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyContacts_args')
-        if self.language is not None:
-            oprot.writeFieldBegin('language', TType.STRING, 2)
-            oprot.writeString(self.language.encode('utf-8') if sys.version_info[0] == 2 else self.language)
-            oprot.writeFieldEnd()
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
-            oprot.writeFieldEnd()
-        if self.classification is not None:
-            oprot.writeFieldBegin('classification', TType.STRING, 4)
-            oprot.writeString(self.classification.encode('utf-8') if sys.version_info[0] == 2 else self.classification)
-            oprot.writeFieldEnd()
-        if self.fromIndex is not None:
-            oprot.writeFieldBegin('fromIndex', TType.I32, 5)
-            oprot.writeI32(self.fromIndex)
-            oprot.writeFieldEnd()
-        if self.count is not None:
-            oprot.writeFieldBegin('count', TType.I32, 6)
-            oprot.writeI32(self.count)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyContacts_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.LIST, 'success', (TType.STRUCT, (Contact, Contact.thrift_spec), False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype885, _size882) = iprot.readListBegin()
-                    for _i886 in range(_size882):
-                        _elem887 = Contact()
-                        _elem887.read(iprot)
-                        self.success.append(_elem887)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyContacts_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter888 in self.success:
-                iter888.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyDetail_args(object):
-    """
-    Attributes:
-     - buddyMid
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        None,  # 2
-        None,  # 3
-        (4, TType.STRING, 'buddyMid', 'UTF8', None, ),  # 4
-    )
-
-    def __init__(self, buddyMid=None,):
-        self.buddyMid = buddyMid
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 4:
-                if ftype == TType.STRING:
-                    self.buddyMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyDetail_args')
-        if self.buddyMid is not None:
-            oprot.writeFieldBegin('buddyMid', TType.STRING, 4)
-            oprot.writeString(self.buddyMid.encode('utf-8') if sys.version_info[0] == 2 else self.buddyMid)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyDetail_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.STRUCT, 'success', (BuddyDetail, BuddyDetail.thrift_spec), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = BuddyDetail()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyDetail_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyOnAir_args(object):
-    """
-    Attributes:
-     - buddyMid
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        None,  # 2
-        None,  # 3
-        (4, TType.STRING, 'buddyMid', 'UTF8', None, ),  # 4
-    )
-
-    def __init__(self, buddyMid=None,):
-        self.buddyMid = buddyMid
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 4:
-                if ftype == TType.STRING:
-                    self.buddyMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyOnAir_args')
-        if self.buddyMid is not None:
-            oprot.writeFieldBegin('buddyMid', TType.STRING, 4)
-            oprot.writeString(self.buddyMid.encode('utf-8') if sys.version_info[0] == 2 else self.buddyMid)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getBuddyOnAir_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.STRUCT, 'success', (BuddyOnAir, BuddyOnAir.thrift_spec), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = BuddyOnAir()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getBuddyOnAir_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getCountriesHavingBuddy_args(object):
-
-    thrift_spec = (
-    )
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getCountriesHavingBuddy_args')
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getCountriesHavingBuddy_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.LIST, 'success', (TType.STRING, 'UTF8', False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype892, _size889) = iprot.readListBegin()
-                    for _i893 in range(_size889):
-                        _elem894 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem894)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getCountriesHavingBuddy_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter895 in self.success:
-                oprot.writeString(iter895.encode('utf-8') if sys.version_info[0] == 2 else iter895)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getNewlyReleasedBuddyIds_args(object):
-    """
-    Attributes:
-     - country
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        None,  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-    )
-
-    def __init__(self, country=None,):
-        self.country = country
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 3:
-                if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getNewlyReleasedBuddyIds_args')
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getNewlyReleasedBuddyIds_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.MAP, 'success', (TType.STRING, 'UTF8', TType.I64, None, False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.MAP:
-                    self.success = {}
-                    (_ktype897, _vtype898, _size896) = iprot.readMapBegin()
-                    for _i900 in range(_size896):
-                        _key901 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val902 = iprot.readI64()
-                        self.success[_key901] = _val902
-                    iprot.readMapEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getNewlyReleasedBuddyIds_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.MAP, 0)
-            oprot.writeMapBegin(TType.STRING, TType.I64, len(self.success))
-            for kiter903, viter904 in self.success.items():
-                oprot.writeString(kiter903.encode('utf-8') if sys.version_info[0] == 2 else kiter903)
-                oprot.writeI64(viter904)
-            oprot.writeMapEnd()
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPopularBuddyBanner_args(object):
-    """
-    Attributes:
-     - language
-     - country
-     - applicationType
-     - resourceSpecification
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        (2, TType.STRING, 'language', 'UTF8', None, ),  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-        (4, TType.I32, 'applicationType', None, None, ),  # 4
-        (5, TType.STRING, 'resourceSpecification', 'UTF8', None, ),  # 5
-    )
-
-    def __init__(self, language=None, country=None, applicationType=None, resourceSpecification=None,):
-        self.language = language
-        self.country = country
-        self.applicationType = applicationType
-        self.resourceSpecification = resourceSpecification
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 2:
-                if ftype == TType.STRING:
-                    self.language = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.I32:
-                    self.applicationType = iprot.readI32()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 5:
-                if ftype == TType.STRING:
-                    self.resourceSpecification = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPopularBuddyBanner_args')
-        if self.language is not None:
-            oprot.writeFieldBegin('language', TType.STRING, 2)
-            oprot.writeString(self.language.encode('utf-8') if sys.version_info[0] == 2 else self.language)
-            oprot.writeFieldEnd()
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
-            oprot.writeFieldEnd()
-        if self.applicationType is not None:
-            oprot.writeFieldBegin('applicationType', TType.I32, 4)
-            oprot.writeI32(self.applicationType)
-            oprot.writeFieldEnd()
-        if self.resourceSpecification is not None:
-            oprot.writeFieldBegin('resourceSpecification', TType.STRING, 5)
-            oprot.writeString(self.resourceSpecification.encode('utf-8') if sys.version_info[0] == 2 else self.resourceSpecification)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPopularBuddyBanner_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.STRUCT, 'success', (BuddyBanner, BuddyBanner.thrift_spec), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = BuddyBanner()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPopularBuddyBanner_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPopularBuddyLists_args(object):
-    """
-    Attributes:
-     - language
-     - country
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        (2, TType.STRING, 'language', 'UTF8', None, ),  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-    )
-
-    def __init__(self, language=None, country=None,):
-        self.language = language
-        self.country = country
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 2:
-                if ftype == TType.STRING:
-                    self.language = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPopularBuddyLists_args')
-        if self.language is not None:
-            oprot.writeFieldBegin('language', TType.STRING, 2)
-            oprot.writeString(self.language.encode('utf-8') if sys.version_info[0] == 2 else self.language)
-            oprot.writeFieldEnd()
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPopularBuddyLists_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.LIST, 'success', (TType.STRUCT, (BuddyList, BuddyList.thrift_spec), False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype908, _size905) = iprot.readListBegin()
-                    for _i909 in range(_size905):
-                        _elem910 = BuddyList()
-                        _elem910.read(iprot)
-                        self.success.append(_elem910)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPopularBuddyLists_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter911 in self.success:
-                iter911.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPromotedBuddyContacts_args(object):
-    """
-    Attributes:
-     - language
-     - country
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        (2, TType.STRING, 'language', 'UTF8', None, ),  # 2
-        (3, TType.STRING, 'country', 'UTF8', None, ),  # 3
-    )
-
-    def __init__(self, language=None, country=None,):
-        self.language = language
-        self.country = country
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 2:
-                if ftype == TType.STRING:
-                    self.language = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.country = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPromotedBuddyContacts_args')
-        if self.language is not None:
-            oprot.writeFieldBegin('language', TType.STRING, 2)
-            oprot.writeString(self.language.encode('utf-8') if sys.version_info[0] == 2 else self.language)
-            oprot.writeFieldEnd()
-        if self.country is not None:
-            oprot.writeFieldBegin('country', TType.STRING, 3)
-            oprot.writeString(self.country.encode('utf-8') if sys.version_info[0] == 2 else self.country)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class getPromotedBuddyContacts_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.LIST, 'success', (TType.STRUCT, (Contact, Contact.thrift_spec), False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype915, _size912) = iprot.readListBegin()
-                    for _i916 in range(_size912):
-                        _elem917 = Contact()
-                        _elem917.read(iprot)
-                        self.success.append(_elem917)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('getPromotedBuddyContacts_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter918 in self.success:
-                iter918.write(oprot)
-            oprot.writeListEnd()
+            oprot.writeFieldBegin('success', TType.STRING, 0)
+            oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
             oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)

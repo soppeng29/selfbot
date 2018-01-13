@@ -16,6 +16,74 @@ from thrift.transport import TTransport
 
 
 class Iface(object):
+    def getChatRoomAnnouncementsBulk(self, chatRoomMids):
+        """
+        Parameters:
+         - chatRoomMids
+        """
+        pass
+
+    def getChatRoomAnnouncements(self, chatRoomMid):
+        """
+        Parameters:
+         - chatRoomMid
+        """
+        pass
+
+    def createChatRoomAnnouncement(self, reqSeq, chatRoomMid, type, contents):
+        """
+        Parameters:
+         - reqSeq
+         - chatRoomMid
+         - type
+         - contents
+        """
+        pass
+
+    def removeChatRoomAnnouncement(self, reqSeq, chatRoomMid, announcementSeq):
+        """
+        Parameters:
+         - reqSeq
+         - chatRoomMid
+         - announcementSeq
+        """
+        pass
+
+    def unsendMessage(self, seq, messageId):
+        """
+        Parameters:
+         - seq
+         - messageId
+        """
+        pass
+
+    def getGroupWithoutMembers(self, groupId):
+        """
+        Parameters:
+         - groupId
+        """
+        pass
+
+    def requestResendMessage(self, reqSeq, senderMid, messageId):
+        """
+        Parameters:
+         - reqSeq
+         - senderMid
+         - messageId
+        """
+        pass
+
+    def respondResendMessage(self, reqSeq, receiverMid, originalMessageId, resendMessage, errorCode):
+        """
+        Parameters:
+         - reqSeq
+         - receiverMid
+         - originalMessageId
+         - resendMessage
+         - errorCode
+        """
+        pass
+
     def acceptGroupInvitation(self, reqSeq, groupId):
         """
         Parameters:
@@ -24,11 +92,11 @@ class Iface(object):
         """
         pass
 
-    def acceptGroupInvitationByTicket(self, reqSeq, groupId, ticketId):
+    def acceptGroupInvitationByTicket(self, reqSeq, GroupMid, ticketId):
         """
         Parameters:
          - reqSeq
-         - groupId
+         - GroupMid
          - ticketId
         """
         pass
@@ -230,11 +298,20 @@ class Iface(object):
         """
         pass
 
-    def findAndAddContactsByMid(self, reqSeq, mid):
+    def findAndAddContactsByMid(self, reqSeq, mid, type, reference):
         """
         Parameters:
          - reqSeq
          - mid
+         - type
+         - reference
+        """
+        pass
+
+    def findGroupByTicketV2(self, ticketId):
+        """
+        Parameters:
+         - ticketId
         """
         pass
 
@@ -243,6 +320,22 @@ class Iface(object):
         Parameters:
          - reqSeq
          - phones
+        """
+        pass
+
+    def getFriendRequests(self, direction, lastSeenSeqId):
+        """
+        Parameters:
+         - direction
+         - lastSeenSeqId
+        """
+        pass
+
+    def removeFriendRequest(self, direction, midOrEMid):
+        """
+        Parameters:
+         - direction
+         - midOrEMid
         """
         pass
 
@@ -261,10 +354,10 @@ class Iface(object):
         """
         pass
 
-    def findContactByUserTicket(self, ticketId):
+    def findContactByUserTicket(self, ticketIdWithTag):
         """
         Parameters:
-         - ticketId
+         - ticketIdWithTag
         """
         pass
 
@@ -328,6 +421,55 @@ class Iface(object):
         pass
 
     def getBlockedContactIds(self):
+        pass
+
+    def registerWithPhoneNumber(self, sessionId, migrationPincodeSessionId):
+        """
+        Parameters:
+         - sessionId
+         - migrationPincodeSessionId
+        """
+        pass
+
+    def registerWithPhoneNumberAndPassword(self, sessionId, keynm, encrypted):
+        """
+        Parameters:
+         - sessionId
+         - keynm
+         - encrypted
+        """
+        pass
+
+    def getAnalyticsInfo(self):
+        pass
+
+    def reportClientStatistics(self, reqSeq, category, count):
+        """
+        Parameters:
+         - reqSeq
+         - category
+         - count
+        """
+        pass
+
+    def verifyPhoneNumberForLogin(self, verifierFromPhone, pinCodeForPhone, verifierFromLogin):
+        """
+        Parameters:
+         - verifierFromPhone
+         - pinCodeForPhone
+         - verifierFromLogin
+        """
+        pass
+
+    def verifyPhoneNumber(self, sessionId, pinCode, udidHash, migrationPincodeSessionId, oldUdidHash):
+        """
+        Parameters:
+         - sessionId
+         - pinCode
+         - udidHash
+         - migrationPincodeSessionId
+         - oldUdidHash
+        """
         pass
 
     def getBlockedContactIdsByRange(self, start, count):
@@ -648,10 +790,17 @@ class Iface(object):
         """
         pass
 
-    def reissueGroupTicket(self, groupId):
+    def reissueGroupTicket(self, groupMid):
         """
         Parameters:
-         - groupId
+         - groupMid
+        """
+        pass
+
+    def findGroupByTicket(self, ticketId):
+        """
+        Parameters:
+         - ticketId
         """
         pass
 
@@ -715,13 +864,6 @@ class Iface(object):
         """
         Parameters:
          - verifier
-        """
-        pass
-
-    def loginZ(self, LoginRequest):
-        """
-        Parameters:
-         - LoginRequest
         """
         pass
 
@@ -918,6 +1060,13 @@ class Iface(object):
         """
         pass
 
+    def getMessageReadRange(self, chatIds):
+        """
+        Parameters:
+         - chatIds
+        """
+        pass
+
     def rejectGroupInvitation(self, reqSeq, groupId):
         """
         Parameters:
@@ -1110,6 +1259,64 @@ class Iface(object):
     def sendDummyPush(self):
         pass
 
+    def removeE2EEPublicKey(self, publicKey):
+        """
+        Parameters:
+         - publicKey
+        """
+        pass
+
+    def negotiateE2EEPublicKey(self, mid):
+        """
+        Parameters:
+         - mid
+        """
+        pass
+
+    def getE2EEPublicKey(self, mid, version, keyId):
+        """
+        Parameters:
+         - mid
+         - version
+         - keyId
+        """
+        pass
+
+    def requestE2EEKeyExchange(self, reqSeq, temporalPublicKey, publicKey, verifier):
+        """
+        Parameters:
+         - reqSeq
+         - temporalPublicKey
+         - publicKey
+         - verifier
+        """
+        pass
+
+    def getLastE2EEPublicKeys(self, chatMid):
+        """
+        Parameters:
+         - chatMid
+        """
+        pass
+
+    def registerE2EEPublicKey(self, reqSeq, publicKey):
+        """
+        Parameters:
+         - reqSeq
+         - publicKey
+        """
+        pass
+
+    def getE2EEPublicKeys(self):
+        pass
+
+    def getE2EEPublicKeysEx(self, ignoreE2EEStatus):
+        """
+        Parameters:
+         - ignoreE2EEStatus
+        """
+        pass
+
     def sendEvent(self, seq, message):
         """
         Parameters:
@@ -1144,6 +1351,14 @@ class Iface(object):
         """
         pass
 
+    def findContactByMetaTag(self, userid, reference):
+        """
+        Parameters:
+         - userid
+         - reference
+        """
+        pass
+
     def sendMessageToMyHome(self, seq, message):
         """
         Parameters:
@@ -1161,12 +1376,12 @@ class Iface(object):
         """
         pass
 
-    def setIdentityCredential(self, provider, identifier, verifier):
+    def setIdentityCredential(self, identifier, verifier, provider):
         """
         Parameters:
-         - provider
          - identifier
          - verifier
+         - provider
         """
         pass
 
@@ -1193,7 +1408,7 @@ class Iface(object):
         """
         pass
 
-    def startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale):
+    def startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale, simInfo, oldUdidHash):
         """
         Parameters:
          - region
@@ -1204,6 +1419,25 @@ class Iface(object):
          - networkCode
          - mid
          - locale
+         - simInfo
+         - oldUdidHash
+        """
+        pass
+
+    def updateGroupPreferenceAttribute(self, reqSeq, groupMid, updatedAttrs):
+        """
+        Parameters:
+         - reqSeq
+         - groupMid
+         - updatedAttrs
+        """
+        pass
+
+    def createRoomV2(self, reqSeq, contactIds):
+        """
+        Parameters:
+         - reqSeq
+         - contactIds
         """
         pass
 
@@ -1430,6 +1664,286 @@ class Client(Iface):
             self._oprot = oprot
         self._seqid = 0
 
+    def getChatRoomAnnouncementsBulk(self, chatRoomMids):
+        """
+        Parameters:
+         - chatRoomMids
+        """
+        self.send_getChatRoomAnnouncementsBulk(chatRoomMids)
+        return self.recv_getChatRoomAnnouncementsBulk()
+
+    def send_getChatRoomAnnouncementsBulk(self, chatRoomMids):
+        self._oprot.writeMessageBegin('getChatRoomAnnouncementsBulk', TMessageType.CALL, self._seqid)
+        args = getChatRoomAnnouncementsBulk_args()
+        args.chatRoomMids = chatRoomMids
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getChatRoomAnnouncementsBulk(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getChatRoomAnnouncementsBulk_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getChatRoomAnnouncementsBulk failed: unknown result")
+
+    def getChatRoomAnnouncements(self, chatRoomMid):
+        """
+        Parameters:
+         - chatRoomMid
+        """
+        self.send_getChatRoomAnnouncements(chatRoomMid)
+        return self.recv_getChatRoomAnnouncements()
+
+    def send_getChatRoomAnnouncements(self, chatRoomMid):
+        self._oprot.writeMessageBegin('getChatRoomAnnouncements', TMessageType.CALL, self._seqid)
+        args = getChatRoomAnnouncements_args()
+        args.chatRoomMid = chatRoomMid
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getChatRoomAnnouncements(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getChatRoomAnnouncements_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getChatRoomAnnouncements failed: unknown result")
+
+    def createChatRoomAnnouncement(self, reqSeq, chatRoomMid, type, contents):
+        """
+        Parameters:
+         - reqSeq
+         - chatRoomMid
+         - type
+         - contents
+        """
+        self.send_createChatRoomAnnouncement(reqSeq, chatRoomMid, type, contents)
+        return self.recv_createChatRoomAnnouncement()
+
+    def send_createChatRoomAnnouncement(self, reqSeq, chatRoomMid, type, contents):
+        self._oprot.writeMessageBegin('createChatRoomAnnouncement', TMessageType.CALL, self._seqid)
+        args = createChatRoomAnnouncement_args()
+        args.reqSeq = reqSeq
+        args.chatRoomMid = chatRoomMid
+        args.type = type
+        args.contents = contents
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_createChatRoomAnnouncement(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = createChatRoomAnnouncement_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "createChatRoomAnnouncement failed: unknown result")
+
+    def removeChatRoomAnnouncement(self, reqSeq, chatRoomMid, announcementSeq):
+        """
+        Parameters:
+         - reqSeq
+         - chatRoomMid
+         - announcementSeq
+        """
+        self.send_removeChatRoomAnnouncement(reqSeq, chatRoomMid, announcementSeq)
+        self.recv_removeChatRoomAnnouncement()
+
+    def send_removeChatRoomAnnouncement(self, reqSeq, chatRoomMid, announcementSeq):
+        self._oprot.writeMessageBegin('removeChatRoomAnnouncement', TMessageType.CALL, self._seqid)
+        args = removeChatRoomAnnouncement_args()
+        args.reqSeq = reqSeq
+        args.chatRoomMid = chatRoomMid
+        args.announcementSeq = announcementSeq
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_removeChatRoomAnnouncement(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = removeChatRoomAnnouncement_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def unsendMessage(self, seq, messageId):
+        """
+        Parameters:
+         - seq
+         - messageId
+        """
+        self.send_unsendMessage(seq, messageId)
+        self.recv_unsendMessage()
+
+    def send_unsendMessage(self, seq, messageId):
+        self._oprot.writeMessageBegin('unsendMessage', TMessageType.CALL, self._seqid)
+        args = unsendMessage_args()
+        args.seq = seq
+        args.messageId = messageId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_unsendMessage(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = unsendMessage_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def getGroupWithoutMembers(self, groupId):
+        """
+        Parameters:
+         - groupId
+        """
+        self.send_getGroupWithoutMembers(groupId)
+        return self.recv_getGroupWithoutMembers()
+
+    def send_getGroupWithoutMembers(self, groupId):
+        self._oprot.writeMessageBegin('getGroupWithoutMembers', TMessageType.CALL, self._seqid)
+        args = getGroupWithoutMembers_args()
+        args.groupId = groupId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getGroupWithoutMembers(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getGroupWithoutMembers_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getGroupWithoutMembers failed: unknown result")
+
+    def requestResendMessage(self, reqSeq, senderMid, messageId):
+        """
+        Parameters:
+         - reqSeq
+         - senderMid
+         - messageId
+        """
+        self.send_requestResendMessage(reqSeq, senderMid, messageId)
+        self.recv_requestResendMessage()
+
+    def send_requestResendMessage(self, reqSeq, senderMid, messageId):
+        self._oprot.writeMessageBegin('requestResendMessage', TMessageType.CALL, self._seqid)
+        args = requestResendMessage_args()
+        args.reqSeq = reqSeq
+        args.senderMid = senderMid
+        args.messageId = messageId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_requestResendMessage(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = requestResendMessage_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def respondResendMessage(self, reqSeq, receiverMid, originalMessageId, resendMessage, errorCode):
+        """
+        Parameters:
+         - reqSeq
+         - receiverMid
+         - originalMessageId
+         - resendMessage
+         - errorCode
+        """
+        self.send_respondResendMessage(reqSeq, receiverMid, originalMessageId, resendMessage, errorCode)
+        self.recv_respondResendMessage()
+
+    def send_respondResendMessage(self, reqSeq, receiverMid, originalMessageId, resendMessage, errorCode):
+        self._oprot.writeMessageBegin('respondResendMessage', TMessageType.CALL, self._seqid)
+        args = respondResendMessage_args()
+        args.reqSeq = reqSeq
+        args.receiverMid = receiverMid
+        args.originalMessageId = originalMessageId
+        args.resendMessage = resendMessage
+        args.errorCode = errorCode
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_respondResendMessage(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = respondResendMessage_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
     def acceptGroupInvitation(self, reqSeq, groupId):
         """
         Parameters:
@@ -1463,21 +1977,21 @@ class Client(Iface):
             raise result.e
         return
 
-    def acceptGroupInvitationByTicket(self, reqSeq, groupId, ticketId):
+    def acceptGroupInvitationByTicket(self, reqSeq, GroupMid, ticketId):
         """
         Parameters:
          - reqSeq
-         - groupId
+         - GroupMid
          - ticketId
         """
-        self.send_acceptGroupInvitationByTicket(reqSeq, groupId, ticketId)
+        self.send_acceptGroupInvitationByTicket(reqSeq, GroupMid, ticketId)
         self.recv_acceptGroupInvitationByTicket()
 
-    def send_acceptGroupInvitationByTicket(self, reqSeq, groupId, ticketId):
+    def send_acceptGroupInvitationByTicket(self, reqSeq, GroupMid, ticketId):
         self._oprot.writeMessageBegin('acceptGroupInvitationByTicket', TMessageType.CALL, self._seqid)
         args = acceptGroupInvitationByTicket_args()
         args.reqSeq = reqSeq
-        args.groupId = groupId
+        args.GroupMid = GroupMid
         args.ticketId = ticketId
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
@@ -2357,20 +2871,24 @@ class Client(Iface):
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "findAndAddContactsByEmail failed: unknown result")
 
-    def findAndAddContactsByMid(self, reqSeq, mid):
+    def findAndAddContactsByMid(self, reqSeq, mid, type, reference):
         """
         Parameters:
          - reqSeq
          - mid
+         - type
+         - reference
         """
-        self.send_findAndAddContactsByMid(reqSeq, mid)
+        self.send_findAndAddContactsByMid(reqSeq, mid, type, reference)
         return self.recv_findAndAddContactsByMid()
 
-    def send_findAndAddContactsByMid(self, reqSeq, mid):
+    def send_findAndAddContactsByMid(self, reqSeq, mid, type, reference):
         self._oprot.writeMessageBegin('findAndAddContactsByMid', TMessageType.CALL, self._seqid)
         args = findAndAddContactsByMid_args()
         args.reqSeq = reqSeq
         args.mid = mid
+        args.type = type
+        args.reference = reference
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -2391,6 +2909,39 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "findAndAddContactsByMid failed: unknown result")
+
+    def findGroupByTicketV2(self, ticketId):
+        """
+        Parameters:
+         - ticketId
+        """
+        self.send_findGroupByTicketV2(ticketId)
+        return self.recv_findGroupByTicketV2()
+
+    def send_findGroupByTicketV2(self, ticketId):
+        self._oprot.writeMessageBegin('findGroupByTicketV2', TMessageType.CALL, self._seqid)
+        args = findGroupByTicketV2_args()
+        args.ticketId = ticketId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_findGroupByTicketV2(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = findGroupByTicketV2_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "findGroupByTicketV2 failed: unknown result")
 
     def findAndAddContactsByPhone(self, reqSeq, phones):
         """
@@ -2426,6 +2977,74 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "findAndAddContactsByPhone failed: unknown result")
+
+    def getFriendRequests(self, direction, lastSeenSeqId):
+        """
+        Parameters:
+         - direction
+         - lastSeenSeqId
+        """
+        self.send_getFriendRequests(direction, lastSeenSeqId)
+        return self.recv_getFriendRequests()
+
+    def send_getFriendRequests(self, direction, lastSeenSeqId):
+        self._oprot.writeMessageBegin('getFriendRequests', TMessageType.CALL, self._seqid)
+        args = getFriendRequests_args()
+        args.direction = direction
+        args.lastSeenSeqId = lastSeenSeqId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getFriendRequests(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getFriendRequests_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getFriendRequests failed: unknown result")
+
+    def removeFriendRequest(self, direction, midOrEMid):
+        """
+        Parameters:
+         - direction
+         - midOrEMid
+        """
+        self.send_removeFriendRequest(direction, midOrEMid)
+        self.recv_removeFriendRequest()
+
+    def send_removeFriendRequest(self, direction, midOrEMid):
+        self._oprot.writeMessageBegin('removeFriendRequest', TMessageType.CALL, self._seqid)
+        args = removeFriendRequest_args()
+        args.direction = direction
+        args.midOrEMid = midOrEMid
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_removeFriendRequest(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = removeFriendRequest_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
 
     def findAndAddContactsByUserid(self, reqSeq, userid):
         """
@@ -2495,18 +3114,18 @@ class Client(Iface):
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "findContactByUserid failed: unknown result")
 
-    def findContactByUserTicket(self, ticketId):
+    def findContactByUserTicket(self, ticketIdWithTag):
         """
         Parameters:
-         - ticketId
+         - ticketIdWithTag
         """
-        self.send_findContactByUserTicket(ticketId)
+        self.send_findContactByUserTicket(ticketIdWithTag)
         return self.recv_findContactByUserTicket()
 
-    def send_findContactByUserTicket(self, ticketId):
+    def send_findContactByUserTicket(self, ticketIdWithTag):
         self._oprot.writeMessageBegin('findContactByUserTicket', TMessageType.CALL, self._seqid)
         args = findContactByUserTicket_args()
-        args.ticketId = ticketId
+        args.ticketIdWithTag = ticketIdWithTag
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -2848,6 +3467,219 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "getBlockedContactIds failed: unknown result")
+
+    def registerWithPhoneNumber(self, sessionId, migrationPincodeSessionId):
+        """
+        Parameters:
+         - sessionId
+         - migrationPincodeSessionId
+        """
+        self.send_registerWithPhoneNumber(sessionId, migrationPincodeSessionId)
+        return self.recv_registerWithPhoneNumber()
+
+    def send_registerWithPhoneNumber(self, sessionId, migrationPincodeSessionId):
+        self._oprot.writeMessageBegin('registerWithPhoneNumber', TMessageType.CALL, self._seqid)
+        args = registerWithPhoneNumber_args()
+        args.sessionId = sessionId
+        args.migrationPincodeSessionId = migrationPincodeSessionId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_registerWithPhoneNumber(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = registerWithPhoneNumber_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "registerWithPhoneNumber failed: unknown result")
+
+    def registerWithPhoneNumberAndPassword(self, sessionId, keynm, encrypted):
+        """
+        Parameters:
+         - sessionId
+         - keynm
+         - encrypted
+        """
+        self.send_registerWithPhoneNumberAndPassword(sessionId, keynm, encrypted)
+        return self.recv_registerWithPhoneNumberAndPassword()
+
+    def send_registerWithPhoneNumberAndPassword(self, sessionId, keynm, encrypted):
+        self._oprot.writeMessageBegin('registerWithPhoneNumberAndPassword', TMessageType.CALL, self._seqid)
+        args = registerWithPhoneNumberAndPassword_args()
+        args.sessionId = sessionId
+        args.keynm = keynm
+        args.encrypted = encrypted
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_registerWithPhoneNumberAndPassword(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = registerWithPhoneNumberAndPassword_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "registerWithPhoneNumberAndPassword failed: unknown result")
+
+    def getAnalyticsInfo(self):
+        self.send_getAnalyticsInfo()
+        return self.recv_getAnalyticsInfo()
+
+    def send_getAnalyticsInfo(self):
+        self._oprot.writeMessageBegin('getAnalyticsInfo', TMessageType.CALL, self._seqid)
+        args = getAnalyticsInfo_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getAnalyticsInfo(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getAnalyticsInfo_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getAnalyticsInfo failed: unknown result")
+
+    def reportClientStatistics(self, reqSeq, category, count):
+        """
+        Parameters:
+         - reqSeq
+         - category
+         - count
+        """
+        self.send_reportClientStatistics(reqSeq, category, count)
+        self.recv_reportClientStatistics()
+
+    def send_reportClientStatistics(self, reqSeq, category, count):
+        self._oprot.writeMessageBegin('reportClientStatistics', TMessageType.CALL, self._seqid)
+        args = reportClientStatistics_args()
+        args.reqSeq = reqSeq
+        args.category = category
+        args.count = count
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_reportClientStatistics(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = reportClientStatistics_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def verifyPhoneNumberForLogin(self, verifierFromPhone, pinCodeForPhone, verifierFromLogin):
+        """
+        Parameters:
+         - verifierFromPhone
+         - pinCodeForPhone
+         - verifierFromLogin
+        """
+        self.send_verifyPhoneNumberForLogin(verifierFromPhone, pinCodeForPhone, verifierFromLogin)
+        return self.recv_verifyPhoneNumberForLogin()
+
+    def send_verifyPhoneNumberForLogin(self, verifierFromPhone, pinCodeForPhone, verifierFromLogin):
+        self._oprot.writeMessageBegin('verifyPhoneNumberForLogin', TMessageType.CALL, self._seqid)
+        args = verifyPhoneNumberForLogin_args()
+        args.verifierFromPhone = verifierFromPhone
+        args.pinCodeForPhone = pinCodeForPhone
+        args.verifierFromLogin = verifierFromLogin
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_verifyPhoneNumberForLogin(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = verifyPhoneNumberForLogin_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "verifyPhoneNumberForLogin failed: unknown result")
+
+    def verifyPhoneNumber(self, sessionId, pinCode, udidHash, migrationPincodeSessionId, oldUdidHash):
+        """
+        Parameters:
+         - sessionId
+         - pinCode
+         - udidHash
+         - migrationPincodeSessionId
+         - oldUdidHash
+        """
+        self.send_verifyPhoneNumber(sessionId, pinCode, udidHash, migrationPincodeSessionId, oldUdidHash)
+        return self.recv_verifyPhoneNumber()
+
+    def send_verifyPhoneNumber(self, sessionId, pinCode, udidHash, migrationPincodeSessionId, oldUdidHash):
+        self._oprot.writeMessageBegin('verifyPhoneNumber', TMessageType.CALL, self._seqid)
+        args = verifyPhoneNumber_args()
+        args.sessionId = sessionId
+        args.pinCode = pinCode
+        args.udidHash = udidHash
+        args.migrationPincodeSessionId = migrationPincodeSessionId
+        args.oldUdidHash = oldUdidHash
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_verifyPhoneNumber(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = verifyPhoneNumber_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "verifyPhoneNumber failed: unknown result")
 
     def getBlockedContactIdsByRange(self, start, count):
         """
@@ -4515,18 +5347,18 @@ class Client(Iface):
             raise result.e
         return
 
-    def reissueGroupTicket(self, groupId):
+    def reissueGroupTicket(self, groupMid):
         """
         Parameters:
-         - groupId
+         - groupMid
         """
-        self.send_reissueGroupTicket(groupId)
+        self.send_reissueGroupTicket(groupMid)
         return self.recv_reissueGroupTicket()
 
-    def send_reissueGroupTicket(self, groupId):
+    def send_reissueGroupTicket(self, groupMid):
         self._oprot.writeMessageBegin('reissueGroupTicket', TMessageType.CALL, self._seqid)
         args = reissueGroupTicket_args()
-        args.groupId = groupId
+        args.groupMid = groupMid
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -4547,6 +5379,39 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "reissueGroupTicket failed: unknown result")
+
+    def findGroupByTicket(self, ticketId):
+        """
+        Parameters:
+         - ticketId
+        """
+        self.send_findGroupByTicket(ticketId)
+        return self.recv_findGroupByTicket()
+
+    def send_findGroupByTicket(self, ticketId):
+        self._oprot.writeMessageBegin('findGroupByTicket', TMessageType.CALL, self._seqid)
+        args = findGroupByTicket_args()
+        args.ticketId = ticketId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_findGroupByTicket(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = findGroupByTicket_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "findGroupByTicket failed: unknown result")
 
     def leaveGroup(self, reqSeq, groupId):
         """
@@ -4802,39 +5667,6 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "loginWithVerifierForCertificate failed: unknown result")
-
-    def loginZ(self, LoginRequest):
-        """
-        Parameters:
-         - LoginRequest
-        """
-        self.send_loginZ(LoginRequest)
-        return self.recv_loginZ()
-
-    def send_loginZ(self, LoginRequest):
-        self._oprot.writeMessageBegin('loginZ', TMessageType.CALL, self._seqid)
-        args = loginZ_args()
-        args.LoginRequest = LoginRequest
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_loginZ(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = loginZ_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.e is not None:
-            raise result.e
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "loginZ failed: unknown result")
 
     def logout(self):
         self.send_logout()
@@ -5662,6 +6494,39 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "reissueUserTicket failed: unknown result")
+
+    def getMessageReadRange(self, chatIds):
+        """
+        Parameters:
+         - chatIds
+        """
+        self.send_getMessageReadRange(chatIds)
+        return self.recv_getMessageReadRange()
+
+    def send_getMessageReadRange(self, chatIds):
+        self._oprot.writeMessageBegin('getMessageReadRange', TMessageType.CALL, self._seqid)
+        args = getMessageReadRange_args()
+        args.chatIds = chatIds
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getMessageReadRange(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getMessageReadRange_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getMessageReadRange failed: unknown result")
 
     def rejectGroupInvitation(self, reqSeq, groupId):
         """
@@ -6492,6 +7357,273 @@ class Client(Iface):
             raise result.e
         return
 
+    def removeE2EEPublicKey(self, publicKey):
+        """
+        Parameters:
+         - publicKey
+        """
+        self.send_removeE2EEPublicKey(publicKey)
+        self.recv_removeE2EEPublicKey()
+
+    def send_removeE2EEPublicKey(self, publicKey):
+        self._oprot.writeMessageBegin('removeE2EEPublicKey', TMessageType.CALL, self._seqid)
+        args = removeE2EEPublicKey_args()
+        args.publicKey = publicKey
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_removeE2EEPublicKey(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = removeE2EEPublicKey_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def negotiateE2EEPublicKey(self, mid):
+        """
+        Parameters:
+         - mid
+        """
+        self.send_negotiateE2EEPublicKey(mid)
+        return self.recv_negotiateE2EEPublicKey()
+
+    def send_negotiateE2EEPublicKey(self, mid):
+        self._oprot.writeMessageBegin('negotiateE2EEPublicKey', TMessageType.CALL, self._seqid)
+        args = negotiateE2EEPublicKey_args()
+        args.mid = mid
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_negotiateE2EEPublicKey(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = negotiateE2EEPublicKey_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "negotiateE2EEPublicKey failed: unknown result")
+
+    def getE2EEPublicKey(self, mid, version, keyId):
+        """
+        Parameters:
+         - mid
+         - version
+         - keyId
+        """
+        self.send_getE2EEPublicKey(mid, version, keyId)
+        return self.recv_getE2EEPublicKey()
+
+    def send_getE2EEPublicKey(self, mid, version, keyId):
+        self._oprot.writeMessageBegin('getE2EEPublicKey', TMessageType.CALL, self._seqid)
+        args = getE2EEPublicKey_args()
+        args.mid = mid
+        args.version = version
+        args.keyId = keyId
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getE2EEPublicKey(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getE2EEPublicKey_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getE2EEPublicKey failed: unknown result")
+
+    def requestE2EEKeyExchange(self, reqSeq, temporalPublicKey, publicKey, verifier):
+        """
+        Parameters:
+         - reqSeq
+         - temporalPublicKey
+         - publicKey
+         - verifier
+        """
+        self.send_requestE2EEKeyExchange(reqSeq, temporalPublicKey, publicKey, verifier)
+        self.recv_requestE2EEKeyExchange()
+
+    def send_requestE2EEKeyExchange(self, reqSeq, temporalPublicKey, publicKey, verifier):
+        self._oprot.writeMessageBegin('requestE2EEKeyExchange', TMessageType.CALL, self._seqid)
+        args = requestE2EEKeyExchange_args()
+        args.reqSeq = reqSeq
+        args.temporalPublicKey = temporalPublicKey
+        args.publicKey = publicKey
+        args.verifier = verifier
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_requestE2EEKeyExchange(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = requestE2EEKeyExchange_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def getLastE2EEPublicKeys(self, chatMid):
+        """
+        Parameters:
+         - chatMid
+        """
+        self.send_getLastE2EEPublicKeys(chatMid)
+        return self.recv_getLastE2EEPublicKeys()
+
+    def send_getLastE2EEPublicKeys(self, chatMid):
+        self._oprot.writeMessageBegin('getLastE2EEPublicKeys', TMessageType.CALL, self._seqid)
+        args = getLastE2EEPublicKeys_args()
+        args.chatMid = chatMid
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getLastE2EEPublicKeys(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getLastE2EEPublicKeys_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getLastE2EEPublicKeys failed: unknown result")
+
+    def registerE2EEPublicKey(self, reqSeq, publicKey):
+        """
+        Parameters:
+         - reqSeq
+         - publicKey
+        """
+        self.send_registerE2EEPublicKey(reqSeq, publicKey)
+        return self.recv_registerE2EEPublicKey()
+
+    def send_registerE2EEPublicKey(self, reqSeq, publicKey):
+        self._oprot.writeMessageBegin('registerE2EEPublicKey', TMessageType.CALL, self._seqid)
+        args = registerE2EEPublicKey_args()
+        args.reqSeq = reqSeq
+        args.publicKey = publicKey
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_registerE2EEPublicKey(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = registerE2EEPublicKey_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "registerE2EEPublicKey failed: unknown result")
+
+    def getE2EEPublicKeys(self):
+        self.send_getE2EEPublicKeys()
+        return self.recv_getE2EEPublicKeys()
+
+    def send_getE2EEPublicKeys(self):
+        self._oprot.writeMessageBegin('getE2EEPublicKeys', TMessageType.CALL, self._seqid)
+        args = getE2EEPublicKeys_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getE2EEPublicKeys(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getE2EEPublicKeys_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getE2EEPublicKeys failed: unknown result")
+
+    def getE2EEPublicKeysEx(self, ignoreE2EEStatus):
+        """
+        Parameters:
+         - ignoreE2EEStatus
+        """
+        self.send_getE2EEPublicKeysEx(ignoreE2EEStatus)
+        return self.recv_getE2EEPublicKeysEx()
+
+    def send_getE2EEPublicKeysEx(self, ignoreE2EEStatus):
+        self._oprot.writeMessageBegin('getE2EEPublicKeysEx', TMessageType.CALL, self._seqid)
+        args = getE2EEPublicKeysEx_args()
+        args.ignoreE2EEStatus = ignoreE2EEStatus
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getE2EEPublicKeysEx(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getE2EEPublicKeysEx_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getE2EEPublicKeysEx failed: unknown result")
+
     def sendEvent(self, seq, message):
         """
         Parameters:
@@ -6632,6 +7764,41 @@ class Client(Iface):
             raise result.e
         return
 
+    def findContactByMetaTag(self, userid, reference):
+        """
+        Parameters:
+         - userid
+         - reference
+        """
+        self.send_findContactByMetaTag(userid, reference)
+        return self.recv_findContactByMetaTag()
+
+    def send_findContactByMetaTag(self, userid, reference):
+        self._oprot.writeMessageBegin('findContactByMetaTag', TMessageType.CALL, self._seqid)
+        args = findContactByMetaTag_args()
+        args.userid = userid
+        args.reference = reference
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_findContactByMetaTag(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = findContactByMetaTag_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "findContactByMetaTag failed: unknown result")
+
     def sendMessageToMyHome(self, seq, message):
         """
         Parameters:
@@ -6702,22 +7869,22 @@ class Client(Iface):
             raise result.e
         return
 
-    def setIdentityCredential(self, provider, identifier, verifier):
+    def setIdentityCredential(self, identifier, verifier, provider):
         """
         Parameters:
-         - provider
          - identifier
          - verifier
+         - provider
         """
-        self.send_setIdentityCredential(provider, identifier, verifier)
+        self.send_setIdentityCredential(identifier, verifier, provider)
         self.recv_setIdentityCredential()
 
-    def send_setIdentityCredential(self, provider, identifier, verifier):
+    def send_setIdentityCredential(self, identifier, verifier, provider):
         self._oprot.writeMessageBegin('setIdentityCredential', TMessageType.CALL, self._seqid)
         args = setIdentityCredential_args()
-        args.provider = provider
         args.identifier = identifier
         args.verifier = verifier
+        args.provider = provider
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -6819,7 +7986,7 @@ class Client(Iface):
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "startUpdateVerification failed: unknown result")
 
-    def startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale):
+    def startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale, simInfo, oldUdidHash):
         """
         Parameters:
          - region
@@ -6830,11 +7997,13 @@ class Client(Iface):
          - networkCode
          - mid
          - locale
+         - simInfo
+         - oldUdidHash
         """
-        self.send_startVerification(region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale)
+        self.send_startVerification(region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale, simInfo, oldUdidHash)
         return self.recv_startVerification()
 
-    def send_startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale):
+    def send_startVerification(self, region, carrier, phone, udidHash, deviceInfo, networkCode, mid, locale, simInfo, oldUdidHash):
         self._oprot.writeMessageBegin('startVerification', TMessageType.CALL, self._seqid)
         args = startVerification_args()
         args.region = region
@@ -6845,6 +8014,8 @@ class Client(Iface):
         args.networkCode = networkCode
         args.mid = mid
         args.locale = locale
+        args.simInfo = simInfo
+        args.oldUdidHash = oldUdidHash
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -6865,6 +8036,76 @@ class Client(Iface):
         if result.e is not None:
             raise result.e
         raise TApplicationException(TApplicationException.MISSING_RESULT, "startVerification failed: unknown result")
+
+    def updateGroupPreferenceAttribute(self, reqSeq, groupMid, updatedAttrs):
+        """
+        Parameters:
+         - reqSeq
+         - groupMid
+         - updatedAttrs
+        """
+        self.send_updateGroupPreferenceAttribute(reqSeq, groupMid, updatedAttrs)
+        self.recv_updateGroupPreferenceAttribute()
+
+    def send_updateGroupPreferenceAttribute(self, reqSeq, groupMid, updatedAttrs):
+        self._oprot.writeMessageBegin('updateGroupPreferenceAttribute', TMessageType.CALL, self._seqid)
+        args = updateGroupPreferenceAttribute_args()
+        args.reqSeq = reqSeq
+        args.groupMid = groupMid
+        args.updatedAttrs = updatedAttrs
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_updateGroupPreferenceAttribute(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = updateGroupPreferenceAttribute_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.e is not None:
+            raise result.e
+        return
+
+    def createRoomV2(self, reqSeq, contactIds):
+        """
+        Parameters:
+         - reqSeq
+         - contactIds
+        """
+        self.send_createRoomV2(reqSeq, contactIds)
+        return self.recv_createRoomV2()
+
+    def send_createRoomV2(self, reqSeq, contactIds):
+        self._oprot.writeMessageBegin('createRoomV2', TMessageType.CALL, self._seqid)
+        args = createRoomV2_args()
+        args.reqSeq = reqSeq
+        args.contactIds = contactIds
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_createRoomV2(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = createRoomV2_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.e is not None:
+            raise result.e
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "createRoomV2 failed: unknown result")
 
     def storeUpdateProfileAttribute(self, seq, profileAttribute, value):
         """
@@ -7781,6 +9022,14 @@ class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
+        self._processMap["getChatRoomAnnouncementsBulk"] = Processor.process_getChatRoomAnnouncementsBulk
+        self._processMap["getChatRoomAnnouncements"] = Processor.process_getChatRoomAnnouncements
+        self._processMap["createChatRoomAnnouncement"] = Processor.process_createChatRoomAnnouncement
+        self._processMap["removeChatRoomAnnouncement"] = Processor.process_removeChatRoomAnnouncement
+        self._processMap["unsendMessage"] = Processor.process_unsendMessage
+        self._processMap["getGroupWithoutMembers"] = Processor.process_getGroupWithoutMembers
+        self._processMap["requestResendMessage"] = Processor.process_requestResendMessage
+        self._processMap["respondResendMessage"] = Processor.process_respondResendMessage
         self._processMap["acceptGroupInvitation"] = Processor.process_acceptGroupInvitation
         self._processMap["acceptGroupInvitationByTicket"] = Processor.process_acceptGroupInvitationByTicket
         self._processMap["acceptProximityMatches"] = Processor.process_acceptProximityMatches
@@ -7809,7 +9058,10 @@ class Processor(Iface, TProcessor):
         self._processMap["fetchOps"] = Processor.process_fetchOps
         self._processMap["findAndAddContactsByEmail"] = Processor.process_findAndAddContactsByEmail
         self._processMap["findAndAddContactsByMid"] = Processor.process_findAndAddContactsByMid
+        self._processMap["findGroupByTicketV2"] = Processor.process_findGroupByTicketV2
         self._processMap["findAndAddContactsByPhone"] = Processor.process_findAndAddContactsByPhone
+        self._processMap["getFriendRequests"] = Processor.process_getFriendRequests
+        self._processMap["removeFriendRequest"] = Processor.process_removeFriendRequest
         self._processMap["findAndAddContactsByUserid"] = Processor.process_findAndAddContactsByUserid
         self._processMap["findContactByUserid"] = Processor.process_findContactByUserid
         self._processMap["findContactByUserTicket"] = Processor.process_findContactByUserTicket
@@ -7823,6 +9075,12 @@ class Processor(Iface, TProcessor):
         self._processMap["getAllContactIds"] = Processor.process_getAllContactIds
         self._processMap["getAuthQrcode"] = Processor.process_getAuthQrcode
         self._processMap["getBlockedContactIds"] = Processor.process_getBlockedContactIds
+        self._processMap["registerWithPhoneNumber"] = Processor.process_registerWithPhoneNumber
+        self._processMap["registerWithPhoneNumberAndPassword"] = Processor.process_registerWithPhoneNumberAndPassword
+        self._processMap["getAnalyticsInfo"] = Processor.process_getAnalyticsInfo
+        self._processMap["reportClientStatistics"] = Processor.process_reportClientStatistics
+        self._processMap["verifyPhoneNumberForLogin"] = Processor.process_verifyPhoneNumberForLogin
+        self._processMap["verifyPhoneNumber"] = Processor.process_verifyPhoneNumber
         self._processMap["getBlockedContactIdsByRange"] = Processor.process_getBlockedContactIdsByRange
         self._processMap["getBlockedRecommendationIds"] = Processor.process_getBlockedRecommendationIds
         self._processMap["getBuddyBlockerIds"] = Processor.process_getBuddyBlockerIds
@@ -7876,6 +9134,7 @@ class Processor(Iface, TProcessor):
         self._processMap["isUseridAvailable"] = Processor.process_isUseridAvailable
         self._processMap["kickoutFromGroup"] = Processor.process_kickoutFromGroup
         self._processMap["reissueGroupTicket"] = Processor.process_reissueGroupTicket
+        self._processMap["findGroupByTicket"] = Processor.process_findGroupByTicket
         self._processMap["leaveGroup"] = Processor.process_leaveGroup
         self._processMap["leaveRoom"] = Processor.process_leaveRoom
         self._processMap["loginWithIdentityCredential"] = Processor.process_loginWithIdentityCredential
@@ -7883,7 +9142,6 @@ class Processor(Iface, TProcessor):
         self._processMap["loginWithVerifier"] = Processor.process_loginWithVerifier
         self._processMap["loginWithVerifierForCerificate"] = Processor.process_loginWithVerifierForCerificate
         self._processMap["loginWithVerifierForCertificate"] = Processor.process_loginWithVerifierForCertificate
-        self._processMap["loginZ"] = Processor.process_loginZ
         self._processMap["logout"] = Processor.process_logout
         self._processMap["logoutSession"] = Processor.process_logoutSession
         self._processMap["noop"] = Processor.process_noop
@@ -7908,6 +9166,7 @@ class Processor(Iface, TProcessor):
         self._processMap["registerWithSnsIdAndIdentityCredential"] = Processor.process_registerWithSnsIdAndIdentityCredential
         self._processMap["reissueDeviceCredential"] = Processor.process_reissueDeviceCredential
         self._processMap["reissueUserTicket"] = Processor.process_reissueUserTicket
+        self._processMap["getMessageReadRange"] = Processor.process_getMessageReadRange
         self._processMap["rejectGroupInvitation"] = Processor.process_rejectGroupInvitation
         self._processMap["releaseSession"] = Processor.process_releaseSession
         self._processMap["removeAllMessages"] = Processor.process_removeAllMessages
@@ -7933,16 +9192,27 @@ class Processor(Iface, TProcessor):
         self._processMap["sendContentPreviewUpdated"] = Processor.process_sendContentPreviewUpdated
         self._processMap["sendContentReceipt"] = Processor.process_sendContentReceipt
         self._processMap["sendDummyPush"] = Processor.process_sendDummyPush
+        self._processMap["removeE2EEPublicKey"] = Processor.process_removeE2EEPublicKey
+        self._processMap["negotiateE2EEPublicKey"] = Processor.process_negotiateE2EEPublicKey
+        self._processMap["getE2EEPublicKey"] = Processor.process_getE2EEPublicKey
+        self._processMap["requestE2EEKeyExchange"] = Processor.process_requestE2EEKeyExchange
+        self._processMap["getLastE2EEPublicKeys"] = Processor.process_getLastE2EEPublicKeys
+        self._processMap["registerE2EEPublicKey"] = Processor.process_registerE2EEPublicKey
+        self._processMap["getE2EEPublicKeys"] = Processor.process_getE2EEPublicKeys
+        self._processMap["getE2EEPublicKeysEx"] = Processor.process_getE2EEPublicKeysEx
         self._processMap["sendEvent"] = Processor.process_sendEvent
         self._processMap["sendMessage"] = Processor.process_sendMessage
         self._processMap["sendMessageIgnored"] = Processor.process_sendMessageIgnored
         self._processMap["sendMessageReceipt"] = Processor.process_sendMessageReceipt
+        self._processMap["findContactByMetaTag"] = Processor.process_findContactByMetaTag
         self._processMap["sendMessageToMyHome"] = Processor.process_sendMessageToMyHome
         self._processMap["setBuddyLocation"] = Processor.process_setBuddyLocation
         self._processMap["setIdentityCredential"] = Processor.process_setIdentityCredential
         self._processMap["setNotificationsEnabled"] = Processor.process_setNotificationsEnabled
         self._processMap["startUpdateVerification"] = Processor.process_startUpdateVerification
         self._processMap["startVerification"] = Processor.process_startVerification
+        self._processMap["updateGroupPreferenceAttribute"] = Processor.process_updateGroupPreferenceAttribute
+        self._processMap["createRoomV2"] = Processor.process_createRoomV2
         self._processMap["storeUpdateProfileAttribute"] = Processor.process_storeUpdateProfileAttribute
         self._processMap["syncContactBySnsIds"] = Processor.process_syncContactBySnsIds
         self._processMap["syncContacts"] = Processor.process_syncContacts
@@ -7986,6 +9256,182 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
+    def process_getChatRoomAnnouncementsBulk(self, seqid, iprot, oprot):
+        args = getChatRoomAnnouncementsBulk_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getChatRoomAnnouncementsBulk_result()
+        try:
+            result.success = self._handler.getChatRoomAnnouncementsBulk(args.chatRoomMids)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getChatRoomAnnouncementsBulk", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getChatRoomAnnouncements(self, seqid, iprot, oprot):
+        args = getChatRoomAnnouncements_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getChatRoomAnnouncements_result()
+        try:
+            result.success = self._handler.getChatRoomAnnouncements(args.chatRoomMid)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getChatRoomAnnouncements", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_createChatRoomAnnouncement(self, seqid, iprot, oprot):
+        args = createChatRoomAnnouncement_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = createChatRoomAnnouncement_result()
+        try:
+            result.success = self._handler.createChatRoomAnnouncement(args.reqSeq, args.chatRoomMid, args.type, args.contents)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("createChatRoomAnnouncement", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_removeChatRoomAnnouncement(self, seqid, iprot, oprot):
+        args = removeChatRoomAnnouncement_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = removeChatRoomAnnouncement_result()
+        try:
+            self._handler.removeChatRoomAnnouncement(args.reqSeq, args.chatRoomMid, args.announcementSeq)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("removeChatRoomAnnouncement", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_unsendMessage(self, seqid, iprot, oprot):
+        args = unsendMessage_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = unsendMessage_result()
+        try:
+            self._handler.unsendMessage(args.seq, args.messageId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("unsendMessage", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getGroupWithoutMembers(self, seqid, iprot, oprot):
+        args = getGroupWithoutMembers_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getGroupWithoutMembers_result()
+        try:
+            result.success = self._handler.getGroupWithoutMembers(args.groupId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getGroupWithoutMembers", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_requestResendMessage(self, seqid, iprot, oprot):
+        args = requestResendMessage_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = requestResendMessage_result()
+        try:
+            self._handler.requestResendMessage(args.reqSeq, args.senderMid, args.messageId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("requestResendMessage", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_respondResendMessage(self, seqid, iprot, oprot):
+        args = respondResendMessage_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = respondResendMessage_result()
+        try:
+            self._handler.respondResendMessage(args.reqSeq, args.receiverMid, args.originalMessageId, args.resendMessage, args.errorCode)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("respondResendMessage", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
     def process_acceptGroupInvitation(self, seqid, iprot, oprot):
         args = acceptGroupInvitation_args()
         args.read(iprot)
@@ -8014,7 +9460,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = acceptGroupInvitationByTicket_result()
         try:
-            self._handler.acceptGroupInvitationByTicket(args.reqSeq, args.groupId, args.ticketId)
+            self._handler.acceptGroupInvitationByTicket(args.reqSeq, args.GroupMid, args.ticketId)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -8524,7 +9970,7 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
-        except TalkException as e:
+        except ShouldSyncException as e:
             msg_type = TMessageType.REPLY
             result.e = e
         except Exception as ex:
@@ -8546,7 +9992,7 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
-        except TalkException as e:
+        except ShouldSyncException as e:
             msg_type = TMessageType.REPLY
             result.e = e
         except Exception as ex:
@@ -8586,7 +10032,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = findAndAddContactsByMid_result()
         try:
-            result.success = self._handler.findAndAddContactsByMid(args.reqSeq, args.mid)
+            result.success = self._handler.findAndAddContactsByMid(args.reqSeq, args.mid, args.type, args.reference)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -8598,6 +10044,28 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("findAndAddContactsByMid", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_findGroupByTicketV2(self, seqid, iprot, oprot):
+        args = findGroupByTicketV2_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = findGroupByTicketV2_result()
+        try:
+            result.success = self._handler.findGroupByTicketV2(args.ticketId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("findGroupByTicketV2", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -8620,6 +10088,50 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("findAndAddContactsByPhone", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getFriendRequests(self, seqid, iprot, oprot):
+        args = getFriendRequests_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getFriendRequests_result()
+        try:
+            result.success = self._handler.getFriendRequests(args.direction, args.lastSeenSeqId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getFriendRequests", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_removeFriendRequest(self, seqid, iprot, oprot):
+        args = removeFriendRequest_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = removeFriendRequest_result()
+        try:
+            self._handler.removeFriendRequest(args.direction, args.midOrEMid)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("removeFriendRequest", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -8674,7 +10186,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = findContactByUserTicket_result()
         try:
-            result.success = self._handler.findContactByUserTicket(args.ticketId)
+            result.success = self._handler.findContactByUserTicket(args.ticketIdWithTag)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -8906,6 +10418,138 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("getBlockedContactIds", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_registerWithPhoneNumber(self, seqid, iprot, oprot):
+        args = registerWithPhoneNumber_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = registerWithPhoneNumber_result()
+        try:
+            result.success = self._handler.registerWithPhoneNumber(args.sessionId, args.migrationPincodeSessionId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("registerWithPhoneNumber", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_registerWithPhoneNumberAndPassword(self, seqid, iprot, oprot):
+        args = registerWithPhoneNumberAndPassword_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = registerWithPhoneNumberAndPassword_result()
+        try:
+            result.success = self._handler.registerWithPhoneNumberAndPassword(args.sessionId, args.keynm, args.encrypted)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("registerWithPhoneNumberAndPassword", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getAnalyticsInfo(self, seqid, iprot, oprot):
+        args = getAnalyticsInfo_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getAnalyticsInfo_result()
+        try:
+            result.success = self._handler.getAnalyticsInfo()
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getAnalyticsInfo", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_reportClientStatistics(self, seqid, iprot, oprot):
+        args = reportClientStatistics_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = reportClientStatistics_result()
+        try:
+            self._handler.reportClientStatistics(args.reqSeq, args.category, args.count)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("reportClientStatistics", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_verifyPhoneNumberForLogin(self, seqid, iprot, oprot):
+        args = verifyPhoneNumberForLogin_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = verifyPhoneNumberForLogin_result()
+        try:
+            result.success = self._handler.verifyPhoneNumberForLogin(args.verifierFromPhone, args.pinCodeForPhone, args.verifierFromLogin)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("verifyPhoneNumberForLogin", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_verifyPhoneNumber(self, seqid, iprot, oprot):
+        args = verifyPhoneNumber_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = verifyPhoneNumber_result()
+        try:
+            result.success = self._handler.verifyPhoneNumber(args.sessionId, args.pinCode, args.udidHash, args.migrationPincodeSessionId, args.oldUdidHash)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("verifyPhoneNumber", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -10060,7 +11704,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = reissueGroupTicket_result()
         try:
-            result.success = self._handler.reissueGroupTicket(args.groupId)
+            result.success = self._handler.reissueGroupTicket(args.groupMid)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -10072,6 +11716,28 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("reissueGroupTicket", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_findGroupByTicket(self, seqid, iprot, oprot):
+        args = findGroupByTicket_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = findGroupByTicket_result()
+        try:
+            result.success = self._handler.findGroupByTicket(args.ticketId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("findGroupByTicket", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -10226,28 +11892,6 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("loginWithVerifierForCertificate", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_loginZ(self, seqid, iprot, oprot):
-        args = loginZ_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = loginZ_result()
-        try:
-            result.success = self._handler.loginZ(args.LoginRequest)
-            msg_type = TMessageType.REPLY
-        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
-            raise
-        except TalkException as e:
-            msg_type = TMessageType.REPLY
-            result.e = e
-        except Exception as ex:
-            msg_type = TMessageType.EXCEPTION
-            logging.exception(ex)
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("loginZ", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -10770,6 +12414,28 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("reissueUserTicket", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getMessageReadRange(self, seqid, iprot, oprot):
+        args = getMessageReadRange_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getMessageReadRange_result()
+        try:
+            result.success = self._handler.getMessageReadRange(args.chatIds)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getMessageReadRange", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -11324,6 +12990,182 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
+    def process_removeE2EEPublicKey(self, seqid, iprot, oprot):
+        args = removeE2EEPublicKey_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = removeE2EEPublicKey_result()
+        try:
+            self._handler.removeE2EEPublicKey(args.publicKey)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("removeE2EEPublicKey", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_negotiateE2EEPublicKey(self, seqid, iprot, oprot):
+        args = negotiateE2EEPublicKey_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = negotiateE2EEPublicKey_result()
+        try:
+            result.success = self._handler.negotiateE2EEPublicKey(args.mid)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("negotiateE2EEPublicKey", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getE2EEPublicKey(self, seqid, iprot, oprot):
+        args = getE2EEPublicKey_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getE2EEPublicKey_result()
+        try:
+            result.success = self._handler.getE2EEPublicKey(args.mid, args.version, args.keyId)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getE2EEPublicKey", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_requestE2EEKeyExchange(self, seqid, iprot, oprot):
+        args = requestE2EEKeyExchange_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = requestE2EEKeyExchange_result()
+        try:
+            self._handler.requestE2EEKeyExchange(args.reqSeq, args.temporalPublicKey, args.publicKey, args.verifier)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("requestE2EEKeyExchange", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getLastE2EEPublicKeys(self, seqid, iprot, oprot):
+        args = getLastE2EEPublicKeys_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getLastE2EEPublicKeys_result()
+        try:
+            result.success = self._handler.getLastE2EEPublicKeys(args.chatMid)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getLastE2EEPublicKeys", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_registerE2EEPublicKey(self, seqid, iprot, oprot):
+        args = registerE2EEPublicKey_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = registerE2EEPublicKey_result()
+        try:
+            result.success = self._handler.registerE2EEPublicKey(args.reqSeq, args.publicKey)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("registerE2EEPublicKey", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getE2EEPublicKeys(self, seqid, iprot, oprot):
+        args = getE2EEPublicKeys_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getE2EEPublicKeys_result()
+        try:
+            result.success = self._handler.getE2EEPublicKeys()
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getE2EEPublicKeys", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getE2EEPublicKeysEx(self, seqid, iprot, oprot):
+        args = getE2EEPublicKeysEx_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getE2EEPublicKeysEx_result()
+        try:
+            result.success = self._handler.getE2EEPublicKeysEx(args.ignoreE2EEStatus)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getE2EEPublicKeysEx", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
     def process_sendEvent(self, seqid, iprot, oprot):
         args = sendEvent_args()
         args.read(iprot)
@@ -11412,6 +13254,28 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
+    def process_findContactByMetaTag(self, seqid, iprot, oprot):
+        args = findContactByMetaTag_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = findContactByMetaTag_result()
+        try:
+            result.success = self._handler.findContactByMetaTag(args.userid, args.reference)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("findContactByMetaTag", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
     def process_sendMessageToMyHome(self, seqid, iprot, oprot):
         args = sendMessageToMyHome_args()
         args.read(iprot)
@@ -11462,7 +13326,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = setIdentityCredential_result()
         try:
-            self._handler.setIdentityCredential(args.provider, args.identifier, args.verifier)
+            self._handler.setIdentityCredential(args.identifier, args.verifier, args.provider)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -11528,7 +13392,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = startVerification_result()
         try:
-            result.success = self._handler.startVerification(args.region, args.carrier, args.phone, args.udidHash, args.deviceInfo, args.networkCode, args.mid, args.locale)
+            result.success = self._handler.startVerification(args.region, args.carrier, args.phone, args.udidHash, args.deviceInfo, args.networkCode, args.mid, args.locale, args.simInfo, args.oldUdidHash)
             msg_type = TMessageType.REPLY
         except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
             raise
@@ -11540,6 +13404,50 @@ class Processor(Iface, TProcessor):
             logging.exception(ex)
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("startVerification", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_updateGroupPreferenceAttribute(self, seqid, iprot, oprot):
+        args = updateGroupPreferenceAttribute_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = updateGroupPreferenceAttribute_result()
+        try:
+            self._handler.updateGroupPreferenceAttribute(args.reqSeq, args.groupMid, args.updatedAttrs)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("updateGroupPreferenceAttribute", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_createRoomV2(self, seqid, iprot, oprot):
+        args = createRoomV2_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = createRoomV2_result()
+        try:
+            result.success = self._handler.createRoomV2(args.reqSeq, args.contactIds)
+            msg_type = TMessageType.REPLY
+        except (TTransport.TTransportException, KeyboardInterrupt, SystemExit):
+            raise
+        except TalkException as e:
+            msg_type = TMessageType.REPLY
+            result.e = e
+        except Exception as ex:
+            msg_type = TMessageType.EXCEPTION
+            logging.exception(ex)
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("createRoomV2", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -12141,6 +14049,1205 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
+class getChatRoomAnnouncementsBulk_args(object):
+    """
+    Attributes:
+     - chatRoomMids
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.LIST, 'chatRoomMids', (TType.STRING, 'UTF8', False), None, ),  # 2
+    )
+
+    def __init__(self, chatRoomMids=None,):
+        self.chatRoomMids = chatRoomMids
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.LIST:
+                    self.chatRoomMids = []
+                    (_etype1106, _size1103) = iprot.readListBegin()
+                    for _i1107 in range(_size1103):
+                        _elem1108 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.chatRoomMids.append(_elem1108)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getChatRoomAnnouncementsBulk_args')
+        if self.chatRoomMids is not None:
+            oprot.writeFieldBegin('chatRoomMids', TType.LIST, 2)
+            oprot.writeListBegin(TType.STRING, len(self.chatRoomMids))
+            for iter1109 in self.chatRoomMids:
+                oprot.writeString(iter1109.encode('utf-8') if sys.version_info[0] == 2 else iter1109)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getChatRoomAnnouncementsBulk_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.MAP, 'success', (TType.STRING, 'UTF8', TType.LIST, (TType.STRUCT, (ChatRoomAnnouncement, ChatRoomAnnouncement.thrift_spec), False), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.MAP:
+                    self.success = {}
+                    (_ktype1111, _vtype1112, _size1110) = iprot.readMapBegin()
+                    for _i1114 in range(_size1110):
+                        _key1115 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1116 = []
+                        (_etype1120, _size1117) = iprot.readListBegin()
+                        for _i1121 in range(_size1117):
+                            _elem1122 = ChatRoomAnnouncement()
+                            _elem1122.read(iprot)
+                            _val1116.append(_elem1122)
+                        iprot.readListEnd()
+                        self.success[_key1115] = _val1116
+                    iprot.readMapEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getChatRoomAnnouncementsBulk_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.MAP, 0)
+            oprot.writeMapBegin(TType.STRING, TType.LIST, len(self.success))
+            for kiter1123, viter1124 in self.success.items():
+                oprot.writeString(kiter1123.encode('utf-8') if sys.version_info[0] == 2 else kiter1123)
+                oprot.writeListBegin(TType.STRUCT, len(viter1124))
+                for iter1125 in viter1124:
+                    iter1125.write(oprot)
+                oprot.writeListEnd()
+            oprot.writeMapEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getChatRoomAnnouncements_args(object):
+    """
+    Attributes:
+     - chatRoomMid
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'chatRoomMid', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, chatRoomMid=None,):
+        self.chatRoomMid = chatRoomMid
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.chatRoomMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getChatRoomAnnouncements_args')
+        if self.chatRoomMid is not None:
+            oprot.writeFieldBegin('chatRoomMid', TType.STRING, 2)
+            oprot.writeString(self.chatRoomMid.encode('utf-8') if sys.version_info[0] == 2 else self.chatRoomMid)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getChatRoomAnnouncements_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRUCT, (ChatRoomAnnouncement, ChatRoomAnnouncement.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1129, _size1126) = iprot.readListBegin()
+                    for _i1130 in range(_size1126):
+                        _elem1131 = ChatRoomAnnouncement()
+                        _elem1131.read(iprot)
+                        self.success.append(_elem1131)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getChatRoomAnnouncements_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter1132 in self.success:
+                iter1132.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class createChatRoomAnnouncement_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - chatRoomMid
+     - type
+     - contents
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'chatRoomMid', 'UTF8', None, ),  # 2
+        (3, TType.I32, 'type', None, None, ),  # 3
+        (4, TType.STRUCT, 'contents', (ChatRoomAnnouncementContents, ChatRoomAnnouncementContents.thrift_spec), None, ),  # 4
+    )
+
+    def __init__(self, reqSeq=None, chatRoomMid=None, type=None, contents=None,):
+        self.reqSeq = reqSeq
+        self.chatRoomMid = chatRoomMid
+        self.type = type
+        self.contents = contents
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.chatRoomMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I32:
+                    self.type = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.contents = ChatRoomAnnouncementContents()
+                    self.contents.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('createChatRoomAnnouncement_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.chatRoomMid is not None:
+            oprot.writeFieldBegin('chatRoomMid', TType.STRING, 2)
+            oprot.writeString(self.chatRoomMid.encode('utf-8') if sys.version_info[0] == 2 else self.chatRoomMid)
+            oprot.writeFieldEnd()
+        if self.type is not None:
+            oprot.writeFieldBegin('type', TType.I32, 3)
+            oprot.writeI32(self.type)
+            oprot.writeFieldEnd()
+        if self.contents is not None:
+            oprot.writeFieldBegin('contents', TType.STRUCT, 4)
+            self.contents.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class createChatRoomAnnouncement_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (ChatRoomAnnouncement, ChatRoomAnnouncement.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = ChatRoomAnnouncement()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('createChatRoomAnnouncement_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeChatRoomAnnouncement_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - chatRoomMid
+     - announcementSeq
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'chatRoomMid', 'UTF8', None, ),  # 2
+        (3, TType.I64, 'announcementSeq', None, None, ),  # 3
+    )
+
+    def __init__(self, reqSeq=None, chatRoomMid=None, announcementSeq=None,):
+        self.reqSeq = reqSeq
+        self.chatRoomMid = chatRoomMid
+        self.announcementSeq = announcementSeq
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.chatRoomMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I64:
+                    self.announcementSeq = iprot.readI64()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeChatRoomAnnouncement_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.chatRoomMid is not None:
+            oprot.writeFieldBegin('chatRoomMid', TType.STRING, 2)
+            oprot.writeString(self.chatRoomMid.encode('utf-8') if sys.version_info[0] == 2 else self.chatRoomMid)
+            oprot.writeFieldEnd()
+        if self.announcementSeq is not None:
+            oprot.writeFieldBegin('announcementSeq', TType.I64, 3)
+            oprot.writeI64(self.announcementSeq)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeChatRoomAnnouncement_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeChatRoomAnnouncement_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class unsendMessage_args(object):
+    """
+    Attributes:
+     - seq
+     - messageId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'seq', None, None, ),  # 1
+        (2, TType.STRING, 'messageId', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, seq=None, messageId=None,):
+        self.seq = seq
+        self.messageId = messageId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.seq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.messageId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('unsendMessage_args')
+        if self.seq is not None:
+            oprot.writeFieldBegin('seq', TType.I32, 1)
+            oprot.writeI32(self.seq)
+            oprot.writeFieldEnd()
+        if self.messageId is not None:
+            oprot.writeFieldBegin('messageId', TType.STRING, 2)
+            oprot.writeString(self.messageId.encode('utf-8') if sys.version_info[0] == 2 else self.messageId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class unsendMessage_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('unsendMessage_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getGroupWithoutMembers_args(object):
+    """
+    Attributes:
+     - groupId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'groupId', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, groupId=None,):
+        self.groupId = groupId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.groupId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getGroupWithoutMembers_args')
+        if self.groupId is not None:
+            oprot.writeFieldBegin('groupId', TType.STRING, 2)
+            oprot.writeString(self.groupId.encode('utf-8') if sys.version_info[0] == 2 else self.groupId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getGroupWithoutMembers_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (Group, Group.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = Group()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getGroupWithoutMembers_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class requestResendMessage_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - senderMid
+     - messageId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'senderMid', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'messageId', 'UTF8', None, ),  # 3
+    )
+
+    def __init__(self, reqSeq=None, senderMid=None, messageId=None,):
+        self.reqSeq = reqSeq
+        self.senderMid = senderMid
+        self.messageId = messageId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.senderMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.messageId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('requestResendMessage_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.senderMid is not None:
+            oprot.writeFieldBegin('senderMid', TType.STRING, 2)
+            oprot.writeString(self.senderMid.encode('utf-8') if sys.version_info[0] == 2 else self.senderMid)
+            oprot.writeFieldEnd()
+        if self.messageId is not None:
+            oprot.writeFieldBegin('messageId', TType.STRING, 3)
+            oprot.writeString(self.messageId.encode('utf-8') if sys.version_info[0] == 2 else self.messageId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class requestResendMessage_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('requestResendMessage_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class respondResendMessage_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - receiverMid
+     - originalMessageId
+     - resendMessage
+     - errorCode
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'receiverMid', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'originalMessageId', 'UTF8', None, ),  # 3
+        (4, TType.STRUCT, 'resendMessage', (Message, Message.thrift_spec), None, ),  # 4
+        (5, TType.I32, 'errorCode', None, None, ),  # 5
+    )
+
+    def __init__(self, reqSeq=None, receiverMid=None, originalMessageId=None, resendMessage=None, errorCode=None,):
+        self.reqSeq = reqSeq
+        self.receiverMid = receiverMid
+        self.originalMessageId = originalMessageId
+        self.resendMessage = resendMessage
+        self.errorCode = errorCode
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.receiverMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.originalMessageId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.resendMessage = Message()
+                    self.resendMessage.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.I32:
+                    self.errorCode = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('respondResendMessage_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.receiverMid is not None:
+            oprot.writeFieldBegin('receiverMid', TType.STRING, 2)
+            oprot.writeString(self.receiverMid.encode('utf-8') if sys.version_info[0] == 2 else self.receiverMid)
+            oprot.writeFieldEnd()
+        if self.originalMessageId is not None:
+            oprot.writeFieldBegin('originalMessageId', TType.STRING, 3)
+            oprot.writeString(self.originalMessageId.encode('utf-8') if sys.version_info[0] == 2 else self.originalMessageId)
+            oprot.writeFieldEnd()
+        if self.resendMessage is not None:
+            oprot.writeFieldBegin('resendMessage', TType.STRUCT, 4)
+            self.resendMessage.write(oprot)
+            oprot.writeFieldEnd()
+        if self.errorCode is not None:
+            oprot.writeFieldBegin('errorCode', TType.I32, 5)
+            oprot.writeI32(self.errorCode)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class respondResendMessage_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('respondResendMessage_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
 class acceptGroupInvitation_args(object):
     """
     Attributes:
@@ -12278,20 +15385,20 @@ class acceptGroupInvitationByTicket_args(object):
     """
     Attributes:
      - reqSeq
-     - groupId
+     - GroupMid
      - ticketId
     """
 
     thrift_spec = (
         None,  # 0
         (1, TType.I32, 'reqSeq', None, None, ),  # 1
-        (2, TType.STRING, 'groupId', 'UTF8', None, ),  # 2
+        (2, TType.STRING, 'GroupMid', 'UTF8', None, ),  # 2
         (3, TType.STRING, 'ticketId', 'UTF8', None, ),  # 3
     )
 
-    def __init__(self, reqSeq=None, groupId=None, ticketId=None,):
+    def __init__(self, reqSeq=None, GroupMid=None, ticketId=None,):
         self.reqSeq = reqSeq
-        self.groupId = groupId
+        self.GroupMid = GroupMid
         self.ticketId = ticketId
 
     def read(self, iprot):
@@ -12310,7 +15417,7 @@ class acceptGroupInvitationByTicket_args(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.groupId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.GroupMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
@@ -12332,9 +15439,9 @@ class acceptGroupInvitationByTicket_args(object):
             oprot.writeFieldBegin('reqSeq', TType.I32, 1)
             oprot.writeI32(self.reqSeq)
             oprot.writeFieldEnd()
-        if self.groupId is not None:
-            oprot.writeFieldBegin('groupId', TType.STRING, 2)
-            oprot.writeString(self.groupId.encode('utf-8') if sys.version_info[0] == 2 else self.groupId)
+        if self.GroupMid is not None:
+            oprot.writeFieldBegin('GroupMid', TType.STRING, 2)
+            oprot.writeString(self.GroupMid.encode('utf-8') if sys.version_info[0] == 2 else self.GroupMid)
             oprot.writeFieldEnd()
         if self.ticketId is not None:
             oprot.writeFieldBegin('ticketId', TType.STRING, 3)
@@ -12454,10 +15561,10 @@ class acceptProximityMatches_args(object):
             elif fid == 3:
                 if ftype == TType.SET:
                     self.ids = set()
-                    (_etype750, _size747) = iprot.readSetBegin()
-                    for _i751 in range(_size747):
-                        _elem752 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.ids.add(_elem752)
+                    (_etype1136, _size1133) = iprot.readSetBegin()
+                    for _i1137 in range(_size1133):
+                        _elem1138 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.ids.add(_elem1138)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -12478,8 +15585,8 @@ class acceptProximityMatches_args(object):
         if self.ids is not None:
             oprot.writeFieldBegin('ids', TType.SET, 3)
             oprot.writeSetBegin(TType.STRING, len(self.ids))
-            for iter753 in self.ids:
-                oprot.writeString(iter753.encode('utf-8') if sys.version_info[0] == 2 else iter753)
+            for iter1139 in self.ids:
+                oprot.writeString(iter1139.encode('utf-8') if sys.version_info[0] == 2 else iter1139)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -12650,10 +15757,10 @@ class acquireCallRoute_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype757, _size754) = iprot.readListBegin()
-                    for _i758 in range(_size754):
-                        _elem759 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem759)
+                    (_etype1143, _size1140) = iprot.readListBegin()
+                    for _i1144 in range(_size1140):
+                        _elem1145 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1145)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -12676,8 +15783,8 @@ class acquireCallRoute_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter760 in self.success:
-                oprot.writeString(iter760.encode('utf-8') if sys.version_info[0] == 2 else iter760)
+            for iter1146 in self.success:
+                oprot.writeString(iter1146.encode('utf-8') if sys.version_info[0] == 2 else iter1146)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -13421,10 +16528,10 @@ class cancelGroupInvitation_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype764, _size761) = iprot.readListBegin()
-                    for _i765 in range(_size761):
-                        _elem766 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem766)
+                    (_etype1150, _size1147) = iprot.readListBegin()
+                    for _i1151 in range(_size1147):
+                        _elem1152 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1152)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -13449,8 +16556,8 @@ class cancelGroupInvitation_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter767 in self.contactIds:
-                oprot.writeString(iter767.encode('utf-8') if sys.version_info[0] == 2 else iter767)
+            for iter1153 in self.contactIds:
+                oprot.writeString(iter1153.encode('utf-8') if sys.version_info[0] == 2 else iter1153)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -14079,10 +17186,10 @@ class commitSendMessage_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype771, _size768) = iprot.readListBegin()
-                    for _i772 in range(_size768):
-                        _elem773 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem773)
+                    (_etype1157, _size1154) = iprot.readListBegin()
+                    for _i1158 in range(_size1154):
+                        _elem1159 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1159)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -14107,8 +17214,8 @@ class commitSendMessage_args(object):
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter774 in self.receiverMids:
-                oprot.writeString(iter774.encode('utf-8') if sys.version_info[0] == 2 else iter774)
+            for iter1160 in self.receiverMids:
+                oprot.writeString(iter1160.encode('utf-8') if sys.version_info[0] == 2 else iter1160)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -14157,11 +17264,11 @@ class commitSendMessage_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype776, _vtype777, _size775) = iprot.readMapBegin()
-                    for _i779 in range(_size775):
-                        _key780 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val781 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success[_key780] = _val781
+                    (_ktype1162, _vtype1163, _size1161) = iprot.readMapBegin()
+                    for _i1165 in range(_size1161):
+                        _key1166 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1167 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key1166] = _val1167
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -14184,9 +17291,9 @@ class commitSendMessage_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-            for kiter782, viter783 in self.success.items():
-                oprot.writeString(kiter782.encode('utf-8') if sys.version_info[0] == 2 else kiter782)
-                oprot.writeString(viter783.encode('utf-8') if sys.version_info[0] == 2 else viter783)
+            for kiter1168, viter1169 in self.success.items():
+                oprot.writeString(kiter1168.encode('utf-8') if sys.version_info[0] == 2 else kiter1168)
+                oprot.writeString(viter1169.encode('utf-8') if sys.version_info[0] == 2 else viter1169)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -14248,20 +17355,20 @@ class commitSendMessages_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.messageIds = []
-                    (_etype787, _size784) = iprot.readListBegin()
-                    for _i788 in range(_size784):
-                        _elem789 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.messageIds.append(_elem789)
+                    (_etype1173, _size1170) = iprot.readListBegin()
+                    for _i1174 in range(_size1170):
+                        _elem1175 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.messageIds.append(_elem1175)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype793, _size790) = iprot.readListBegin()
-                    for _i794 in range(_size790):
-                        _elem795 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem795)
+                    (_etype1179, _size1176) = iprot.readListBegin()
+                    for _i1180 in range(_size1176):
+                        _elem1181 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1181)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -14282,15 +17389,15 @@ class commitSendMessages_args(object):
         if self.messageIds is not None:
             oprot.writeFieldBegin('messageIds', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.messageIds))
-            for iter796 in self.messageIds:
-                oprot.writeString(iter796.encode('utf-8') if sys.version_info[0] == 2 else iter796)
+            for iter1182 in self.messageIds:
+                oprot.writeString(iter1182.encode('utf-8') if sys.version_info[0] == 2 else iter1182)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter797 in self.receiverMids:
-                oprot.writeString(iter797.encode('utf-8') if sys.version_info[0] == 2 else iter797)
+            for iter1183 in self.receiverMids:
+                oprot.writeString(iter1183.encode('utf-8') if sys.version_info[0] == 2 else iter1183)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -14339,11 +17446,11 @@ class commitSendMessages_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype799, _vtype800, _size798) = iprot.readMapBegin()
-                    for _i802 in range(_size798):
-                        _key803 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val804 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success[_key803] = _val804
+                    (_ktype1185, _vtype1186, _size1184) = iprot.readMapBegin()
+                    for _i1188 in range(_size1184):
+                        _key1189 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1190 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key1189] = _val1190
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -14366,9 +17473,9 @@ class commitSendMessages_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-            for kiter805, viter806 in self.success.items():
-                oprot.writeString(kiter805.encode('utf-8') if sys.version_info[0] == 2 else kiter805)
-                oprot.writeString(viter806.encode('utf-8') if sys.version_info[0] == 2 else viter806)
+            for kiter1191, viter1192 in self.success.items():
+                oprot.writeString(kiter1191.encode('utf-8') if sys.version_info[0] == 2 else kiter1191)
+                oprot.writeString(viter1192.encode('utf-8') if sys.version_info[0] == 2 else viter1192)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -14430,20 +17537,20 @@ class commitUpdateProfile_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.attrs = []
-                    (_etype810, _size807) = iprot.readListBegin()
-                    for _i811 in range(_size807):
-                        _elem812 = iprot.readI32()
-                        self.attrs.append(_elem812)
+                    (_etype1196, _size1193) = iprot.readListBegin()
+                    for _i1197 in range(_size1193):
+                        _elem1198 = iprot.readI32()
+                        self.attrs.append(_elem1198)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype816, _size813) = iprot.readListBegin()
-                    for _i817 in range(_size813):
-                        _elem818 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem818)
+                    (_etype1202, _size1199) = iprot.readListBegin()
+                    for _i1203 in range(_size1199):
+                        _elem1204 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1204)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -14464,15 +17571,15 @@ class commitUpdateProfile_args(object):
         if self.attrs is not None:
             oprot.writeFieldBegin('attrs', TType.LIST, 2)
             oprot.writeListBegin(TType.I32, len(self.attrs))
-            for iter819 in self.attrs:
-                oprot.writeI32(iter819)
+            for iter1205 in self.attrs:
+                oprot.writeI32(iter1205)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter820 in self.receiverMids:
-                oprot.writeString(iter820.encode('utf-8') if sys.version_info[0] == 2 else iter820)
+            for iter1206 in self.receiverMids:
+                oprot.writeString(iter1206.encode('utf-8') if sys.version_info[0] == 2 else iter1206)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -14521,11 +17628,11 @@ class commitUpdateProfile_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype822, _vtype823, _size821) = iprot.readMapBegin()
-                    for _i825 in range(_size821):
-                        _key826 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val827 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success[_key826] = _val827
+                    (_ktype1208, _vtype1209, _size1207) = iprot.readMapBegin()
+                    for _i1211 in range(_size1207):
+                        _key1212 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1213 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key1212] = _val1213
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -14548,9 +17655,9 @@ class commitUpdateProfile_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-            for kiter828, viter829 in self.success.items():
-                oprot.writeString(kiter828.encode('utf-8') if sys.version_info[0] == 2 else kiter828)
-                oprot.writeString(viter829.encode('utf-8') if sys.version_info[0] == 2 else viter829)
+            for kiter1214, viter1215 in self.success.items():
+                oprot.writeString(kiter1214.encode('utf-8') if sys.version_info[0] == 2 else kiter1214)
+                oprot.writeString(viter1215.encode('utf-8') if sys.version_info[0] == 2 else viter1215)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -14751,10 +17858,10 @@ class createGroup_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype833, _size830) = iprot.readListBegin()
-                    for _i834 in range(_size830):
-                        _elem835 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem835)
+                    (_etype1219, _size1216) = iprot.readListBegin()
+                    for _i1220 in range(_size1216):
+                        _elem1221 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1221)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -14779,8 +17886,8 @@ class createGroup_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter836 in self.contactIds:
-                oprot.writeString(iter836.encode('utf-8') if sys.version_info[0] == 2 else iter836)
+            for iter1222 in self.contactIds:
+                oprot.writeString(iter1222.encode('utf-8') if sys.version_info[0] == 2 else iter1222)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -15113,10 +18220,10 @@ class createRoom_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype840, _size837) = iprot.readListBegin()
-                    for _i841 in range(_size837):
-                        _elem842 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem842)
+                    (_etype1226, _size1223) = iprot.readListBegin()
+                    for _i1227 in range(_size1223):
+                        _elem1228 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1228)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -15137,8 +18244,8 @@ class createRoom_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter843 in self.contactIds:
-                oprot.writeString(iter843.encode('utf-8') if sys.version_info[0] == 2 else iter843)
+            for iter1229 in self.contactIds:
+                oprot.writeString(iter1229.encode('utf-8') if sys.version_info[0] == 2 else iter1229)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -15435,11 +18542,11 @@ class fetchAnnouncements_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype847, _size844) = iprot.readListBegin()
-                    for _i848 in range(_size844):
-                        _elem849 = Announcement()
-                        _elem849.read(iprot)
-                        self.success.append(_elem849)
+                    (_etype1233, _size1230) = iprot.readListBegin()
+                    for _i1234 in range(_size1230):
+                        _elem1235 = Announcement()
+                        _elem1235.read(iprot)
+                        self.success.append(_elem1235)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -15462,8 +18569,8 @@ class fetchAnnouncements_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter850 in self.success:
-                iter850.write(oprot)
+            for iter1236 in self.success:
+                iter1236.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -15589,11 +18696,11 @@ class fetchMessages_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype854, _size851) = iprot.readListBegin()
-                    for _i855 in range(_size851):
-                        _elem856 = Message()
-                        _elem856.read(iprot)
-                        self.success.append(_elem856)
+                    (_etype1240, _size1237) = iprot.readListBegin()
+                    for _i1241 in range(_size1237):
+                        _elem1242 = Message()
+                        _elem1242.read(iprot)
+                        self.success.append(_elem1242)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -15616,8 +18723,8 @@ class fetchMessages_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter857 in self.success:
-                iter857.write(oprot)
+            for iter1243 in self.success:
+                iter1243.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -15724,7 +18831,7 @@ class fetchOperations_result(object):
 
     thrift_spec = (
         (0, TType.LIST, 'success', (TType.STRUCT, (Operation, Operation.thrift_spec), False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+        (1, TType.STRUCT, 'e', (ShouldSyncException, ShouldSyncException.thrift_spec), None, ),  # 1
     )
 
     def __init__(self, success=None, e=None,):
@@ -15743,17 +18850,17 @@ class fetchOperations_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype861, _size858) = iprot.readListBegin()
-                    for _i862 in range(_size858):
-                        _elem863 = Operation()
-                        _elem863.read(iprot)
-                        self.success.append(_elem863)
+                    (_etype1247, _size1244) = iprot.readListBegin()
+                    for _i1248 in range(_size1244):
+                        _elem1249 = Operation()
+                        _elem1249.read(iprot)
+                        self.success.append(_elem1249)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.e = TalkException()
+                    self.e = ShouldSyncException()
                     self.e.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -15770,8 +18877,8 @@ class fetchOperations_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter864 in self.success:
-                iter864.write(oprot)
+            for iter1250 in self.success:
+                iter1250.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -15902,7 +19009,7 @@ class fetchOps_result(object):
 
     thrift_spec = (
         (0, TType.LIST, 'success', (TType.STRUCT, (Operation, Operation.thrift_spec), False), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+        (1, TType.STRUCT, 'e', (ShouldSyncException, ShouldSyncException.thrift_spec), None, ),  # 1
     )
 
     def __init__(self, success=None, e=None,):
@@ -15921,17 +19028,17 @@ class fetchOps_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype868, _size865) = iprot.readListBegin()
-                    for _i869 in range(_size865):
-                        _elem870 = Operation()
-                        _elem870.read(iprot)
-                        self.success.append(_elem870)
+                    (_etype1254, _size1251) = iprot.readListBegin()
+                    for _i1255 in range(_size1251):
+                        _elem1256 = Operation()
+                        _elem1256.read(iprot)
+                        self.success.append(_elem1256)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.e = TalkException()
+                    self.e = ShouldSyncException()
                     self.e.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -15948,8 +19055,8 @@ class fetchOps_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter871 in self.success:
-                iter871.write(oprot)
+            for iter1257 in self.success:
+                iter1257.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -16008,10 +19115,10 @@ class findAndAddContactsByEmail_args(object):
             elif fid == 2:
                 if ftype == TType.SET:
                     self.emails = set()
-                    (_etype875, _size872) = iprot.readSetBegin()
-                    for _i876 in range(_size872):
-                        _elem877 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.emails.add(_elem877)
+                    (_etype1261, _size1258) = iprot.readSetBegin()
+                    for _i1262 in range(_size1258):
+                        _elem1263 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.emails.add(_elem1263)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -16032,8 +19139,8 @@ class findAndAddContactsByEmail_args(object):
         if self.emails is not None:
             oprot.writeFieldBegin('emails', TType.SET, 2)
             oprot.writeSetBegin(TType.STRING, len(self.emails))
-            for iter878 in self.emails:
-                oprot.writeString(iter878.encode('utf-8') if sys.version_info[0] == 2 else iter878)
+            for iter1264 in self.emails:
+                oprot.writeString(iter1264.encode('utf-8') if sys.version_info[0] == 2 else iter1264)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -16082,12 +19189,12 @@ class findAndAddContactsByEmail_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype880, _vtype881, _size879) = iprot.readMapBegin()
-                    for _i883 in range(_size879):
-                        _key884 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val885 = Contact()
-                        _val885.read(iprot)
-                        self.success[_key884] = _val885
+                    (_ktype1266, _vtype1267, _size1265) = iprot.readMapBegin()
+                    for _i1269 in range(_size1265):
+                        _key1270 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1271 = Contact()
+                        _val1271.read(iprot)
+                        self.success[_key1270] = _val1271
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -16110,9 +19217,9 @@ class findAndAddContactsByEmail_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter886, viter887 in self.success.items():
-                oprot.writeString(kiter886.encode('utf-8') if sys.version_info[0] == 2 else kiter886)
-                viter887.write(oprot)
+            for kiter1272, viter1273 in self.success.items():
+                oprot.writeString(kiter1272.encode('utf-8') if sys.version_info[0] == 2 else kiter1272)
+                viter1273.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -16142,17 +19249,23 @@ class findAndAddContactsByMid_args(object):
     Attributes:
      - reqSeq
      - mid
+     - type
+     - reference
     """
 
     thrift_spec = (
         None,  # 0
         (1, TType.I32, 'reqSeq', None, None, ),  # 1
         (2, TType.STRING, 'mid', 'UTF8', None, ),  # 2
+        (3, TType.I32, 'type', None, None, ),  # 3
+        (4, TType.STRING, 'reference', 'UTF8', None, ),  # 4
     )
 
-    def __init__(self, reqSeq=None, mid=None,):
+    def __init__(self, reqSeq=None, mid=None, type=None, reference=None,):
         self.reqSeq = reqSeq
         self.mid = mid
+        self.type = type
+        self.reference = reference
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -16173,6 +19286,16 @@ class findAndAddContactsByMid_args(object):
                     self.mid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I32:
+                    self.type = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.reference = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -16190,6 +19313,14 @@ class findAndAddContactsByMid_args(object):
         if self.mid is not None:
             oprot.writeFieldBegin('mid', TType.STRING, 2)
             oprot.writeString(self.mid.encode('utf-8') if sys.version_info[0] == 2 else self.mid)
+            oprot.writeFieldEnd()
+        if self.type is not None:
+            oprot.writeFieldBegin('type', TType.I32, 3)
+            oprot.writeI32(self.type)
+            oprot.writeFieldEnd()
+        if self.reference is not None:
+            oprot.writeFieldBegin('reference', TType.STRING, 4)
+            oprot.writeString(self.reference.encode('utf-8') if sys.version_info[0] == 2 else self.reference)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -16237,12 +19368,12 @@ class findAndAddContactsByMid_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype889, _vtype890, _size888) = iprot.readMapBegin()
-                    for _i892 in range(_size888):
-                        _key893 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val894 = Contact()
-                        _val894.read(iprot)
-                        self.success[_key893] = _val894
+                    (_ktype1275, _vtype1276, _size1274) = iprot.readMapBegin()
+                    for _i1278 in range(_size1274):
+                        _key1279 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1280 = Contact()
+                        _val1280.read(iprot)
+                        self.success[_key1279] = _val1280
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -16265,10 +19396,143 @@ class findAndAddContactsByMid_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter895, viter896 in self.success.items():
-                oprot.writeString(kiter895.encode('utf-8') if sys.version_info[0] == 2 else kiter895)
-                viter896.write(oprot)
+            for kiter1281, viter1282 in self.success.items():
+                oprot.writeString(kiter1281.encode('utf-8') if sys.version_info[0] == 2 else kiter1281)
+                viter1282.write(oprot)
             oprot.writeMapEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findGroupByTicketV2_args(object):
+    """
+    Attributes:
+     - ticketId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRING, 'ticketId', 'UTF8', None, ),  # 1
+    )
+
+    def __init__(self, ticketId=None,):
+        self.ticketId = ticketId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.ticketId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findGroupByTicketV2_args')
+        if self.ticketId is not None:
+            oprot.writeFieldBegin('ticketId', TType.STRING, 1)
+            oprot.writeString(self.ticketId.encode('utf-8') if sys.version_info[0] == 2 else self.ticketId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findGroupByTicketV2_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (Group, Group.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = Group()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findGroupByTicketV2_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
             oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
@@ -16326,10 +19590,10 @@ class findAndAddContactsByPhone_args(object):
             elif fid == 2:
                 if ftype == TType.SET:
                     self.phones = set()
-                    (_etype900, _size897) = iprot.readSetBegin()
-                    for _i901 in range(_size897):
-                        _elem902 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.phones.add(_elem902)
+                    (_etype1286, _size1283) = iprot.readSetBegin()
+                    for _i1287 in range(_size1283):
+                        _elem1288 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.phones.add(_elem1288)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -16350,8 +19614,8 @@ class findAndAddContactsByPhone_args(object):
         if self.phones is not None:
             oprot.writeFieldBegin('phones', TType.SET, 2)
             oprot.writeSetBegin(TType.STRING, len(self.phones))
-            for iter903 in self.phones:
-                oprot.writeString(iter903.encode('utf-8') if sys.version_info[0] == 2 else iter903)
+            for iter1289 in self.phones:
+                oprot.writeString(iter1289.encode('utf-8') if sys.version_info[0] == 2 else iter1289)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -16400,12 +19664,12 @@ class findAndAddContactsByPhone_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype905, _vtype906, _size904) = iprot.readMapBegin()
-                    for _i908 in range(_size904):
-                        _key909 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val910 = Contact()
-                        _val910.read(iprot)
-                        self.success[_key909] = _val910
+                    (_ktype1291, _vtype1292, _size1290) = iprot.readMapBegin()
+                    for _i1294 in range(_size1290):
+                        _key1295 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1296 = Contact()
+                        _val1296.read(iprot)
+                        self.success[_key1295] = _val1296
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -16428,11 +19692,297 @@ class findAndAddContactsByPhone_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter911, viter912 in self.success.items():
-                oprot.writeString(kiter911.encode('utf-8') if sys.version_info[0] == 2 else kiter911)
-                viter912.write(oprot)
+            for kiter1297, viter1298 in self.success.items():
+                oprot.writeString(kiter1297.encode('utf-8') if sys.version_info[0] == 2 else kiter1297)
+                viter1298.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getFriendRequests_args(object):
+    """
+    Attributes:
+     - direction
+     - lastSeenSeqId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'direction', None, None, ),  # 1
+        (2, TType.I64, 'lastSeenSeqId', None, None, ),  # 2
+    )
+
+    def __init__(self, direction=None, lastSeenSeqId=None,):
+        self.direction = direction
+        self.lastSeenSeqId = lastSeenSeqId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.direction = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I64:
+                    self.lastSeenSeqId = iprot.readI64()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getFriendRequests_args')
+        if self.direction is not None:
+            oprot.writeFieldBegin('direction', TType.I32, 1)
+            oprot.writeI32(self.direction)
+            oprot.writeFieldEnd()
+        if self.lastSeenSeqId is not None:
+            oprot.writeFieldBegin('lastSeenSeqId', TType.I64, 2)
+            oprot.writeI64(self.lastSeenSeqId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getFriendRequests_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRUCT, (FriendRequest, FriendRequest.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1302, _size1299) = iprot.readListBegin()
+                    for _i1303 in range(_size1299):
+                        _elem1304 = FriendRequest()
+                        _elem1304.read(iprot)
+                        self.success.append(_elem1304)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getFriendRequests_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter1305 in self.success:
+                iter1305.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeFriendRequest_args(object):
+    """
+    Attributes:
+     - direction
+     - midOrEMid
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'direction', None, None, ),  # 1
+        (2, TType.STRING, 'midOrEMid', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, direction=None, midOrEMid=None,):
+        self.direction = direction
+        self.midOrEMid = midOrEMid
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.direction = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.midOrEMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeFriendRequest_args')
+        if self.direction is not None:
+            oprot.writeFieldBegin('direction', TType.I32, 1)
+            oprot.writeI32(self.direction)
+            oprot.writeFieldEnd()
+        if self.midOrEMid is not None:
+            oprot.writeFieldBegin('midOrEMid', TType.STRING, 2)
+            oprot.writeString(self.midOrEMid.encode('utf-8') if sys.version_info[0] == 2 else self.midOrEMid)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeFriendRequest_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeFriendRequest_result')
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
             self.e.write(oprot)
@@ -16555,12 +20105,12 @@ class findAndAddContactsByUserid_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype914, _vtype915, _size913) = iprot.readMapBegin()
-                    for _i917 in range(_size913):
-                        _key918 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val919 = Contact()
-                        _val919.read(iprot)
-                        self.success[_key918] = _val919
+                    (_ktype1307, _vtype1308, _size1306) = iprot.readMapBegin()
+                    for _i1310 in range(_size1306):
+                        _key1311 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1312 = Contact()
+                        _val1312.read(iprot)
+                        self.success[_key1311] = _val1312
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -16583,9 +20133,9 @@ class findAndAddContactsByUserid_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter920, viter921 in self.success.items():
-                oprot.writeString(kiter920.encode('utf-8') if sys.version_info[0] == 2 else kiter920)
-                viter921.write(oprot)
+            for kiter1313, viter1314 in self.success.items():
+                oprot.writeString(kiter1313.encode('utf-8') if sys.version_info[0] == 2 else kiter1313)
+                viter1314.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -16747,17 +20297,17 @@ class findContactByUserid_result(object):
 class findContactByUserTicket_args(object):
     """
     Attributes:
-     - ticketId
+     - ticketIdWithTag
     """
 
     thrift_spec = (
         None,  # 0
         None,  # 1
-        (2, TType.STRING, 'ticketId', 'UTF8', None, ),  # 2
+        (2, TType.STRING, 'ticketIdWithTag', 'UTF8', None, ),  # 2
     )
 
-    def __init__(self, ticketId=None,):
-        self.ticketId = ticketId
+    def __init__(self, ticketIdWithTag=None,):
+        self.ticketIdWithTag = ticketIdWithTag
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -16770,7 +20320,7 @@ class findContactByUserTicket_args(object):
                 break
             if fid == 2:
                 if ftype == TType.STRING:
-                    self.ticketId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.ticketIdWithTag = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -16783,9 +20333,9 @@ class findContactByUserTicket_args(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('findContactByUserTicket_args')
-        if self.ticketId is not None:
-            oprot.writeFieldBegin('ticketId', TType.STRING, 2)
-            oprot.writeString(self.ticketId.encode('utf-8') if sys.version_info[0] == 2 else self.ticketId)
+        if self.ticketIdWithTag is not None:
+            oprot.writeFieldBegin('ticketIdWithTag', TType.STRING, 2)
+            oprot.writeString(self.ticketIdWithTag.encode('utf-8') if sys.version_info[0] == 2 else self.ticketIdWithTag)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -16905,10 +20455,10 @@ class findContactsByEmail_args(object):
             if fid == 2:
                 if ftype == TType.SET:
                     self.emails = set()
-                    (_etype925, _size922) = iprot.readSetBegin()
-                    for _i926 in range(_size922):
-                        _elem927 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.emails.add(_elem927)
+                    (_etype1318, _size1315) = iprot.readSetBegin()
+                    for _i1319 in range(_size1315):
+                        _elem1320 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.emails.add(_elem1320)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -16925,8 +20475,8 @@ class findContactsByEmail_args(object):
         if self.emails is not None:
             oprot.writeFieldBegin('emails', TType.SET, 2)
             oprot.writeSetBegin(TType.STRING, len(self.emails))
-            for iter928 in self.emails:
-                oprot.writeString(iter928.encode('utf-8') if sys.version_info[0] == 2 else iter928)
+            for iter1321 in self.emails:
+                oprot.writeString(iter1321.encode('utf-8') if sys.version_info[0] == 2 else iter1321)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -16975,12 +20525,12 @@ class findContactsByEmail_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype930, _vtype931, _size929) = iprot.readMapBegin()
-                    for _i933 in range(_size929):
-                        _key934 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val935 = Contact()
-                        _val935.read(iprot)
-                        self.success[_key934] = _val935
+                    (_ktype1323, _vtype1324, _size1322) = iprot.readMapBegin()
+                    for _i1326 in range(_size1322):
+                        _key1327 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1328 = Contact()
+                        _val1328.read(iprot)
+                        self.success[_key1327] = _val1328
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -17003,9 +20553,9 @@ class findContactsByEmail_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter936, viter937 in self.success.items():
-                oprot.writeString(kiter936.encode('utf-8') if sys.version_info[0] == 2 else kiter936)
-                viter937.write(oprot)
+            for kiter1329, viter1330 in self.success.items():
+                oprot.writeString(kiter1329.encode('utf-8') if sys.version_info[0] == 2 else kiter1329)
+                viter1330.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -17057,10 +20607,10 @@ class findContactsByPhone_args(object):
             if fid == 2:
                 if ftype == TType.SET:
                     self.phones = set()
-                    (_etype941, _size938) = iprot.readSetBegin()
-                    for _i942 in range(_size938):
-                        _elem943 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.phones.add(_elem943)
+                    (_etype1334, _size1331) = iprot.readSetBegin()
+                    for _i1335 in range(_size1331):
+                        _elem1336 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.phones.add(_elem1336)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -17077,8 +20627,8 @@ class findContactsByPhone_args(object):
         if self.phones is not None:
             oprot.writeFieldBegin('phones', TType.SET, 2)
             oprot.writeSetBegin(TType.STRING, len(self.phones))
-            for iter944 in self.phones:
-                oprot.writeString(iter944.encode('utf-8') if sys.version_info[0] == 2 else iter944)
+            for iter1337 in self.phones:
+                oprot.writeString(iter1337.encode('utf-8') if sys.version_info[0] == 2 else iter1337)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -17127,12 +20677,12 @@ class findContactsByPhone_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype946, _vtype947, _size945) = iprot.readMapBegin()
-                    for _i949 in range(_size945):
-                        _key950 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val951 = Contact()
-                        _val951.read(iprot)
-                        self.success[_key950] = _val951
+                    (_ktype1339, _vtype1340, _size1338) = iprot.readMapBegin()
+                    for _i1342 in range(_size1338):
+                        _key1343 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1344 = Contact()
+                        _val1344.read(iprot)
+                        self.success[_key1343] = _val1344
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -17155,9 +20705,9 @@ class findContactsByPhone_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter952, viter953 in self.success.items():
-                oprot.writeString(kiter952.encode('utf-8') if sys.version_info[0] == 2 else kiter952)
-                viter953.write(oprot)
+            for kiter1345, viter1346 in self.success.items():
+                oprot.writeString(kiter1345.encode('utf-8') if sys.version_info[0] == 2 else kiter1345)
+                viter1346.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -17698,10 +21248,10 @@ class getAcceptedProximityMatches_result(object):
             if fid == 0:
                 if ftype == TType.SET:
                     self.success = set()
-                    (_etype957, _size954) = iprot.readSetBegin()
-                    for _i958 in range(_size954):
-                        _elem959 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.add(_elem959)
+                    (_etype1350, _size1347) = iprot.readSetBegin()
+                    for _i1351 in range(_size1347):
+                        _elem1352 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.add(_elem1352)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -17724,8 +21274,8 @@ class getAcceptedProximityMatches_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.SET, 0)
             oprot.writeSetBegin(TType.STRING, len(self.success))
-            for iter960 in self.success:
-                oprot.writeString(iter960.encode('utf-8') if sys.version_info[0] == 2 else iter960)
+            for iter1353 in self.success:
+                oprot.writeString(iter1353.encode('utf-8') if sys.version_info[0] == 2 else iter1353)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -17820,10 +21370,10 @@ class getActiveBuddySubscriberIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype964, _size961) = iprot.readListBegin()
-                    for _i965 in range(_size961):
-                        _elem966 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem966)
+                    (_etype1357, _size1354) = iprot.readListBegin()
+                    for _i1358 in range(_size1354):
+                        _elem1359 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1359)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -17846,8 +21396,8 @@ class getActiveBuddySubscriberIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter967 in self.success:
-                oprot.writeString(iter967.encode('utf-8') if sys.version_info[0] == 2 else iter967)
+            for iter1360 in self.success:
+                oprot.writeString(iter1360.encode('utf-8') if sys.version_info[0] == 2 else iter1360)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -17942,10 +21492,10 @@ class getAllContactIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype971, _size968) = iprot.readListBegin()
-                    for _i972 in range(_size968):
-                        _elem973 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem973)
+                    (_etype1364, _size1361) = iprot.readListBegin()
+                    for _i1365 in range(_size1361):
+                        _elem1366 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1366)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -17968,8 +21518,8 @@ class getAllContactIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter974 in self.success:
-                oprot.writeString(iter974.encode('utf-8') if sys.version_info[0] == 2 else iter974)
+            for iter1367 in self.success:
+                oprot.writeString(iter1367.encode('utf-8') if sys.version_info[0] == 2 else iter1367)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -18210,10 +21760,10 @@ class getBlockedContactIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype978, _size975) = iprot.readListBegin()
-                    for _i979 in range(_size975):
-                        _elem980 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem980)
+                    (_etype1371, _size1368) = iprot.readListBegin()
+                    for _i1372 in range(_size1368):
+                        _elem1373 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1373)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -18236,9 +21786,912 @@ class getBlockedContactIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter981 in self.success:
-                oprot.writeString(iter981.encode('utf-8') if sys.version_info[0] == 2 else iter981)
+            for iter1374 in self.success:
+                oprot.writeString(iter1374.encode('utf-8') if sys.version_info[0] == 2 else iter1374)
             oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerWithPhoneNumber_args(object):
+    """
+    Attributes:
+     - sessionId
+     - migrationPincodeSessionId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'sessionId', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'migrationPincodeSessionId', 'UTF8', None, ),  # 3
+    )
+
+    def __init__(self, sessionId=None, migrationPincodeSessionId=None,):
+        self.sessionId = sessionId
+        self.migrationPincodeSessionId = migrationPincodeSessionId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.sessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.migrationPincodeSessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerWithPhoneNumber_args')
+        if self.sessionId is not None:
+            oprot.writeFieldBegin('sessionId', TType.STRING, 2)
+            oprot.writeString(self.sessionId.encode('utf-8') if sys.version_info[0] == 2 else self.sessionId)
+            oprot.writeFieldEnd()
+        if self.migrationPincodeSessionId is not None:
+            oprot.writeFieldBegin('migrationPincodeSessionId', TType.STRING, 3)
+            oprot.writeString(self.migrationPincodeSessionId.encode('utf-8') if sys.version_info[0] == 2 else self.migrationPincodeSessionId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerWithPhoneNumber_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (RegisterWithPhoneNumberResult, RegisterWithPhoneNumberResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = RegisterWithPhoneNumberResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerWithPhoneNumber_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerWithPhoneNumberAndPassword_args(object):
+    """
+    Attributes:
+     - sessionId
+     - keynm
+     - encrypted
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'sessionId', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'keynm', 'UTF8', None, ),  # 3
+        (4, TType.STRING, 'encrypted', 'UTF8', None, ),  # 4
+    )
+
+    def __init__(self, sessionId=None, keynm=None, encrypted=None,):
+        self.sessionId = sessionId
+        self.keynm = keynm
+        self.encrypted = encrypted
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.sessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.keynm = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.encrypted = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerWithPhoneNumberAndPassword_args')
+        if self.sessionId is not None:
+            oprot.writeFieldBegin('sessionId', TType.STRING, 2)
+            oprot.writeString(self.sessionId.encode('utf-8') if sys.version_info[0] == 2 else self.sessionId)
+            oprot.writeFieldEnd()
+        if self.keynm is not None:
+            oprot.writeFieldBegin('keynm', TType.STRING, 3)
+            oprot.writeString(self.keynm.encode('utf-8') if sys.version_info[0] == 2 else self.keynm)
+            oprot.writeFieldEnd()
+        if self.encrypted is not None:
+            oprot.writeFieldBegin('encrypted', TType.STRING, 4)
+            oprot.writeString(self.encrypted.encode('utf-8') if sys.version_info[0] == 2 else self.encrypted)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerWithPhoneNumberAndPassword_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (RegisterWithPhoneNumberResult, RegisterWithPhoneNumberResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = RegisterWithPhoneNumberResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerWithPhoneNumberAndPassword_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getAnalyticsInfo_args(object):
+
+    thrift_spec = (
+    )
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getAnalyticsInfo_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getAnalyticsInfo_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (AnalyticsInfo, AnalyticsInfo.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = AnalyticsInfo()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getAnalyticsInfo_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class reportClientStatistics_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - category
+     - count
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.I32, 'category', None, None, ),  # 2
+        (3, TType.I32, 'count', None, None, ),  # 3
+    )
+
+    def __init__(self, reqSeq=None, category=None, count=None,):
+        self.reqSeq = reqSeq
+        self.category = category
+        self.count = count
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I32:
+                    self.category = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I32:
+                    self.count = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('reportClientStatistics_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.category is not None:
+            oprot.writeFieldBegin('category', TType.I32, 2)
+            oprot.writeI32(self.category)
+            oprot.writeFieldEnd()
+        if self.count is not None:
+            oprot.writeFieldBegin('count', TType.I32, 3)
+            oprot.writeI32(self.count)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class reportClientStatistics_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('reportClientStatistics_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class verifyPhoneNumberForLogin_args(object):
+    """
+    Attributes:
+     - verifierFromPhone
+     - pinCodeForPhone
+     - verifierFromLogin
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'verifierFromPhone', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'pinCodeForPhone', 'UTF8', None, ),  # 3
+        (4, TType.STRING, 'verifierFromLogin', 'UTF8', None, ),  # 4
+    )
+
+    def __init__(self, verifierFromPhone=None, pinCodeForPhone=None, verifierFromLogin=None,):
+        self.verifierFromPhone = verifierFromPhone
+        self.pinCodeForPhone = pinCodeForPhone
+        self.verifierFromLogin = verifierFromLogin
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.verifierFromPhone = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.pinCodeForPhone = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.verifierFromLogin = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('verifyPhoneNumberForLogin_args')
+        if self.verifierFromPhone is not None:
+            oprot.writeFieldBegin('verifierFromPhone', TType.STRING, 2)
+            oprot.writeString(self.verifierFromPhone.encode('utf-8') if sys.version_info[0] == 2 else self.verifierFromPhone)
+            oprot.writeFieldEnd()
+        if self.pinCodeForPhone is not None:
+            oprot.writeFieldBegin('pinCodeForPhone', TType.STRING, 3)
+            oprot.writeString(self.pinCodeForPhone.encode('utf-8') if sys.version_info[0] == 2 else self.pinCodeForPhone)
+            oprot.writeFieldEnd()
+        if self.verifierFromLogin is not None:
+            oprot.writeFieldBegin('verifierFromLogin', TType.STRING, 4)
+            oprot.writeString(self.verifierFromLogin.encode('utf-8') if sys.version_info[0] == 2 else self.verifierFromLogin)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class verifyPhoneNumberForLogin_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRING, 'success', 'UTF8', None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRING:
+                    self.success = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('verifyPhoneNumberForLogin_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRING, 0)
+            oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class verifyPhoneNumber_args(object):
+    """
+    Attributes:
+     - sessionId
+     - pinCode
+     - udidHash
+     - migrationPincodeSessionId
+     - oldUdidHash
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'sessionId', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'pinCode', 'UTF8', None, ),  # 3
+        (4, TType.STRING, 'udidHash', 'UTF8', None, ),  # 4
+        (5, TType.STRING, 'migrationPincodeSessionId', 'UTF8', None, ),  # 5
+        (6, TType.STRING, 'oldUdidHash', 'UTF8', None, ),  # 6
+    )
+
+    def __init__(self, sessionId=None, pinCode=None, udidHash=None, migrationPincodeSessionId=None, oldUdidHash=None,):
+        self.sessionId = sessionId
+        self.pinCode = pinCode
+        self.udidHash = udidHash
+        self.migrationPincodeSessionId = migrationPincodeSessionId
+        self.oldUdidHash = oldUdidHash
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.sessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.pinCode = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.udidHash = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.STRING:
+                    self.migrationPincodeSessionId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 6:
+                if ftype == TType.STRING:
+                    self.oldUdidHash = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('verifyPhoneNumber_args')
+        if self.sessionId is not None:
+            oprot.writeFieldBegin('sessionId', TType.STRING, 2)
+            oprot.writeString(self.sessionId.encode('utf-8') if sys.version_info[0] == 2 else self.sessionId)
+            oprot.writeFieldEnd()
+        if self.pinCode is not None:
+            oprot.writeFieldBegin('pinCode', TType.STRING, 3)
+            oprot.writeString(self.pinCode.encode('utf-8') if sys.version_info[0] == 2 else self.pinCode)
+            oprot.writeFieldEnd()
+        if self.udidHash is not None:
+            oprot.writeFieldBegin('udidHash', TType.STRING, 4)
+            oprot.writeString(self.udidHash.encode('utf-8') if sys.version_info[0] == 2 else self.udidHash)
+            oprot.writeFieldEnd()
+        if self.migrationPincodeSessionId is not None:
+            oprot.writeFieldBegin('migrationPincodeSessionId', TType.STRING, 5)
+            oprot.writeString(self.migrationPincodeSessionId.encode('utf-8') if sys.version_info[0] == 2 else self.migrationPincodeSessionId)
+            oprot.writeFieldEnd()
+        if self.oldUdidHash is not None:
+            oprot.writeFieldBegin('oldUdidHash', TType.STRING, 6)
+            oprot.writeString(self.oldUdidHash.encode('utf-8') if sys.version_info[0] == 2 else self.oldUdidHash)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class verifyPhoneNumber_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (PhoneVerificationResult, PhoneVerificationResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = PhoneVerificationResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('verifyPhoneNumber_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
             oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
@@ -18363,10 +22816,10 @@ class getBlockedContactIdsByRange_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype985, _size982) = iprot.readListBegin()
-                    for _i986 in range(_size982):
-                        _elem987 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem987)
+                    (_etype1378, _size1375) = iprot.readListBegin()
+                    for _i1379 in range(_size1375):
+                        _elem1380 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1380)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -18389,8 +22842,8 @@ class getBlockedContactIdsByRange_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter988 in self.success:
-                oprot.writeString(iter988.encode('utf-8') if sys.version_info[0] == 2 else iter988)
+            for iter1381 in self.success:
+                oprot.writeString(iter1381.encode('utf-8') if sys.version_info[0] == 2 else iter1381)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -18485,10 +22938,10 @@ class getBlockedRecommendationIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype992, _size989) = iprot.readListBegin()
-                    for _i993 in range(_size989):
-                        _elem994 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem994)
+                    (_etype1385, _size1382) = iprot.readListBegin()
+                    for _i1386 in range(_size1382):
+                        _elem1387 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1387)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -18511,8 +22964,8 @@ class getBlockedRecommendationIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter995 in self.success:
-                oprot.writeString(iter995.encode('utf-8') if sys.version_info[0] == 2 else iter995)
+            for iter1388 in self.success:
+                oprot.writeString(iter1388.encode('utf-8') if sys.version_info[0] == 2 else iter1388)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -18607,10 +23060,10 @@ class getBuddyBlockerIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype999, _size996) = iprot.readListBegin()
-                    for _i1000 in range(_size996):
-                        _elem1001 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1001)
+                    (_etype1392, _size1389) = iprot.readListBegin()
+                    for _i1393 in range(_size1389):
+                        _elem1394 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1394)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -18633,8 +23086,8 @@ class getBuddyBlockerIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1002 in self.success:
-                oprot.writeString(iter1002.encode('utf-8') if sys.version_info[0] == 2 else iter1002)
+            for iter1395 in self.success:
+                oprot.writeString(iter1395.encode('utf-8') if sys.version_info[0] == 2 else iter1395)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -18894,11 +23347,11 @@ class getCompactContactsModifiedSince_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1006, _size1003) = iprot.readListBegin()
-                    for _i1007 in range(_size1003):
-                        _elem1008 = CompactContact()
-                        _elem1008.read(iprot)
-                        self.success.append(_elem1008)
+                    (_etype1399, _size1396) = iprot.readListBegin()
+                    for _i1400 in range(_size1396):
+                        _elem1401 = CompactContact()
+                        _elem1401.read(iprot)
+                        self.success.append(_elem1401)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -18921,8 +23374,8 @@ class getCompactContactsModifiedSince_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1009 in self.success:
-                iter1009.write(oprot)
+            for iter1402 in self.success:
+                iter1402.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -19376,10 +23829,10 @@ class getContacts_args(object):
             if fid == 2:
                 if ftype == TType.LIST:
                     self.ids = []
-                    (_etype1013, _size1010) = iprot.readListBegin()
-                    for _i1014 in range(_size1010):
-                        _elem1015 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.ids.append(_elem1015)
+                    (_etype1406, _size1403) = iprot.readListBegin()
+                    for _i1407 in range(_size1403):
+                        _elem1408 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.ids.append(_elem1408)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -19396,8 +23849,8 @@ class getContacts_args(object):
         if self.ids is not None:
             oprot.writeFieldBegin('ids', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.ids))
-            for iter1016 in self.ids:
-                oprot.writeString(iter1016.encode('utf-8') if sys.version_info[0] == 2 else iter1016)
+            for iter1409 in self.ids:
+                oprot.writeString(iter1409.encode('utf-8') if sys.version_info[0] == 2 else iter1409)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -19446,11 +23899,11 @@ class getContacts_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1020, _size1017) = iprot.readListBegin()
-                    for _i1021 in range(_size1017):
-                        _elem1022 = Contact()
-                        _elem1022.read(iprot)
-                        self.success.append(_elem1022)
+                    (_etype1413, _size1410) = iprot.readListBegin()
+                    for _i1414 in range(_size1410):
+                        _elem1415 = Contact()
+                        _elem1415.read(iprot)
+                        self.success.append(_elem1415)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -19473,8 +23926,8 @@ class getContacts_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1023 in self.success:
-                iter1023.write(oprot)
+            for iter1416 in self.success:
+                iter1416.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -19683,10 +24136,10 @@ class getFavoriteMids_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1027, _size1024) = iprot.readListBegin()
-                    for _i1028 in range(_size1024):
-                        _elem1029 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1029)
+                    (_etype1420, _size1417) = iprot.readListBegin()
+                    for _i1421 in range(_size1417):
+                        _elem1422 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1422)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -19709,8 +24162,8 @@ class getFavoriteMids_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1030 in self.success:
-                oprot.writeString(iter1030.encode('utf-8') if sys.version_info[0] == 2 else iter1030)
+            for iter1423 in self.success:
+                oprot.writeString(iter1423.encode('utf-8') if sys.version_info[0] == 2 else iter1423)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -19939,10 +24392,10 @@ class getGroupIdsInvited_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1034, _size1031) = iprot.readListBegin()
-                    for _i1035 in range(_size1031):
-                        _elem1036 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1036)
+                    (_etype1427, _size1424) = iprot.readListBegin()
+                    for _i1428 in range(_size1424):
+                        _elem1429 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1429)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -19965,8 +24418,8 @@ class getGroupIdsInvited_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1037 in self.success:
-                oprot.writeString(iter1037.encode('utf-8') if sys.version_info[0] == 2 else iter1037)
+            for iter1430 in self.success:
+                oprot.writeString(iter1430.encode('utf-8') if sys.version_info[0] == 2 else iter1430)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -20061,10 +24514,10 @@ class getGroupIdsJoined_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1041, _size1038) = iprot.readListBegin()
-                    for _i1042 in range(_size1038):
-                        _elem1043 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1043)
+                    (_etype1434, _size1431) = iprot.readListBegin()
+                    for _i1435 in range(_size1431):
+                        _elem1436 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1436)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -20087,8 +24540,8 @@ class getGroupIdsJoined_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1044 in self.success:
-                oprot.writeString(iter1044.encode('utf-8') if sys.version_info[0] == 2 else iter1044)
+            for iter1437 in self.success:
+                oprot.writeString(iter1437.encode('utf-8') if sys.version_info[0] == 2 else iter1437)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -20140,10 +24593,10 @@ class getGroups_args(object):
             if fid == 2:
                 if ftype == TType.LIST:
                     self.groupIds = []
-                    (_etype1048, _size1045) = iprot.readListBegin()
-                    for _i1049 in range(_size1045):
-                        _elem1050 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.groupIds.append(_elem1050)
+                    (_etype1441, _size1438) = iprot.readListBegin()
+                    for _i1442 in range(_size1438):
+                        _elem1443 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.groupIds.append(_elem1443)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -20160,8 +24613,8 @@ class getGroups_args(object):
         if self.groupIds is not None:
             oprot.writeFieldBegin('groupIds', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.groupIds))
-            for iter1051 in self.groupIds:
-                oprot.writeString(iter1051.encode('utf-8') if sys.version_info[0] == 2 else iter1051)
+            for iter1444 in self.groupIds:
+                oprot.writeString(iter1444.encode('utf-8') if sys.version_info[0] == 2 else iter1444)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -20210,11 +24663,11 @@ class getGroups_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1055, _size1052) = iprot.readListBegin()
-                    for _i1056 in range(_size1052):
-                        _elem1057 = Group()
-                        _elem1057.read(iprot)
-                        self.success.append(_elem1057)
+                    (_etype1448, _size1445) = iprot.readListBegin()
+                    for _i1449 in range(_size1445):
+                        _elem1450 = Group()
+                        _elem1450.read(iprot)
+                        self.success.append(_elem1450)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -20237,8 +24690,8 @@ class getGroups_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1058 in self.success:
-                iter1058.write(oprot)
+            for iter1451 in self.success:
+                iter1451.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -20333,10 +24786,10 @@ class getHiddenContactMids_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1062, _size1059) = iprot.readListBegin()
-                    for _i1063 in range(_size1059):
-                        _elem1064 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1064)
+                    (_etype1455, _size1452) = iprot.readListBegin()
+                    for _i1456 in range(_size1452):
+                        _elem1457 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1457)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -20359,8 +24812,8 @@ class getHiddenContactMids_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1065 in self.success:
-                oprot.writeString(iter1065.encode('utf-8') if sys.version_info[0] == 2 else iter1065)
+            for iter1458 in self.success:
+                oprot.writeString(iter1458.encode('utf-8') if sys.version_info[0] == 2 else iter1458)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -21266,11 +25719,11 @@ class getMessageBoxList_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1069, _size1066) = iprot.readListBegin()
-                    for _i1070 in range(_size1066):
-                        _elem1071 = TMessageBox()
-                        _elem1071.read(iprot)
-                        self.success.append(_elem1071)
+                    (_etype1462, _size1459) = iprot.readListBegin()
+                    for _i1463 in range(_size1459):
+                        _elem1464 = TMessageBox()
+                        _elem1464.read(iprot)
+                        self.success.append(_elem1464)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -21293,8 +25746,8 @@ class getMessageBoxList_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1072 in self.success:
-                iter1072.write(oprot)
+            for iter1465 in self.success:
+                iter1465.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -21432,11 +25885,11 @@ class getMessageBoxListByStatus_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1076, _size1073) = iprot.readListBegin()
-                    for _i1077 in range(_size1073):
-                        _elem1078 = TMessageBox()
-                        _elem1078.read(iprot)
-                        self.success.append(_elem1078)
+                    (_etype1469, _size1466) = iprot.readListBegin()
+                    for _i1470 in range(_size1466):
+                        _elem1471 = TMessageBox()
+                        _elem1471.read(iprot)
+                        self.success.append(_elem1471)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -21459,8 +25912,8 @@ class getMessageBoxListByStatus_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1079 in self.success:
-                iter1079.write(oprot)
+            for iter1472 in self.success:
+                iter1472.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -21890,11 +26343,11 @@ class getMessagesBySequenceNumber_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1083, _size1080) = iprot.readListBegin()
-                    for _i1084 in range(_size1080):
-                        _elem1085 = Message()
-                        _elem1085.read(iprot)
-                        self.success.append(_elem1085)
+                    (_etype1476, _size1473) = iprot.readListBegin()
+                    for _i1477 in range(_size1473):
+                        _elem1478 = Message()
+                        _elem1478.read(iprot)
+                        self.success.append(_elem1478)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -21917,8 +26370,8 @@ class getMessagesBySequenceNumber_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1086 in self.success:
-                iter1086.write(oprot)
+            for iter1479 in self.success:
+                iter1479.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -22056,11 +26509,11 @@ class getNextMessages_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1090, _size1087) = iprot.readListBegin()
-                    for _i1091 in range(_size1087):
-                        _elem1092 = Message()
-                        _elem1092.read(iprot)
-                        self.success.append(_elem1092)
+                    (_etype1483, _size1480) = iprot.readListBegin()
+                    for _i1484 in range(_size1480):
+                        _elem1485 = Message()
+                        _elem1485.read(iprot)
+                        self.success.append(_elem1485)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -22083,8 +26536,8 @@ class getNextMessages_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1093 in self.success:
-                iter1093.write(oprot)
+            for iter1486 in self.success:
+                iter1486.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -22198,10 +26651,10 @@ class getNotificationPolicy_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1097, _size1094) = iprot.readListBegin()
-                    for _i1098 in range(_size1094):
-                        _elem1099 = iprot.readI32()
-                        self.success.append(_elem1099)
+                    (_etype1490, _size1487) = iprot.readListBegin()
+                    for _i1491 in range(_size1487):
+                        _elem1492 = iprot.readI32()
+                        self.success.append(_elem1492)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -22224,8 +26677,8 @@ class getNotificationPolicy_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.I32, len(self.success))
-            for iter1100 in self.success:
-                oprot.writeI32(iter1100)
+            for iter1493 in self.success:
+                oprot.writeI32(iter1493)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -22363,11 +26816,11 @@ class getPreviousMessages_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1104, _size1101) = iprot.readListBegin()
-                    for _i1105 in range(_size1101):
-                        _elem1106 = Message()
-                        _elem1106.read(iprot)
-                        self.success.append(_elem1106)
+                    (_etype1497, _size1494) = iprot.readListBegin()
+                    for _i1498 in range(_size1494):
+                        _elem1499 = Message()
+                        _elem1499.read(iprot)
+                        self.success.append(_elem1499)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -22390,8 +26843,8 @@ class getPreviousMessages_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1107 in self.success:
-                iter1107.write(oprot)
+            for iter1500 in self.success:
+                iter1500.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -22754,11 +27207,11 @@ class getProximityMatchCandidates_result(object):
             if fid == 0:
                 if ftype == TType.SET:
                     self.success = set()
-                    (_etype1111, _size1108) = iprot.readSetBegin()
-                    for _i1112 in range(_size1108):
-                        _elem1113 = Contact()
-                        _elem1113.read(iprot)
-                        self.success.add(_elem1113)
+                    (_etype1504, _size1501) = iprot.readSetBegin()
+                    for _i1505 in range(_size1501):
+                        _elem1506 = Contact()
+                        _elem1506.read(iprot)
+                        self.success.add(_elem1506)
                     iprot.readSetEnd()
                 else:
                     iprot.skip(ftype)
@@ -22781,8 +27234,8 @@ class getProximityMatchCandidates_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.SET, 0)
             oprot.writeSetBegin(TType.STRUCT, len(self.success))
-            for iter1114 in self.success:
-                iter1114.write(oprot)
+            for iter1507 in self.success:
+                iter1507.write(oprot)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -22908,11 +27361,11 @@ class getRecentMessages_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1118, _size1115) = iprot.readListBegin()
-                    for _i1119 in range(_size1115):
-                        _elem1120 = Message()
-                        _elem1120.read(iprot)
-                        self.success.append(_elem1120)
+                    (_etype1511, _size1508) = iprot.readListBegin()
+                    for _i1512 in range(_size1508):
+                        _elem1513 = Message()
+                        _elem1513.read(iprot)
+                        self.success.append(_elem1513)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -22935,8 +27388,8 @@ class getRecentMessages_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1121 in self.success:
-                iter1121.write(oprot)
+            for iter1514 in self.success:
+                iter1514.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -23031,10 +27484,10 @@ class getRecommendationIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1125, _size1122) = iprot.readListBegin()
-                    for _i1126 in range(_size1122):
-                        _elem1127 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem1127)
+                    (_etype1518, _size1515) = iprot.readListBegin()
+                    for _i1519 in range(_size1515):
+                        _elem1520 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem1520)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -23057,8 +27510,8 @@ class getRecommendationIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter1128 in self.success:
-                oprot.writeString(iter1128.encode('utf-8') if sys.version_info[0] == 2 else iter1128)
+            for iter1521 in self.success:
+                oprot.writeString(iter1521.encode('utf-8') if sys.version_info[0] == 2 else iter1521)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -23535,11 +27988,11 @@ class getSessions_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1132, _size1129) = iprot.readListBegin()
-                    for _i1133 in range(_size1129):
-                        _elem1134 = LoginSession()
-                        _elem1134.read(iprot)
-                        self.success.append(_elem1134)
+                    (_etype1525, _size1522) = iprot.readListBegin()
+                    for _i1526 in range(_size1522):
+                        _elem1527 = LoginSession()
+                        _elem1527.read(iprot)
+                        self.success.append(_elem1527)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -23562,8 +28015,8 @@ class getSessions_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1135 in self.success:
-                iter1135.write(oprot)
+            for iter1528 in self.success:
+                iter1528.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -24331,10 +28784,10 @@ class inviteFriendsBySms_args(object):
             if fid == 2:
                 if ftype == TType.LIST:
                     self.phoneNumberList = []
-                    (_etype1139, _size1136) = iprot.readListBegin()
-                    for _i1140 in range(_size1136):
-                        _elem1141 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.phoneNumberList.append(_elem1141)
+                    (_etype1532, _size1529) = iprot.readListBegin()
+                    for _i1533 in range(_size1529):
+                        _elem1534 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.phoneNumberList.append(_elem1534)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -24351,8 +28804,8 @@ class inviteFriendsBySms_args(object):
         if self.phoneNumberList is not None:
             oprot.writeFieldBegin('phoneNumberList', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.phoneNumberList))
-            for iter1142 in self.phoneNumberList:
-                oprot.writeString(iter1142.encode('utf-8') if sys.version_info[0] == 2 else iter1142)
+            for iter1535 in self.phoneNumberList:
+                oprot.writeString(iter1535.encode('utf-8') if sys.version_info[0] == 2 else iter1535)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -24476,10 +28929,10 @@ class inviteIntoGroup_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype1146, _size1143) = iprot.readListBegin()
-                    for _i1147 in range(_size1143):
-                        _elem1148 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem1148)
+                    (_etype1539, _size1536) = iprot.readListBegin()
+                    for _i1540 in range(_size1536):
+                        _elem1541 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1541)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -24504,8 +28957,8 @@ class inviteIntoGroup_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter1149 in self.contactIds:
-                oprot.writeString(iter1149.encode('utf-8') if sys.version_info[0] == 2 else iter1149)
+            for iter1542 in self.contactIds:
+                oprot.writeString(iter1542.encode('utf-8') if sys.version_info[0] == 2 else iter1542)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -24629,10 +29082,10 @@ class inviteIntoRoom_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype1153, _size1150) = iprot.readListBegin()
-                    for _i1154 in range(_size1150):
-                        _elem1155 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem1155)
+                    (_etype1546, _size1543) = iprot.readListBegin()
+                    for _i1547 in range(_size1543):
+                        _elem1548 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1548)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -24657,8 +29110,8 @@ class inviteIntoRoom_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter1156 in self.contactIds:
-                oprot.writeString(iter1156.encode('utf-8') if sys.version_info[0] == 2 else iter1156)
+            for iter1549 in self.contactIds:
+                oprot.writeString(iter1549.encode('utf-8') if sys.version_info[0] == 2 else iter1549)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -25205,10 +29658,10 @@ class kickoutFromGroup_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.contactIds = []
-                    (_etype1160, _size1157) = iprot.readListBegin()
-                    for _i1161 in range(_size1157):
-                        _elem1162 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.contactIds.append(_elem1162)
+                    (_etype1553, _size1550) = iprot.readListBegin()
+                    for _i1554 in range(_size1550):
+                        _elem1555 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1555)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -25233,8 +29686,8 @@ class kickoutFromGroup_args(object):
         if self.contactIds is not None:
             oprot.writeFieldBegin('contactIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.contactIds))
-            for iter1163 in self.contactIds:
-                oprot.writeString(iter1163.encode('utf-8') if sys.version_info[0] == 2 else iter1163)
+            for iter1556 in self.contactIds:
+                oprot.writeString(iter1556.encode('utf-8') if sys.version_info[0] == 2 else iter1556)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -25319,16 +29772,16 @@ class kickoutFromGroup_result(object):
 class reissueGroupTicket_args(object):
     """
     Attributes:
-     - groupId
+     - groupMid
     """
 
     thrift_spec = (
         None,  # 0
-        (1, TType.STRING, 'groupId', 'UTF8', None, ),  # 1
+        (1, TType.STRING, 'groupMid', 'UTF8', None, ),  # 1
     )
 
-    def __init__(self, groupId=None,):
-        self.groupId = groupId
+    def __init__(self, groupMid=None,):
+        self.groupMid = groupMid
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -25341,7 +29794,7 @@ class reissueGroupTicket_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRING:
-                    self.groupId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.groupMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -25354,9 +29807,9 @@ class reissueGroupTicket_args(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('reissueGroupTicket_args')
-        if self.groupId is not None:
-            oprot.writeFieldBegin('groupId', TType.STRING, 1)
-            oprot.writeString(self.groupId.encode('utf-8') if sys.version_info[0] == 2 else self.groupId)
+        if self.groupMid is not None:
+            oprot.writeFieldBegin('groupMid', TType.STRING, 1)
+            oprot.writeString(self.groupMid.encode('utf-8') if sys.version_info[0] == 2 else self.groupMid)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -25425,6 +29878,139 @@ class reissueGroupTicket_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRING, 0)
             oprot.writeString(self.success.encode('utf-8') if sys.version_info[0] == 2 else self.success)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findGroupByTicket_args(object):
+    """
+    Attributes:
+     - ticketId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRING, 'ticketId', 'UTF8', None, ),  # 1
+    )
+
+    def __init__(self, ticketId=None,):
+        self.ticketId = ticketId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.ticketId = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findGroupByTicket_args')
+        if self.ticketId is not None:
+            oprot.writeFieldBegin('ticketId', TType.STRING, 1)
+            oprot.writeString(self.ticketId.encode('utf-8') if sys.version_info[0] == 2 else self.ticketId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findGroupByTicket_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (Group, Group.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = Group()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findGroupByTicket_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
             oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
@@ -26531,141 +31117,6 @@ class loginWithVerifierForCertificate_result(object):
         return not (self == other)
 
 
-class loginZ_args(object):
-    """
-    Attributes:
-     - LoginRequest
-    """
-
-    thrift_spec = (
-        None,  # 0
-        None,  # 1
-        (2, TType.STRUCT, 'LoginRequest', (loginRequest, loginRequest.thrift_spec), None, ),  # 2
-    )
-
-    def __init__(self, LoginRequest=None,):
-        self.LoginRequest = LoginRequest
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 2:
-                if ftype == TType.STRUCT:
-                    self.LoginRequest = loginRequest()
-                    self.LoginRequest.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('loginZ_args')
-        if self.LoginRequest is not None:
-            oprot.writeFieldBegin('LoginRequest', TType.STRUCT, 2)
-            self.LoginRequest.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class loginZ_result(object):
-    """
-    Attributes:
-     - success
-     - e
-    """
-
-    thrift_spec = (
-        (0, TType.STRUCT, 'success', (LoginResult, LoginResult.thrift_spec), None, ),  # 0
-        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
-    )
-
-    def __init__(self, success=None, e=None,):
-        self.success = success
-        self.e = e
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = LoginResult()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.e = TalkException()
-                    self.e.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
-            return
-        oprot.writeStructBegin('loginZ_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.e is not None:
-            oprot.writeFieldBegin('e', TType.STRUCT, 1)
-            self.e.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
 class logout_args(object):
 
     thrift_spec = (
@@ -27021,11 +31472,11 @@ class notifiedRedirect_args(object):
             if fid == 2:
                 if ftype == TType.MAP:
                     self.paramMap = {}
-                    (_ktype1165, _vtype1166, _size1164) = iprot.readMapBegin()
-                    for _i1168 in range(_size1164):
-                        _key1169 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val1170 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.paramMap[_key1169] = _val1170
+                    (_ktype1558, _vtype1559, _size1557) = iprot.readMapBegin()
+                    for _i1561 in range(_size1557):
+                        _key1562 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1563 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.paramMap[_key1562] = _val1563
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -27042,9 +31493,9 @@ class notifiedRedirect_args(object):
         if self.paramMap is not None:
             oprot.writeFieldBegin('paramMap', TType.MAP, 2)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.paramMap))
-            for kiter1171, viter1172 in self.paramMap.items():
-                oprot.writeString(kiter1171.encode('utf-8') if sys.version_info[0] == 2 else kiter1171)
-                oprot.writeString(viter1172.encode('utf-8') if sys.version_info[0] == 2 else viter1172)
+            for kiter1564, viter1565 in self.paramMap.items():
+                oprot.writeString(kiter1564.encode('utf-8') if sys.version_info[0] == 2 else kiter1564)
+                oprot.writeString(viter1565.encode('utf-8') if sys.version_info[0] == 2 else viter1565)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -27160,10 +31611,10 @@ class notifyBuddyOnAir_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype1176, _size1173) = iprot.readListBegin()
-                    for _i1177 in range(_size1173):
-                        _elem1178 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem1178)
+                    (_etype1569, _size1566) = iprot.readListBegin()
+                    for _i1570 in range(_size1566):
+                        _elem1571 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1571)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -27184,8 +31635,8 @@ class notifyBuddyOnAir_args(object):
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter1179 in self.receiverMids:
-                oprot.writeString(iter1179.encode('utf-8') if sys.version_info[0] == 2 else iter1179)
+            for iter1572 in self.receiverMids:
+                oprot.writeString(iter1572.encode('utf-8') if sys.version_info[0] == 2 else iter1572)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -27234,11 +31685,11 @@ class notifyBuddyOnAir_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype1181, _vtype1182, _size1180) = iprot.readMapBegin()
-                    for _i1184 in range(_size1180):
-                        _key1185 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val1186 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success[_key1185] = _val1186
+                    (_ktype1574, _vtype1575, _size1573) = iprot.readMapBegin()
+                    for _i1577 in range(_size1573):
+                        _key1578 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1579 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key1578] = _val1579
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -27261,9 +31712,9 @@ class notifyBuddyOnAir_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-            for kiter1187, viter1188 in self.success.items():
-                oprot.writeString(kiter1187.encode('utf-8') if sys.version_info[0] == 2 else kiter1187)
-                oprot.writeString(viter1188.encode('utf-8') if sys.version_info[0] == 2 else viter1188)
+            for kiter1580, viter1581 in self.success.items():
+                oprot.writeString(kiter1580.encode('utf-8') if sys.version_info[0] == 2 else kiter1580)
+                oprot.writeString(viter1581.encode('utf-8') if sys.version_info[0] == 2 else viter1581)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -27323,10 +31774,10 @@ class notifyIndividualEvent_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype1192, _size1189) = iprot.readListBegin()
-                    for _i1193 in range(_size1189):
-                        _elem1194 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem1194)
+                    (_etype1585, _size1582) = iprot.readListBegin()
+                    for _i1586 in range(_size1582):
+                        _elem1587 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1587)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -27347,8 +31798,8 @@ class notifyIndividualEvent_args(object):
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter1195 in self.receiverMids:
-                oprot.writeString(iter1195.encode('utf-8') if sys.version_info[0] == 2 else iter1195)
+            for iter1588 in self.receiverMids:
+                oprot.writeString(iter1588.encode('utf-8') if sys.version_info[0] == 2 else iter1588)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -30143,6 +34594,156 @@ class reissueUserTicket_result(object):
         return not (self == other)
 
 
+class getMessageReadRange_args(object):
+    """
+    Attributes:
+     - chatIds
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.LIST, 'chatIds', (TType.STRING, 'UTF8', False), None, ),  # 2
+    )
+
+    def __init__(self, chatIds=None,):
+        self.chatIds = chatIds
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.LIST:
+                    self.chatIds = []
+                    (_etype1592, _size1589) = iprot.readListBegin()
+                    for _i1593 in range(_size1589):
+                        _elem1594 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.chatIds.append(_elem1594)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getMessageReadRange_args')
+        if self.chatIds is not None:
+            oprot.writeFieldBegin('chatIds', TType.LIST, 2)
+            oprot.writeListBegin(TType.STRING, len(self.chatIds))
+            for iter1595 in self.chatIds:
+                oprot.writeString(iter1595.encode('utf-8') if sys.version_info[0] == 2 else iter1595)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getMessageReadRange_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRUCT, (TMessageReadRange, TMessageReadRange.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1599, _size1596) = iprot.readListBegin()
+                    for _i1600 in range(_size1596):
+                        _elem1601 = TMessageReadRange()
+                        _elem1601.read(iprot)
+                        self.success.append(_elem1601)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getMessageReadRange_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter1602 in self.success:
+                iter1602.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
 class rejectGroupInvitation_args(object):
     """
     Attributes:
@@ -31237,11 +35838,11 @@ class reportContacts_args(object):
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.contactReports = []
-                    (_etype1199, _size1196) = iprot.readListBegin()
-                    for _i1200 in range(_size1196):
-                        _elem1201 = ContactReport()
-                        _elem1201.read(iprot)
-                        self.contactReports.append(_elem1201)
+                    (_etype1606, _size1603) = iprot.readListBegin()
+                    for _i1607 in range(_size1603):
+                        _elem1608 = ContactReport()
+                        _elem1608.read(iprot)
+                        self.contactReports.append(_elem1608)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -31271,8 +35872,8 @@ class reportContacts_args(object):
         if self.contactReports is not None:
             oprot.writeFieldBegin('contactReports', TType.LIST, 4)
             oprot.writeListBegin(TType.STRUCT, len(self.contactReports))
-            for iter1202 in self.contactReports:
-                iter1202.write(oprot)
+            for iter1609 in self.contactReports:
+                iter1609.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.actionType is not None:
@@ -31325,11 +35926,11 @@ class reportContacts_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1206, _size1203) = iprot.readListBegin()
-                    for _i1207 in range(_size1203):
-                        _elem1208 = ContactReportResult()
-                        _elem1208.read(iprot)
-                        self.success.append(_elem1208)
+                    (_etype1613, _size1610) = iprot.readListBegin()
+                    for _i1614 in range(_size1610):
+                        _elem1615 = ContactReportResult()
+                        _elem1615.read(iprot)
+                        self.success.append(_elem1615)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -31352,8 +35953,8 @@ class reportContacts_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1209 in self.success:
-                iter1209.write(oprot)
+            for iter1616 in self.success:
+                iter1616.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -31413,11 +36014,11 @@ class reportGroups_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.groups = []
-                    (_etype1213, _size1210) = iprot.readListBegin()
-                    for _i1214 in range(_size1210):
-                        _elem1215 = Group()
-                        _elem1215.read(iprot)
-                        self.groups.append(_elem1215)
+                    (_etype1620, _size1617) = iprot.readListBegin()
+                    for _i1621 in range(_size1617):
+                        _elem1622 = Group()
+                        _elem1622.read(iprot)
+                        self.groups.append(_elem1622)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -31438,8 +36039,8 @@ class reportGroups_args(object):
         if self.groups is not None:
             oprot.writeFieldBegin('groups', TType.LIST, 3)
             oprot.writeListBegin(TType.STRUCT, len(self.groups))
-            for iter1216 in self.groups:
-                iter1216.write(oprot)
+            for iter1623 in self.groups:
+                iter1623.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -31691,11 +36292,11 @@ class reportRooms_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.rooms = []
-                    (_etype1220, _size1217) = iprot.readListBegin()
-                    for _i1221 in range(_size1217):
-                        _elem1222 = Room()
-                        _elem1222.read(iprot)
-                        self.rooms.append(_elem1222)
+                    (_etype1627, _size1624) = iprot.readListBegin()
+                    for _i1628 in range(_size1624):
+                        _elem1629 = Room()
+                        _elem1629.read(iprot)
+                        self.rooms.append(_elem1629)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -31716,8 +36317,8 @@ class reportRooms_args(object):
         if self.rooms is not None:
             oprot.writeFieldBegin('rooms', TType.LIST, 3)
             oprot.writeListBegin(TType.STRUCT, len(self.rooms))
-            for iter1223 in self.rooms:
-                iter1223.write(oprot)
+            for iter1630 in self.rooms:
+                iter1630.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -31972,20 +36573,20 @@ class reportSpammer_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.spammerReasons = []
-                    (_etype1227, _size1224) = iprot.readListBegin()
-                    for _i1228 in range(_size1224):
-                        _elem1229 = iprot.readI32()
-                        self.spammerReasons.append(_elem1229)
+                    (_etype1634, _size1631) = iprot.readListBegin()
+                    for _i1635 in range(_size1631):
+                        _elem1636 = iprot.readI32()
+                        self.spammerReasons.append(_elem1636)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.spamMessageIds = []
-                    (_etype1233, _size1230) = iprot.readListBegin()
-                    for _i1234 in range(_size1230):
-                        _elem1235 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.spamMessageIds.append(_elem1235)
+                    (_etype1640, _size1637) = iprot.readListBegin()
+                    for _i1641 in range(_size1637):
+                        _elem1642 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.spamMessageIds.append(_elem1642)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -32006,15 +36607,15 @@ class reportSpammer_args(object):
         if self.spammerReasons is not None:
             oprot.writeFieldBegin('spammerReasons', TType.LIST, 3)
             oprot.writeListBegin(TType.I32, len(self.spammerReasons))
-            for iter1236 in self.spammerReasons:
-                oprot.writeI32(iter1236)
+            for iter1643 in self.spammerReasons:
+                oprot.writeI32(iter1643)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.spamMessageIds is not None:
             oprot.writeFieldBegin('spamMessageIds', TType.LIST, 4)
             oprot.writeListBegin(TType.STRING, len(self.spamMessageIds))
-            for iter1237 in self.spamMessageIds:
-                oprot.writeString(iter1237.encode('utf-8') if sys.version_info[0] == 2 else iter1237)
+            for iter1644 in self.spamMessageIds:
+                oprot.writeString(iter1644.encode('utf-8') if sys.version_info[0] == 2 else iter1644)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -33223,10 +37824,10 @@ class sendContentPreviewUpdated_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.receiverMids = []
-                    (_etype1241, _size1238) = iprot.readListBegin()
-                    for _i1242 in range(_size1238):
-                        _elem1243 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.receiverMids.append(_elem1243)
+                    (_etype1648, _size1645) = iprot.readListBegin()
+                    for _i1649 in range(_size1645):
+                        _elem1650 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.receiverMids.append(_elem1650)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -33251,8 +37852,8 @@ class sendContentPreviewUpdated_args(object):
         if self.receiverMids is not None:
             oprot.writeFieldBegin('receiverMids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.receiverMids))
-            for iter1244 in self.receiverMids:
-                oprot.writeString(iter1244.encode('utf-8') if sys.version_info[0] == 2 else iter1244)
+            for iter1651 in self.receiverMids:
+                oprot.writeString(iter1651.encode('utf-8') if sys.version_info[0] == 2 else iter1651)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -33301,11 +37902,11 @@ class sendContentPreviewUpdated_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype1246, _vtype1247, _size1245) = iprot.readMapBegin()
-                    for _i1249 in range(_size1245):
-                        _key1250 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val1251 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success[_key1250] = _val1251
+                    (_ktype1653, _vtype1654, _size1652) = iprot.readMapBegin()
+                    for _i1656 in range(_size1652):
+                        _key1657 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1658 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key1657] = _val1658
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -33328,9 +37929,9 @@ class sendContentPreviewUpdated_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-            for kiter1252, viter1253 in self.success.items():
-                oprot.writeString(kiter1252.encode('utf-8') if sys.version_info[0] == 2 else kiter1252)
-                oprot.writeString(viter1253.encode('utf-8') if sys.version_info[0] == 2 else viter1253)
+            for kiter1659, viter1660 in self.success.items():
+                oprot.writeString(kiter1659.encode('utf-8') if sys.version_info[0] == 2 else kiter1659)
+                oprot.writeString(viter1660.encode('utf-8') if sys.version_info[0] == 2 else viter1660)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -33581,6 +38182,1134 @@ class sendDummyPush_result(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('sendDummyPush_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeE2EEPublicKey_args(object):
+    """
+    Attributes:
+     - publicKey
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRUCT, 'publicKey', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 2
+    )
+
+    def __init__(self, publicKey=None,):
+        self.publicKey = publicKey
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRUCT:
+                    self.publicKey = E2EEPublicKey()
+                    self.publicKey.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeE2EEPublicKey_args')
+        if self.publicKey is not None:
+            oprot.writeFieldBegin('publicKey', TType.STRUCT, 2)
+            self.publicKey.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class removeE2EEPublicKey_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('removeE2EEPublicKey_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class negotiateE2EEPublicKey_args(object):
+    """
+    Attributes:
+     - mid
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'mid', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, mid=None,):
+        self.mid = mid
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.mid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('negotiateE2EEPublicKey_args')
+        if self.mid is not None:
+            oprot.writeFieldBegin('mid', TType.STRING, 2)
+            oprot.writeString(self.mid.encode('utf-8') if sys.version_info[0] == 2 else self.mid)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class negotiateE2EEPublicKey_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (E2EENegotiationResult, E2EENegotiationResult.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = E2EENegotiationResult()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('negotiateE2EEPublicKey_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKey_args(object):
+    """
+    Attributes:
+     - mid
+     - version
+     - keyId
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'mid', 'UTF8', None, ),  # 2
+        (3, TType.I32, 'version', None, None, ),  # 3
+        (4, TType.I32, 'keyId', None, None, ),  # 4
+    )
+
+    def __init__(self, mid=None, version=None, keyId=None,):
+        self.mid = mid
+        self.version = version
+        self.keyId = keyId
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.mid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I32:
+                    self.version = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.I32:
+                    self.keyId = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKey_args')
+        if self.mid is not None:
+            oprot.writeFieldBegin('mid', TType.STRING, 2)
+            oprot.writeString(self.mid.encode('utf-8') if sys.version_info[0] == 2 else self.mid)
+            oprot.writeFieldEnd()
+        if self.version is not None:
+            oprot.writeFieldBegin('version', TType.I32, 3)
+            oprot.writeI32(self.version)
+            oprot.writeFieldEnd()
+        if self.keyId is not None:
+            oprot.writeFieldBegin('keyId', TType.I32, 4)
+            oprot.writeI32(self.keyId)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKey_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = E2EEPublicKey()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKey_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class requestE2EEKeyExchange_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - temporalPublicKey
+     - publicKey
+     - verifier
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'temporalPublicKey', 'BINARY', None, ),  # 2
+        (3, TType.STRUCT, 'publicKey', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 3
+        (4, TType.STRING, 'verifier', 'BINARY', None, ),  # 4
+    )
+
+    def __init__(self, reqSeq=None, temporalPublicKey=None, publicKey=None, verifier=None,):
+        self.reqSeq = reqSeq
+        self.temporalPublicKey = temporalPublicKey
+        self.publicKey = publicKey
+        self.verifier = verifier
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.temporalPublicKey = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.publicKey = E2EEPublicKey()
+                    self.publicKey.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.verifier = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('requestE2EEKeyExchange_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.temporalPublicKey is not None:
+            oprot.writeFieldBegin('temporalPublicKey', TType.STRING, 2)
+            oprot.writeBinary(self.temporalPublicKey)
+            oprot.writeFieldEnd()
+        if self.publicKey is not None:
+            oprot.writeFieldBegin('publicKey', TType.STRUCT, 3)
+            self.publicKey.write(oprot)
+            oprot.writeFieldEnd()
+        if self.verifier is not None:
+            oprot.writeFieldBegin('verifier', TType.STRING, 4)
+            oprot.writeBinary(self.verifier)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class requestE2EEKeyExchange_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('requestE2EEKeyExchange_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getLastE2EEPublicKeys_args(object):
+    """
+    Attributes:
+     - chatMid
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'chatMid', 'UTF8', None, ),  # 2
+    )
+
+    def __init__(self, chatMid=None,):
+        self.chatMid = chatMid
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.chatMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getLastE2EEPublicKeys_args')
+        if self.chatMid is not None:
+            oprot.writeFieldBegin('chatMid', TType.STRING, 2)
+            oprot.writeString(self.chatMid.encode('utf-8') if sys.version_info[0] == 2 else self.chatMid)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getLastE2EEPublicKeys_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.MAP, 'success', (TType.STRING, 'UTF8', TType.STRUCT, (E2EEPublicKey, E2EEPublicKey.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.MAP:
+                    self.success = {}
+                    (_ktype1662, _vtype1663, _size1661) = iprot.readMapBegin()
+                    for _i1665 in range(_size1661):
+                        _key1666 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1667 = E2EEPublicKey()
+                        _val1667.read(iprot)
+                        self.success[_key1666] = _val1667
+                    iprot.readMapEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getLastE2EEPublicKeys_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.MAP, 0)
+            oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
+            for kiter1668, viter1669 in self.success.items():
+                oprot.writeString(kiter1668.encode('utf-8') if sys.version_info[0] == 2 else kiter1668)
+                viter1669.write(oprot)
+            oprot.writeMapEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerE2EEPublicKey_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - publicKey
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRUCT, 'publicKey', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 2
+    )
+
+    def __init__(self, reqSeq=None, publicKey=None,):
+        self.reqSeq = reqSeq
+        self.publicKey = publicKey
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.publicKey = E2EEPublicKey()
+                    self.publicKey.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerE2EEPublicKey_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.publicKey is not None:
+            oprot.writeFieldBegin('publicKey', TType.STRUCT, 2)
+            self.publicKey.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class registerE2EEPublicKey_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (E2EEPublicKey, E2EEPublicKey.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = E2EEPublicKey()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('registerE2EEPublicKey_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKeys_args(object):
+
+    thrift_spec = (
+    )
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKeys_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKeys_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRUCT, (E2EEPublicKey, E2EEPublicKey.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1673, _size1670) = iprot.readListBegin()
+                    for _i1674 in range(_size1670):
+                        _elem1675 = E2EEPublicKey()
+                        _elem1675.read(iprot)
+                        self.success.append(_elem1675)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKeys_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter1676 in self.success:
+                iter1676.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKeysEx_args(object):
+    """
+    Attributes:
+     - ignoreE2EEStatus
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.BOOL, 'ignoreE2EEStatus', None, None, ),  # 2
+    )
+
+    def __init__(self, ignoreE2EEStatus=None,):
+        self.ignoreE2EEStatus = ignoreE2EEStatus
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.BOOL:
+                    self.ignoreE2EEStatus = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKeysEx_args')
+        if self.ignoreE2EEStatus is not None:
+            oprot.writeFieldBegin('ignoreE2EEStatus', TType.BOOL, 2)
+            oprot.writeBool(self.ignoreE2EEStatus)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class getE2EEPublicKeysEx_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.LIST, 'success', (TType.STRUCT, (E2EEPublicKey, E2EEPublicKey.thrift_spec), False), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype1680, _size1677) = iprot.readListBegin()
+                    for _i1681 in range(_size1677):
+                        _elem1682 = E2EEPublicKey()
+                        _elem1682.read(iprot)
+                        self.success.append(_elem1682)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('getE2EEPublicKeysEx_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter1683 in self.success:
+                iter1683.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
             self.e.write(oprot)
@@ -33937,10 +39666,10 @@ class sendMessageIgnored_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.messageIds = []
-                    (_etype1257, _size1254) = iprot.readListBegin()
-                    for _i1258 in range(_size1254):
-                        _elem1259 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.messageIds.append(_elem1259)
+                    (_etype1687, _size1684) = iprot.readListBegin()
+                    for _i1688 in range(_size1684):
+                        _elem1689 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.messageIds.append(_elem1689)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -33965,8 +39694,8 @@ class sendMessageIgnored_args(object):
         if self.messageIds is not None:
             oprot.writeFieldBegin('messageIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.messageIds))
-            for iter1260 in self.messageIds:
-                oprot.writeString(iter1260.encode('utf-8') if sys.version_info[0] == 2 else iter1260)
+            for iter1690 in self.messageIds:
+                oprot.writeString(iter1690.encode('utf-8') if sys.version_info[0] == 2 else iter1690)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -34090,10 +39819,10 @@ class sendMessageReceipt_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.messageIds = []
-                    (_etype1264, _size1261) = iprot.readListBegin()
-                    for _i1265 in range(_size1261):
-                        _elem1266 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.messageIds.append(_elem1266)
+                    (_etype1694, _size1691) = iprot.readListBegin()
+                    for _i1695 in range(_size1691):
+                        _elem1696 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.messageIds.append(_elem1696)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -34118,8 +39847,8 @@ class sendMessageReceipt_args(object):
         if self.messageIds is not None:
             oprot.writeFieldBegin('messageIds', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.messageIds))
-            for iter1267 in self.messageIds:
-                oprot.writeString(iter1267.encode('utf-8') if sys.version_info[0] == 2 else iter1267)
+            for iter1697 in self.messageIds:
+                oprot.writeString(iter1697.encode('utf-8') if sys.version_info[0] == 2 else iter1697)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -34179,6 +39908,152 @@ class sendMessageReceipt_result(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('sendMessageReceipt_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findContactByMetaTag_args(object):
+    """
+    Attributes:
+     - userid
+     - reference
+    """
+
+    thrift_spec = (
+        None,  # 0
+        None,  # 1
+        (2, TType.STRING, 'userid', 'UTF8', None, ),  # 2
+        (3, TType.STRING, 'reference', 'UTF8', None, ),  # 3
+    )
+
+    def __init__(self, userid=None, reference=None,):
+        self.userid = userid
+        self.reference = reference
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 2:
+                if ftype == TType.STRING:
+                    self.userid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.reference = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findContactByMetaTag_args')
+        if self.userid is not None:
+            oprot.writeFieldBegin('userid', TType.STRING, 2)
+            oprot.writeString(self.userid.encode('utf-8') if sys.version_info[0] == 2 else self.userid)
+            oprot.writeFieldEnd()
+        if self.reference is not None:
+            oprot.writeFieldBegin('reference', TType.STRING, 3)
+            oprot.writeString(self.reference.encode('utf-8') if sys.version_info[0] == 2 else self.reference)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class findContactByMetaTag_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (Contact, Contact.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = Contact()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('findContactByMetaTag_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
         if self.e is not None:
             oprot.writeFieldBegin('e', TType.STRUCT, 1)
             self.e.write(oprot)
@@ -34497,9 +40372,9 @@ class setBuddyLocation_result(object):
 class setIdentityCredential_args(object):
     """
     Attributes:
-     - provider
      - identifier
      - verifier
+     - provider
     """
 
     thrift_spec = (
@@ -34510,10 +40385,10 @@ class setIdentityCredential_args(object):
         (4, TType.I32, 'provider', None, None, ),  # 4
     )
 
-    def __init__(self, provider=None, identifier=None, verifier=None,):
-        self.provider = provider
+    def __init__(self, identifier=None, verifier=None, provider=None,):
         self.identifier = identifier
         self.verifier = verifier
+        self.provider = provider
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -34524,12 +40399,7 @@ class setIdentityCredential_args(object):
             (fname, ftype, fid) = iprot.readFieldBegin()
             if ftype == TType.STOP:
                 break
-            if fid == 4:
-                if ftype == TType.I32:
-                    self.provider = iprot.readI32()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
+            if fid == 2:
                 if ftype == TType.STRING:
                     self.identifier = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
@@ -34537,6 +40407,11 @@ class setIdentityCredential_args(object):
             elif fid == 3:
                 if ftype == TType.STRING:
                     self.verifier = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.I32:
+                    self.provider = iprot.readI32()
                 else:
                     iprot.skip(ftype)
             else:
@@ -35015,6 +40890,8 @@ class startVerification_args(object):
      - networkCode
      - mid
      - locale
+     - simInfo
+     - oldUdidHash
     """
 
     thrift_spec = (
@@ -35028,9 +40905,11 @@ class startVerification_args(object):
         (7, TType.STRING, 'networkCode', 'UTF8', None, ),  # 7
         (8, TType.STRING, 'mid', 'UTF8', None, ),  # 8
         (9, TType.STRING, 'locale', 'UTF8', None, ),  # 9
+        (10, TType.STRUCT, 'simInfo', (SIMInfo, SIMInfo.thrift_spec), None, ),  # 10
+        (11, TType.STRING, 'oldUdidHash', 'UTF8', None, ),  # 11
     )
 
-    def __init__(self, region=None, carrier=None, phone=None, udidHash=None, deviceInfo=None, networkCode=None, mid=None, locale=None,):
+    def __init__(self, region=None, carrier=None, phone=None, udidHash=None, deviceInfo=None, networkCode=None, mid=None, locale=None, simInfo=None, oldUdidHash=None,):
         self.region = region
         self.carrier = carrier
         self.phone = phone
@@ -35039,6 +40918,8 @@ class startVerification_args(object):
         self.networkCode = networkCode
         self.mid = mid
         self.locale = locale
+        self.simInfo = simInfo
+        self.oldUdidHash = oldUdidHash
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -35090,6 +40971,17 @@ class startVerification_args(object):
                     self.locale = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
+            elif fid == 10:
+                if ftype == TType.STRUCT:
+                    self.simInfo = SIMInfo()
+                    self.simInfo.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 11:
+                if ftype == TType.STRING:
+                    self.oldUdidHash = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -35131,6 +41023,14 @@ class startVerification_args(object):
         if self.locale is not None:
             oprot.writeFieldBegin('locale', TType.STRING, 9)
             oprot.writeString(self.locale.encode('utf-8') if sys.version_info[0] == 2 else self.locale)
+            oprot.writeFieldEnd()
+        if self.simInfo is not None:
+            oprot.writeFieldBegin('simInfo', TType.STRUCT, 10)
+            self.simInfo.write(oprot)
+            oprot.writeFieldEnd()
+        if self.oldUdidHash is not None:
+            oprot.writeFieldBegin('oldUdidHash', TType.STRING, 11)
+            oprot.writeString(self.oldUdidHash.encode('utf-8') if sys.version_info[0] == 2 else self.oldUdidHash)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -35197,6 +41097,314 @@ class startVerification_result(object):
             oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
             return
         oprot.writeStructBegin('startVerification_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class updateGroupPreferenceAttribute_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - groupMid
+     - updatedAttrs
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.STRING, 'groupMid', 'UTF8', None, ),  # 2
+        (3, TType.MAP, 'updatedAttrs', (TType.I32, None, TType.STRING, 'UTF8', False), None, ),  # 3
+    )
+
+    def __init__(self, reqSeq=None, groupMid=None, updatedAttrs=None,):
+        self.reqSeq = reqSeq
+        self.groupMid = groupMid
+        self.updatedAttrs = updatedAttrs
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.groupMid = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.MAP:
+                    self.updatedAttrs = {}
+                    (_ktype1699, _vtype1700, _size1698) = iprot.readMapBegin()
+                    for _i1702 in range(_size1698):
+                        _key1703 = iprot.readI32()
+                        _val1704 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.updatedAttrs[_key1703] = _val1704
+                    iprot.readMapEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('updateGroupPreferenceAttribute_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.groupMid is not None:
+            oprot.writeFieldBegin('groupMid', TType.STRING, 2)
+            oprot.writeString(self.groupMid.encode('utf-8') if sys.version_info[0] == 2 else self.groupMid)
+            oprot.writeFieldEnd()
+        if self.updatedAttrs is not None:
+            oprot.writeFieldBegin('updatedAttrs', TType.MAP, 3)
+            oprot.writeMapBegin(TType.I32, TType.STRING, len(self.updatedAttrs))
+            for kiter1705, viter1706 in self.updatedAttrs.items():
+                oprot.writeI32(kiter1705)
+                oprot.writeString(viter1706.encode('utf-8') if sys.version_info[0] == 2 else viter1706)
+            oprot.writeMapEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class updateGroupPreferenceAttribute_result(object):
+    """
+    Attributes:
+     - e
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, e=None,):
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('updateGroupPreferenceAttribute_result')
+        if self.e is not None:
+            oprot.writeFieldBegin('e', TType.STRUCT, 1)
+            self.e.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class createRoomV2_args(object):
+    """
+    Attributes:
+     - reqSeq
+     - contactIds
+    """
+
+    thrift_spec = (
+        None,  # 0
+        (1, TType.I32, 'reqSeq', None, None, ),  # 1
+        (2, TType.LIST, 'contactIds', (TType.STRING, 'UTF8', False), None, ),  # 2
+    )
+
+    def __init__(self, reqSeq=None, contactIds=None,):
+        self.reqSeq = reqSeq
+        self.contactIds = contactIds
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I32:
+                    self.reqSeq = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.LIST:
+                    self.contactIds = []
+                    (_etype1710, _size1707) = iprot.readListBegin()
+                    for _i1711 in range(_size1707):
+                        _elem1712 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.contactIds.append(_elem1712)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('createRoomV2_args')
+        if self.reqSeq is not None:
+            oprot.writeFieldBegin('reqSeq', TType.I32, 1)
+            oprot.writeI32(self.reqSeq)
+            oprot.writeFieldEnd()
+        if self.contactIds is not None:
+            oprot.writeFieldBegin('contactIds', TType.LIST, 2)
+            oprot.writeListBegin(TType.STRING, len(self.contactIds))
+            for iter1713 in self.contactIds:
+                oprot.writeString(iter1713.encode('utf-8') if sys.version_info[0] == 2 else iter1713)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+class createRoomV2_result(object):
+    """
+    Attributes:
+     - success
+     - e
+    """
+
+    thrift_spec = (
+        (0, TType.STRUCT, 'success', (Room, Room.thrift_spec), None, ),  # 0
+        (1, TType.STRUCT, 'e', (TalkException, TalkException.thrift_spec), None, ),  # 1
+    )
+
+    def __init__(self, success=None, e=None,):
+        self.success = success
+        self.e = e
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, (self.__class__, self.thrift_spec))
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = Room()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.e = TalkException()
+                    self.e.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, (self.__class__, self.thrift_spec)))
+            return
+        oprot.writeStructBegin('createRoomV2_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
@@ -35402,11 +41610,11 @@ class syncContactBySnsIds_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.modifications = []
-                    (_etype1271, _size1268) = iprot.readListBegin()
-                    for _i1272 in range(_size1268):
-                        _elem1273 = SnsFriendModification()
-                        _elem1273.read(iprot)
-                        self.modifications.append(_elem1273)
+                    (_etype1717, _size1714) = iprot.readListBegin()
+                    for _i1718 in range(_size1714):
+                        _elem1719 = SnsFriendModification()
+                        _elem1719.read(iprot)
+                        self.modifications.append(_elem1719)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -35427,8 +41635,8 @@ class syncContactBySnsIds_args(object):
         if self.modifications is not None:
             oprot.writeFieldBegin('modifications', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.modifications))
-            for iter1274 in self.modifications:
-                iter1274.write(oprot)
+            for iter1720 in self.modifications:
+                iter1720.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -35477,11 +41685,11 @@ class syncContactBySnsIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype1278, _size1275) = iprot.readListBegin()
-                    for _i1279 in range(_size1275):
-                        _elem1280 = SnsFriendContactRegistration()
-                        _elem1280.read(iprot)
-                        self.success.append(_elem1280)
+                    (_etype1724, _size1721) = iprot.readListBegin()
+                    for _i1725 in range(_size1721):
+                        _elem1726 = SnsFriendContactRegistration()
+                        _elem1726.read(iprot)
+                        self.success.append(_elem1726)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -35504,8 +41712,8 @@ class syncContactBySnsIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter1281 in self.success:
-                iter1281.write(oprot)
+            for iter1727 in self.success:
+                iter1727.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -35564,11 +41772,11 @@ class syncContacts_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.localContacts = []
-                    (_etype1285, _size1282) = iprot.readListBegin()
-                    for _i1286 in range(_size1282):
-                        _elem1287 = ContactModification()
-                        _elem1287.read(iprot)
-                        self.localContacts.append(_elem1287)
+                    (_etype1731, _size1728) = iprot.readListBegin()
+                    for _i1732 in range(_size1728):
+                        _elem1733 = ContactModification()
+                        _elem1733.read(iprot)
+                        self.localContacts.append(_elem1733)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -35589,8 +41797,8 @@ class syncContacts_args(object):
         if self.localContacts is not None:
             oprot.writeFieldBegin('localContacts', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.localContacts))
-            for iter1288 in self.localContacts:
-                iter1288.write(oprot)
+            for iter1734 in self.localContacts:
+                iter1734.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -35639,12 +41847,12 @@ class syncContacts_result(object):
             if fid == 0:
                 if ftype == TType.MAP:
                     self.success = {}
-                    (_ktype1290, _vtype1291, _size1289) = iprot.readMapBegin()
-                    for _i1293 in range(_size1289):
-                        _key1294 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val1295 = ContactRegistration()
-                        _val1295.read(iprot)
-                        self.success[_key1294] = _val1295
+                    (_ktype1736, _vtype1737, _size1735) = iprot.readMapBegin()
+                    for _i1739 in range(_size1735):
+                        _key1740 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1741 = ContactRegistration()
+                        _val1741.read(iprot)
+                        self.success[_key1740] = _val1741
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -35667,9 +41875,9 @@ class syncContacts_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.MAP, 0)
             oprot.writeMapBegin(TType.STRING, TType.STRUCT, len(self.success))
-            for kiter1296, viter1297 in self.success.items():
-                oprot.writeString(kiter1296.encode('utf-8') if sys.version_info[0] == 2 else kiter1296)
-                viter1297.write(oprot)
+            for kiter1742, viter1743 in self.success.items():
+                oprot.writeString(kiter1742.encode('utf-8') if sys.version_info[0] == 2 else kiter1742)
+                viter1743.write(oprot)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -36790,11 +42998,11 @@ class updateCustomModeSettings_args(object):
             elif fid == 3:
                 if ftype == TType.MAP:
                     self.paramMap = {}
-                    (_ktype1299, _vtype1300, _size1298) = iprot.readMapBegin()
-                    for _i1302 in range(_size1298):
-                        _key1303 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val1304 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.paramMap[_key1303] = _val1304
+                    (_ktype1745, _vtype1746, _size1744) = iprot.readMapBegin()
+                    for _i1748 in range(_size1744):
+                        _key1749 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val1750 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.paramMap[_key1749] = _val1750
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -36815,9 +43023,9 @@ class updateCustomModeSettings_args(object):
         if self.paramMap is not None:
             oprot.writeFieldBegin('paramMap', TType.MAP, 3)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.paramMap))
-            for kiter1305, viter1306 in self.paramMap.items():
-                oprot.writeString(kiter1305.encode('utf-8') if sys.version_info[0] == 2 else kiter1305)
-                oprot.writeString(viter1306.encode('utf-8') if sys.version_info[0] == 2 else viter1306)
+            for kiter1751, viter1752 in self.paramMap.items():
+                oprot.writeString(kiter1751.encode('utf-8') if sys.version_info[0] == 2 else kiter1751)
+                oprot.writeString(viter1752.encode('utf-8') if sys.version_info[0] == 2 else viter1752)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()

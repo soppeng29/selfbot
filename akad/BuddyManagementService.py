@@ -3845,10 +3845,10 @@ class addBuddyMembers_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.userMids = []
-                    (_etype386, _size383) = iprot.readListBegin()
-                    for _i387 in range(_size383):
-                        _elem388 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.userMids.append(_elem388)
+                    (_etype728, _size725) = iprot.readListBegin()
+                    for _i729 in range(_size725):
+                        _elem730 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.userMids.append(_elem730)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3869,8 +3869,8 @@ class addBuddyMembers_args(object):
         if self.userMids is not None:
             oprot.writeFieldBegin('userMids', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.userMids))
-            for iter389 in self.userMids:
-                oprot.writeString(iter389.encode('utf-8') if sys.version_info[0] == 2 else iter389)
+            for iter731 in self.userMids:
+                oprot.writeString(iter731.encode('utf-8') if sys.version_info[0] == 2 else iter731)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -4111,10 +4111,10 @@ class commitSendMessagesToAll_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.requestIdList = []
-                    (_etype393, _size390) = iprot.readListBegin()
-                    for _i394 in range(_size390):
-                        _elem395 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.requestIdList.append(_elem395)
+                    (_etype735, _size732) = iprot.readListBegin()
+                    for _i736 in range(_size732):
+                        _elem737 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.requestIdList.append(_elem737)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4131,8 +4131,8 @@ class commitSendMessagesToAll_args(object):
         if self.requestIdList is not None:
             oprot.writeFieldBegin('requestIdList', TType.LIST, 1)
             oprot.writeListBegin(TType.STRING, len(self.requestIdList))
-            for iter396 in self.requestIdList:
-                oprot.writeString(iter396.encode('utf-8') if sys.version_info[0] == 2 else iter396)
+            for iter738 in self.requestIdList:
+                oprot.writeString(iter738.encode('utf-8') if sys.version_info[0] == 2 else iter738)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -4181,11 +4181,11 @@ class commitSendMessagesToAll_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype400, _size397) = iprot.readListBegin()
-                    for _i401 in range(_size397):
-                        _elem402 = SendBuddyMessageResult()
-                        _elem402.read(iprot)
-                        self.success.append(_elem402)
+                    (_etype742, _size739) = iprot.readListBegin()
+                    for _i743 in range(_size739):
+                        _elem744 = SendBuddyMessageResult()
+                        _elem744.read(iprot)
+                        self.success.append(_elem744)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4208,8 +4208,8 @@ class commitSendMessagesToAll_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter403 in self.success:
-                iter403.write(oprot)
+            for iter745 in self.success:
+                iter745.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -4263,20 +4263,20 @@ class commitSendMessagesToMids_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.requestIdList = []
-                    (_etype407, _size404) = iprot.readListBegin()
-                    for _i408 in range(_size404):
-                        _elem409 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.requestIdList.append(_elem409)
+                    (_etype749, _size746) = iprot.readListBegin()
+                    for _i750 in range(_size746):
+                        _elem751 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.requestIdList.append(_elem751)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype413, _size410) = iprot.readListBegin()
-                    for _i414 in range(_size410):
-                        _elem415 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem415)
+                    (_etype755, _size752) = iprot.readListBegin()
+                    for _i756 in range(_size752):
+                        _elem757 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem757)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4293,15 +4293,15 @@ class commitSendMessagesToMids_args(object):
         if self.requestIdList is not None:
             oprot.writeFieldBegin('requestIdList', TType.LIST, 1)
             oprot.writeListBegin(TType.STRING, len(self.requestIdList))
-            for iter416 in self.requestIdList:
-                oprot.writeString(iter416.encode('utf-8') if sys.version_info[0] == 2 else iter416)
+            for iter758 in self.requestIdList:
+                oprot.writeString(iter758.encode('utf-8') if sys.version_info[0] == 2 else iter758)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter417 in self.mids:
-                oprot.writeString(iter417.encode('utf-8') if sys.version_info[0] == 2 else iter417)
+            for iter759 in self.mids:
+                oprot.writeString(iter759.encode('utf-8') if sys.version_info[0] == 2 else iter759)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -4350,11 +4350,11 @@ class commitSendMessagesToMids_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype421, _size418) = iprot.readListBegin()
-                    for _i422 in range(_size418):
-                        _elem423 = SendBuddyMessageResult()
-                        _elem423.read(iprot)
-                        self.success.append(_elem423)
+                    (_etype763, _size760) = iprot.readListBegin()
+                    for _i764 in range(_size760):
+                        _elem765 = SendBuddyMessageResult()
+                        _elem765.read(iprot)
+                        self.success.append(_elem765)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4377,8 +4377,8 @@ class commitSendMessagesToMids_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter424 in self.success:
-                iter424.write(oprot)
+            for iter766 in self.success:
+                iter766.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -5321,10 +5321,10 @@ class getActiveMemberMidsByBuddyMid_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype428, _size425) = iprot.readListBegin()
-                    for _i429 in range(_size425):
-                        _elem430 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem430)
+                    (_etype770, _size767) = iprot.readListBegin()
+                    for _i771 in range(_size767):
+                        _elem772 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem772)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -5347,8 +5347,8 @@ class getActiveMemberMidsByBuddyMid_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter431 in self.success:
-                oprot.writeString(iter431.encode('utf-8') if sys.version_info[0] == 2 else iter431)
+            for iter773 in self.success:
+                oprot.writeString(iter773.encode('utf-8') if sys.version_info[0] == 2 else iter773)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -5443,10 +5443,10 @@ class getAllBuddyMembers_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype435, _size432) = iprot.readListBegin()
-                    for _i436 in range(_size432):
-                        _elem437 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem437)
+                    (_etype777, _size774) = iprot.readListBegin()
+                    for _i778 in range(_size774):
+                        _elem779 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem779)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -5469,8 +5469,8 @@ class getAllBuddyMembers_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter438 in self.success:
-                oprot.writeString(iter438.encode('utf-8') if sys.version_info[0] == 2 else iter438)
+            for iter780 in self.success:
+                oprot.writeString(iter780.encode('utf-8') if sys.version_info[0] == 2 else iter780)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -5565,10 +5565,10 @@ class getBlockedBuddyMembers_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype442, _size439) = iprot.readListBegin()
-                    for _i443 in range(_size439):
-                        _elem444 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.success.append(_elem444)
+                    (_etype784, _size781) = iprot.readListBegin()
+                    for _i785 in range(_size781):
+                        _elem786 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem786)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -5591,8 +5591,8 @@ class getBlockedBuddyMembers_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRING, len(self.success))
-            for iter445 in self.success:
-                oprot.writeString(iter445.encode('utf-8') if sys.version_info[0] == 2 else iter445)
+            for iter787 in self.success:
+                oprot.writeString(iter787.encode('utf-8') if sys.version_info[0] == 2 else iter787)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
@@ -6987,10 +6987,10 @@ class linkAndSendBuddyContentMessageToMids_args(object):
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype449, _size446) = iprot.readListBegin()
-                    for _i450 in range(_size446):
-                        _elem451 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem451)
+                    (_etype791, _size788) = iprot.readListBegin()
+                    for _i792 in range(_size788):
+                        _elem793 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem793)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -7019,8 +7019,8 @@ class linkAndSendBuddyContentMessageToMids_args(object):
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 4)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter452 in self.mids:
-                oprot.writeString(iter452.encode('utf-8') if sys.version_info[0] == 2 else iter452)
+            for iter794 in self.mids:
+                oprot.writeString(iter794.encode('utf-8') if sys.version_info[0] == 2 else iter794)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -7447,11 +7447,11 @@ class registerBuddy_args(object):
             elif fid == 7:
                 if ftype == TType.MAP:
                     self.settings = {}
-                    (_ktype454, _vtype455, _size453) = iprot.readMapBegin()
-                    for _i457 in range(_size453):
-                        _key458 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val459 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.settings[_key458] = _val459
+                    (_ktype796, _vtype797, _size795) = iprot.readMapBegin()
+                    for _i799 in range(_size795):
+                        _key800 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val801 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.settings[_key800] = _val801
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -7488,9 +7488,9 @@ class registerBuddy_args(object):
         if self.settings is not None:
             oprot.writeFieldBegin('settings', TType.MAP, 7)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.settings))
-            for kiter460, viter461 in self.settings.items():
-                oprot.writeString(kiter460.encode('utf-8') if sys.version_info[0] == 2 else kiter460)
-                oprot.writeString(viter461.encode('utf-8') if sys.version_info[0] == 2 else viter461)
+            for kiter802, viter803 in self.settings.items():
+                oprot.writeString(kiter802.encode('utf-8') if sys.version_info[0] == 2 else kiter802)
+                oprot.writeString(viter803.encode('utf-8') if sys.version_info[0] == 2 else viter803)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -8077,10 +8077,10 @@ class removeBuddyMembers_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.userMids = []
-                    (_etype465, _size462) = iprot.readListBegin()
-                    for _i466 in range(_size462):
-                        _elem467 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.userMids.append(_elem467)
+                    (_etype807, _size804) = iprot.readListBegin()
+                    for _i808 in range(_size804):
+                        _elem809 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.userMids.append(_elem809)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -8101,8 +8101,8 @@ class removeBuddyMembers_args(object):
         if self.userMids is not None:
             oprot.writeFieldBegin('userMids', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.userMids))
-            for iter468 in self.userMids:
-                oprot.writeString(iter468.encode('utf-8') if sys.version_info[0] == 2 else iter468)
+            for iter810 in self.userMids:
+                oprot.writeString(iter810.encode('utf-8') if sys.version_info[0] == 2 else iter810)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -8550,10 +8550,10 @@ class sendBuddyContentMessageToMids_args(object):
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype472, _size469) = iprot.readListBegin()
-                    for _i473 in range(_size469):
-                        _elem474 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem474)
+                    (_etype814, _size811) = iprot.readListBegin()
+                    for _i815 in range(_size811):
+                        _elem816 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem816)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -8582,8 +8582,8 @@ class sendBuddyContentMessageToMids_args(object):
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 4)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter475 in self.mids:
-                oprot.writeString(iter475.encode('utf-8') if sys.version_info[0] == 2 else iter475)
+            for iter817 in self.mids:
+                oprot.writeString(iter817.encode('utf-8') if sys.version_info[0] == 2 else iter817)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -8728,10 +8728,10 @@ class sendBuddyContentMessageToMidsAsync_args(object):
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype479, _size476) = iprot.readListBegin()
-                    for _i480 in range(_size476):
-                        _elem481 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem481)
+                    (_etype821, _size818) = iprot.readListBegin()
+                    for _i822 in range(_size818):
+                        _elem823 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem823)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -8760,8 +8760,8 @@ class sendBuddyContentMessageToMidsAsync_args(object):
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 4)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter482 in self.mids:
-                oprot.writeString(iter482.encode('utf-8') if sys.version_info[0] == 2 else iter482)
+            for iter824 in self.mids:
+                oprot.writeString(iter824.encode('utf-8') if sys.version_info[0] == 2 else iter824)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -9188,10 +9188,10 @@ class sendBuddyMessageToMids_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype486, _size483) = iprot.readListBegin()
-                    for _i487 in range(_size483):
-                        _elem488 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem488)
+                    (_etype828, _size825) = iprot.readListBegin()
+                    for _i829 in range(_size825):
+                        _elem830 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem830)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -9216,8 +9216,8 @@ class sendBuddyMessageToMids_args(object):
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter489 in self.mids:
-                oprot.writeString(iter489.encode('utf-8') if sys.version_info[0] == 2 else iter489)
+            for iter831 in self.mids:
+                oprot.writeString(iter831.encode('utf-8') if sys.version_info[0] == 2 else iter831)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -9354,10 +9354,10 @@ class sendBuddyMessageToMidsAsync_args(object):
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.mids = []
-                    (_etype493, _size490) = iprot.readListBegin()
-                    for _i494 in range(_size490):
-                        _elem495 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.mids.append(_elem495)
+                    (_etype835, _size832) = iprot.readListBegin()
+                    for _i836 in range(_size832):
+                        _elem837 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.mids.append(_elem837)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -9382,8 +9382,8 @@ class sendBuddyMessageToMidsAsync_args(object):
         if self.mids is not None:
             oprot.writeFieldBegin('mids', TType.LIST, 3)
             oprot.writeListBegin(TType.STRING, len(self.mids))
-            for iter496 in self.mids:
-                oprot.writeString(iter496.encode('utf-8') if sys.version_info[0] == 2 else iter496)
+            for iter838 in self.mids:
+                oprot.writeString(iter838.encode('utf-8') if sys.version_info[0] == 2 else iter838)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -10465,11 +10465,11 @@ class updateBuddyAdminProfileAttribute_args(object):
             elif fid == 2:
                 if ftype == TType.MAP:
                     self.attributes = {}
-                    (_ktype498, _vtype499, _size497) = iprot.readMapBegin()
-                    for _i501 in range(_size497):
-                        _key502 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val503 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.attributes[_key502] = _val503
+                    (_ktype840, _vtype841, _size839) = iprot.readMapBegin()
+                    for _i843 in range(_size839):
+                        _key844 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val845 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.attributes[_key844] = _val845
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -10490,9 +10490,9 @@ class updateBuddyAdminProfileAttribute_args(object):
         if self.attributes is not None:
             oprot.writeFieldBegin('attributes', TType.MAP, 2)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.attributes))
-            for kiter504, viter505 in self.attributes.items():
-                oprot.writeString(kiter504.encode('utf-8') if sys.version_info[0] == 2 else kiter504)
-                oprot.writeString(viter505.encode('utf-8') if sys.version_info[0] == 2 else viter505)
+            for kiter846, viter847 in self.attributes.items():
+                oprot.writeString(kiter846.encode('utf-8') if sys.version_info[0] == 2 else kiter846)
+                oprot.writeString(viter847.encode('utf-8') if sys.version_info[0] == 2 else viter847)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -10741,11 +10741,11 @@ class updateBuddyProfileAttributes_args(object):
             elif fid == 2:
                 if ftype == TType.MAP:
                     self.attributes = {}
-                    (_ktype507, _vtype508, _size506) = iprot.readMapBegin()
-                    for _i510 in range(_size506):
-                        _key511 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val512 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.attributes[_key511] = _val512
+                    (_ktype849, _vtype850, _size848) = iprot.readMapBegin()
+                    for _i852 in range(_size848):
+                        _key853 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val854 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.attributes[_key853] = _val854
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -10766,9 +10766,9 @@ class updateBuddyProfileAttributes_args(object):
         if self.attributes is not None:
             oprot.writeFieldBegin('attributes', TType.MAP, 2)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.attributes))
-            for kiter513, viter514 in self.attributes.items():
-                oprot.writeString(kiter513.encode('utf-8') if sys.version_info[0] == 2 else kiter513)
-                oprot.writeString(viter514.encode('utf-8') if sys.version_info[0] == 2 else viter514)
+            for kiter855, viter856 in self.attributes.items():
+                oprot.writeString(kiter855.encode('utf-8') if sys.version_info[0] == 2 else kiter855)
+                oprot.writeString(viter856.encode('utf-8') if sys.version_info[0] == 2 else viter856)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -10896,11 +10896,11 @@ class updateBuddyProfileAttributesAsync_args(object):
             elif fid == 2:
                 if ftype == TType.MAP:
                     self.attributes = {}
-                    (_ktype516, _vtype517, _size515) = iprot.readMapBegin()
-                    for _i519 in range(_size515):
-                        _key520 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val521 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.attributes[_key520] = _val521
+                    (_ktype858, _vtype859, _size857) = iprot.readMapBegin()
+                    for _i861 in range(_size857):
+                        _key862 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val863 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.attributes[_key862] = _val863
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -10921,9 +10921,9 @@ class updateBuddyProfileAttributesAsync_args(object):
         if self.attributes is not None:
             oprot.writeFieldBegin('attributes', TType.MAP, 2)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.attributes))
-            for kiter522, viter523 in self.attributes.items():
-                oprot.writeString(kiter522.encode('utf-8') if sys.version_info[0] == 2 else kiter522)
-                oprot.writeString(viter523.encode('utf-8') if sys.version_info[0] == 2 else viter523)
+            for kiter864, viter865 in self.attributes.items():
+                oprot.writeString(kiter864.encode('utf-8') if sys.version_info[0] == 2 else kiter864)
+                oprot.writeString(viter865.encode('utf-8') if sys.version_info[0] == 2 else viter865)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -11465,11 +11465,11 @@ class updateBuddySettings_args(object):
             if fid == 2:
                 if ftype == TType.MAP:
                     self.settings = {}
-                    (_ktype525, _vtype526, _size524) = iprot.readMapBegin()
-                    for _i528 in range(_size524):
-                        _key529 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        _val530 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.settings[_key529] = _val530
+                    (_ktype867, _vtype868, _size866) = iprot.readMapBegin()
+                    for _i870 in range(_size866):
+                        _key871 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val872 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.settings[_key871] = _val872
                     iprot.readMapEnd()
                 else:
                     iprot.skip(ftype)
@@ -11486,9 +11486,9 @@ class updateBuddySettings_args(object):
         if self.settings is not None:
             oprot.writeFieldBegin('settings', TType.MAP, 2)
             oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.settings))
-            for kiter531, viter532 in self.settings.items():
-                oprot.writeString(kiter531.encode('utf-8') if sys.version_info[0] == 2 else kiter531)
-                oprot.writeString(viter532.encode('utf-8') if sys.version_info[0] == 2 else viter532)
+            for kiter873, viter874 in self.settings.items():
+                oprot.writeString(kiter873.encode('utf-8') if sys.version_info[0] == 2 else kiter873)
+                oprot.writeString(viter874.encode('utf-8') if sys.version_info[0] == 2 else viter874)
             oprot.writeMapEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()

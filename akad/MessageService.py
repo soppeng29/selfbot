@@ -562,10 +562,10 @@ class multiGetLastReadMessageIds_args(object):
             if fid == 2:
                 if ftype == TType.LIST:
                     self.chatIds = []
-                    (_etype708, _size705) = iprot.readListBegin()
-                    for _i709 in range(_size705):
-                        _elem710 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                        self.chatIds.append(_elem710)
+                    (_etype1064, _size1061) = iprot.readListBegin()
+                    for _i1065 in range(_size1061):
+                        _elem1066 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.chatIds.append(_elem1066)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -582,8 +582,8 @@ class multiGetLastReadMessageIds_args(object):
         if self.chatIds is not None:
             oprot.writeFieldBegin('chatIds', TType.LIST, 2)
             oprot.writeListBegin(TType.STRING, len(self.chatIds))
-            for iter711 in self.chatIds:
-                oprot.writeString(iter711.encode('utf-8') if sys.version_info[0] == 2 else iter711)
+            for iter1067 in self.chatIds:
+                oprot.writeString(iter1067.encode('utf-8') if sys.version_info[0] == 2 else iter1067)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -632,11 +632,11 @@ class multiGetLastReadMessageIds_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype715, _size712) = iprot.readListBegin()
-                    for _i716 in range(_size712):
-                        _elem717 = LastReadMessageIds()
-                        _elem717.read(iprot)
-                        self.success.append(_elem717)
+                    (_etype1071, _size1068) = iprot.readListBegin()
+                    for _i1072 in range(_size1068):
+                        _elem1073 = LastReadMessageIds()
+                        _elem1073.read(iprot)
+                        self.success.append(_elem1073)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -659,8 +659,8 @@ class multiGetLastReadMessageIds_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter718 in self.success:
-                iter718.write(oprot)
+            for iter1074 in self.success:
+                iter1074.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.e is not None:
